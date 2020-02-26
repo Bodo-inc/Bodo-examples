@@ -1,3 +1,11 @@
+"""
+Logistic Regression example to demonstrate Numpy functionality.
+
+    Usage: mpiexec -n [cores] python logistic_regression.py --file [filename]
+    See data generation script in data/logistic_regression_datagen.py
+    Setting "export OMP_NUM_THREADS=1" is recommended to avoid interference from threads
+    in Numpy's math library (e.g. MKL).
+"""
 import bodo
 import numpy as np
 import h5py
@@ -6,8 +14,8 @@ import time
 
 
 @bodo.jit
-def logistic_regression(iterations):
-    f = h5py.File("lr.hdf5", "r")
+def logistic_regression(iterations, fname):
+    f = h5py.File(fname, "r")
     X = f["points"][:]
     Y = f["responses"][:]
     f.close()
@@ -22,15 +30,13 @@ def logistic_regression(iterations):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Logistic Regression.")
-    parser.add_argument("--file", dest="file", type=str, default="lr.hdf5")
+    parser = argparse.ArgumentParser(description="Logistic Regression example")
+    parser.add_argument("--file", dest="file", type=str, default="data/lr.hdf5")
     parser.add_argument("--iterations", dest="iterations", type=int, default=20)
     args = parser.parse_args()
-
     file_name = args.file
     iterations = args.iterations
-
-    w = logistic_regression(iterations)
+    _w = logistic_regression(iterations, file_name)
 
 
 if __name__ == "__main__":
