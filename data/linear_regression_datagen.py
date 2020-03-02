@@ -1,7 +1,9 @@
 """
 Generate data for Linear Regression example
 
-    Usage: python linear_regression_datagen.py --file [filename] --size [size]
+    Usage: 
+    python linear_regression_datagen.py --samples [samples] --features [features] 
+                                        --functions [functions] --file [filename]
 """
 import h5py
 import numpy as np

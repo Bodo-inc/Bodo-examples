@@ -1,7 +1,7 @@
 """
 Generate data for Logistic Regression example
 
-    Usage: python logistic_regression_datagen.py --file [filename] --size [size]
+    Usage: python logistic_regression_datagen.py --file [filename] --samples [samples] --feature [features]
 """
 import h5py
 import numpy as np
