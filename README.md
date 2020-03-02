@@ -4,12 +4,17 @@ Welcome to Bodo examples!
 
 First make sure you have Bodo [installed](http://docs.bodo.ai/latest/source/install.html).
 
+Other packages that are required for certain data generations: `pandas_datareader` and `scikit-learn`:
+	
+	conda install -c conda-forge pandas-datareader
+	conda install -c conda-forge scikit-learn
+
 To try the examples, lets use `pi.py` as an example:
 
     # run the example on a single core
     python pi.py
     # run the example on 4 cores
-    mpiexec -n python pi.py
+    mpiexec -n python examples/pi.py
  
 _________________________
 More documentation can be found at http://docs.bodo.ai.

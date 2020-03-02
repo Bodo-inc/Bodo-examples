@@ -1,12 +1,20 @@
-import pandas as pd
-import numpy as np
-import h5py
-import time
-import bodo
-from bodo import prange
+"""
+Intraday example to demonstrate Pandas functionality.
+    
+    Usage: 
+    mpiexec -n [cores] python intraday_mean.py --file [file] --maxDays [max_num_days]
 
 # adopted from:
 # http://www.pythonforfinance.net/2017/02/20/intraday-stock-mean-reversion-trading-backtest-in-python/
+See data generation script in data/stock_data_read.py
+"""
+import pandas as pd
+import numpy as np
+import h5py
+import argparse
+import time
+import bodo
+from bodo import prange
 
 
 @bodo.jit(
@@ -75,6 +83,14 @@ def intraday_mean_revert(file_name, max_num_days):
     print(all_res.mean())
     print("execution time:", time.time() - t1)
 
+def main():
+    parser = argparse.ArgumentParser(description="Intraday Mean example")
+    parser.add_argument("--file", dest="file", type=str, default="data/stock_data_all_yahoo.hdf5")
+    parser.add_argument("--maxDays", dest="max_num_days", type=int, default=14513)
+    args = parser.parse_args()
+    file_name = args.file
+    max_num_days = args.max_num_days
+    intraday_mean_revert(file_name, max_num_days)
 
-intraday_mean_revert("../sw/data/stock_data_all_google.hdf5", 4000)
-# intraday_mean_revert("../sw/data/stock_data_all_yahoo.hdf5", 14513)
+if __name__ == "__main__":
+    main()

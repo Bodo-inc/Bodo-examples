@@ -1,3 +1,11 @@
+"""
+K-means example to demonstrate Numpy functionality.
+    
+    Usage: 
+    mpiexec -n [cores] python k-means.py --centers [centers] --iterations [iterations]
+
+See data generation script in data/logistic_regression_datagen.py
+"""
 import numpy as np
 from math import sqrt
 import argparse
@@ -8,7 +16,7 @@ import bodo
 
 @bodo.jit
 def kmeans(numCenter, numIter):
-    f = h5py.File("lr.hdf5", "r")
+    f = h5py.File("data/lr.hdf5", "r")
     A = f["points"][:]
     f.close()
     N, D = A.shape
@@ -42,16 +50,12 @@ def kmeans(numCenter, numIter):
 
 def main():
     parser = argparse.ArgumentParser(description="K-Means")
-    # parser.add_argument('--file', dest='file', type=str, default="lr.hdf5")
     parser.add_argument("--centers", dest="centers", type=int, default=3)
     parser.add_argument("--iterations", dest="iterations", type=int, default=20)
     args = parser.parse_args()
     centers = args.centers
     iterations = args.iterations
 
-    # D = 10
-    # np.random.seed(0)
-    # init_centroids = np.random.ranf((centers, D))
     res = kmeans(centers, iterations)
 
 

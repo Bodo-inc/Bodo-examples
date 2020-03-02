@@ -1,10 +1,11 @@
 """
 Logistic Regression example to demonstrate Numpy functionality.
 
-    Usage: mpiexec -n [cores] python logistic_regression.py --file [filename]
-    See data generation script in data/logistic_regression_datagen.py
-    Setting "export OMP_NUM_THREADS=1" is recommended to avoid interference from threads
-    in Numpy's math library (e.g. MKL).
+    Usage: mpiexec -n [cores] python logistic_regression.py --file [filename] --iterations [iterations]
+
+See data generation script in data/logistic_regression_datagen.py
+Setting "export OMP_NUM_THREADS=1" is recommended to avoid interference from threads
+in Numpy's math library (e.g. MKL).
 """
 import bodo
 import numpy as np

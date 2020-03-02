@@ -1,3 +1,10 @@
+"""
+Generate data for Intraday Mean example
+
+    Usage: python stock_data_read.py
+
+Writes to stock_data_all_yahoo.hdf5
+"""
 import pandas as pd
 import numpy as np
 from pandas_datareader import data

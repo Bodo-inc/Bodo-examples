@@ -1,10 +1,10 @@
 """
 Monte Carlo Pi Calculation example.
 
+    Usage: mpiexec -n [cores] python pi.py --points [points]
+
 Similar to Spark's Pi example:
 https://github.com/apache/spark/blob/master/examples/src/main/python/pi.py
-
-    Usage: mpiexec -n [cores] python pi.py --points [points]
 
 """
 import bodo
