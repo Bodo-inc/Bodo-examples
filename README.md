@@ -9,13 +9,22 @@ Other packages that are required for certain data generations: `pandas_datareade
 	conda install -c conda-forge pandas-datareader
 	conda install -c conda-forge scikit-learn
 
-To try the examples, lets use `pi.py` as an example:
+To try the examples, lets use `pi.py`:
 
     # run the example on a single core
-    python pi.py
+    python examples/pi.py
     # run the example on 4 cores
     mpiexec -n python examples/pi.py
  
+Another example with the linear regression example:
+
+	# generate data
+	data/linear_regression_datagen.py
+	# run example on 4 cores
+	mpiexec -n python examples/linear_regression.py
+
+For more information on each data generation and example, look at the docstring at the top of each python script.
+
 _________________________
 More documentation can be found at http://docs.bodo.ai.
 
