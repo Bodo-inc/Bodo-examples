@@ -1,5 +1,6 @@
 """
-Generate data for Kernel Density Estimation example
+Generate data for Kernel Density Estimation example in Parquet
+format using Bodo
 
     Usage: mpiexec -n [cores] python kde_datagen.py --file [filename] --size [size]
 """
