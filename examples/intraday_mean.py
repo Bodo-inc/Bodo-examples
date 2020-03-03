@@ -18,6 +18,8 @@ from bodo import prange
 
 
 @bodo.jit(
+    # More information on 'locals' in the bodo decorator
+    # http://docs.bodo.ai/latest/source/user_guide.html#input-array-types
     locals={
         "s_open": bodo.float64[:],
         "s_high": bodo.float64[:],
@@ -33,6 +35,9 @@ def intraday_mean_revert(file_name, max_num_days):
     all_res = np.zeros(max_num_days)
 
     t1 = time.time()
+
+    # More information on bodo's explicit parallel loop: prange 
+    # http://docs.bodo.ai/latest/source/user_guide.html#explicit-parallel-loops
     for i in prange(nsyms):
         symbol = sym_list[i]
 

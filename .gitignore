@@ -2,3 +2,13 @@
 
 # VS Code config
 .vscode
+
+# Compiled python modules.
+*.pyc
+*.pyd
+*~
+
+# cache
+examples/__pycache__
+examples/tpch/__pycache__
+data/__pycache__

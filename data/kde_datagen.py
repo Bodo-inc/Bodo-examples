@@ -2,6 +2,9 @@
 Generate data for Kernel Density Estimation example
 
     Usage: mpiexec -n [cores] python kde_datagen.py --file [filename] --size [size]
+
+Generating and writing a large dataset with Bodo can be much faster because
+the dataset is generated and written in parallel.
 """
 import numpy as np
 import pandas as pd
