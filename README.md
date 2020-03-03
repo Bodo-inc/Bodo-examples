@@ -14,14 +14,14 @@ To try the examples, let's use `pi.py`:
     # run the example on a single core
     python examples/pi.py
     # run the example on 4 cores
-    mpiexec -n python examples/pi.py
+    mpiexec -n 4 python examples/pi.py
  
 An example performing linear regression:
 
 	# generate data
 	data/linear_regression_datagen.py
 	# run example on 4 cores
-	mpiexec -n python examples/linear_regression.py
+	mpiexec -n 4 python examples/linear_regression.py
 
 For more information on data generation and examples, please see the docstring at the top of each python script.
 
