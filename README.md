@@ -4,7 +4,7 @@ Welcome to Bodo examples!
 
 First make sure you have Bodo [installed](http://docs.bodo.ai/latest/source/install.html).
 
-Other packages that are required to run the data generation scripts: `pandas_datareader` and `scikit-learn`:
+Other packages that are required to run the data generation scripts, `pandas_datareader` and `scikit-learn`:
 	
 	conda install -c conda-forge pandas-datareader
 	conda install -c conda-forge scikit-learn
