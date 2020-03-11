@@ -11,7 +11,7 @@ Other packages that are required to run the data generation scripts: `pandas_dat
 	conda install -c conda-forge pandas-datareader
 	conda install -c conda-forge scikit-learn
 
-## Examples and Corresponding Data Generation
+## Examples and corresponding data generation
 
 Many of the data generation scripts and example scripts can take in optional arguments. 
 `python path/script.py --help` shows the usage.
@@ -29,7 +29,8 @@ For more information on data generation and examples, please see the docstring a
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/kde_datagen.py)
 - [Intraday Mean](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/intraday_mean.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/stock_data_read.py)
-- [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch): Query #[1](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q01.py),
+- [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/): 
+Query #[1](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q01.py),
 [3](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q03.py),
 [4](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q04.py),
 [5](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q05.py),
@@ -41,7 +42,7 @@ For more information on data generation and examples, please see the docstring a
 [18](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q18.py), 
 [19](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q19.py), 
 [20](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q20.py).
-  - data generation, generated data will be available at `data/tpch-datagen/data`:
+  - data generation: generated data will be available at `data/tpch-datagen/data`:
 
 		# To generate data with a scale of 1, equivalent to 1GB of data
 		data/tpch-datagen/generateData.sh 1
