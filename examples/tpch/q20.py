@@ -24,6 +24,7 @@ def q(data_folder):
     partsupp = load_partsupp(data_folder)
     supplier = load_supplier(data_folder)
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    bodo.barrier()
     t1 = time.time()
     psel = part.P_NAME.str.startswith("azure")
     nsel = nation.N_NAME == "JORDAN"

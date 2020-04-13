@@ -20,6 +20,7 @@ def q(data_folder):
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    bodo.barrier()
     t1 = time.time()
     gb1 = lineitem.groupby("L_ORDERKEY", as_index = False)["L_QUANTITY"].sum()
     fgb1 = gb1[gb1.L_QUANTITY > 300]

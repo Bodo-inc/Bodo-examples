@@ -25,6 +25,7 @@ def q(data_folder):
     region = load_region(data_folder)
     supplier = load_supplier(data_folder)
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    bodo.barrier()
     t1 = time.time()
     rsel = region.R_NAME == "ASIA"
     osel = (orders.O_ORDERDATE >= date1) & (orders.O_ORDERDATE < date2)

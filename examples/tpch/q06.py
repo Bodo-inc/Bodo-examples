@@ -20,6 +20,7 @@ def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    bodo.barrier()
     t1 = time.time()
     sel = (lineitem.L_SHIPDATE >= date1) & (lineitem.L_SHIPDATE < date2) & (
             lineitem.L_DISCOUNT >= 0.08) & (lineitem.L_DISCOUNT <= 0.1) & (

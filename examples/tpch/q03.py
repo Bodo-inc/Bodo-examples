@@ -16,17 +16,13 @@ import pandas as pd
 @bodo.jit
 def q(data_folder):
     date = "1995-03-04"
-
     t1 = time.time()
-
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
-
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
-
+    bodo.barrier()
     t1 = time.time()
-
     lsel = lineitem.L_SHIPDATE > date
     osel = orders.O_ORDERDATE < date
     csel = customer.C_MKTSEGMENT == "HOUSEHOLD"
@@ -36,10 +32,8 @@ def q(data_folder):
     jn1 = fcustomer.merge(forders, left_on='C_CUSTKEY', right_on='O_CUSTKEY')
     jn2 = jn1.merge(flineitem, left_on='O_ORDERKEY', right_on='L_ORDERKEY')
     jn2['TMP'] = jn2.L_EXTENDEDPRICE * (1 - jn2.L_DISCOUNT)
-
     total = jn2.groupby(["L_ORDERKEY", "O_ORDERDATE", "O_SHIPPRIORITY"], as_index=False)['TMP'].sum().sort_values(['TMP'], ascending=False)
     res = total[["L_ORDERKEY", "TMP", "O_ORDERDATE", "O_SHIPPRIORITY"]]
-
     print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
     print(res.head(10))
 

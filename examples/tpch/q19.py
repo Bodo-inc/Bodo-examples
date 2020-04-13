@@ -36,6 +36,7 @@ def q(data_folder):
     lineitem = load_lineitem(data_folder)
     part = load_part(data_folder)
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    bodo.barrier()
     t1 = time.time()
     lsel = (((lineitem.L_QUANTITY <= 36) & (lineitem.L_QUANTITY >= 26)) | ((lineitem.L_QUANTITY <= 25) & (
                 lineitem.L_QUANTITY >= 15)) | ((lineitem.L_QUANTITY <= 14) & (lineitem.L_QUANTITY >= 4))
