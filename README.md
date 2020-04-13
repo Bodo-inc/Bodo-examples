@@ -19,7 +19,7 @@ To try the examples, let's use `pi.py`:
 An example performing linear regression:
 
 	# generate data
-	data/linear_regression_datagen.py
+	python data/linear_regression_datagen.py
 	# run example on 4 cores
 	mpiexec -n 4 python examples/linear_regression.py
 
