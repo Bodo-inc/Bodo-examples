@@ -21,7 +21,6 @@ def q(data_folder):
     print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
     bodo.barrier()
     t1 = time.time()
-
     sel = (lineitem.L_SHIPDATE <= date)
     flineitem = lineitem[sel].copy() # copy is needed for the next two statements
     flineitem["AVG_QTY"] = flineitem.L_QUANTITY
