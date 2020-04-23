@@ -30,7 +30,6 @@ def q(data_folder):
     partsupp = load_partsupp(data_folder)
     supplier = load_supplier(data_folder)
     print("Reading time (s): ", time.time() - t1)
-    bodo.barrier()
     t1 = time.time()
     psel = part.P_NAME.str.contains("ghost")
     fpart = part[psel]

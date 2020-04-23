@@ -21,7 +21,6 @@ def q(data_folder):
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
     print("Reading time (s): ", time.time() - t1)
-    bodo.barrier()
     t1 = time.time()
     lsel = lineitem.L_SHIPDATE > date
     osel = orders.O_ORDERDATE < date

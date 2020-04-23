@@ -22,7 +22,6 @@ def q(data_folder):
     lineitem = load_lineitem(data_folder)
     part = load_part(data_folder)
     print("Reading time (s): ", time.time() - t1)
-    bodo.barrier()
     t1 = time.time()
     sel = (lineitem.L_SHIPDATE >= startDate) & (lineitem.L_SHIPDATE < endDate)
     flineitem = lineitem[sel]

@@ -19,7 +19,6 @@ def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     print("Reading time (s): ", time.time() - t1)
-    bodo.barrier()
     t1 = time.time()
     sel = lineitem.L_SHIPDATE <= date
     flineitem = lineitem[sel].copy()  # copy is needed for the next two statements

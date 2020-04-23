@@ -23,7 +23,6 @@ def q(data_folder):
     customer = load_customer(data_folder)
     nation = load_nation(data_folder)
     print("Reading time (s): ", time.time() - t1)
-    bodo.barrier()
     t1 = time.time()
     osel = (orders.O_ORDERDATE >= date1) & (orders.O_ORDERDATE < date2)
     lsel = lineitem.L_RETURNFLAG == "R"

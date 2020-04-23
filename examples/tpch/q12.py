@@ -21,7 +21,6 @@ def q(data_folder):
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
     print("Reading time (s): ", time.time() - t1)
-    bodo.barrier()
     t1 = time.time()
     sel = (
         (lineitem.L_RECEIPTDATE < date2)
