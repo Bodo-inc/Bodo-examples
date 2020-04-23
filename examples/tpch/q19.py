@@ -35,7 +35,7 @@ def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     part = load_part(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     lsel = (
@@ -116,7 +116,7 @@ def q(data_folder):
     )
     jn = jn[jnsel]
     total = (jn.L_EXTENDEDPRICE * (1.0 - jn.L_DISCOUNT)).sum()
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 

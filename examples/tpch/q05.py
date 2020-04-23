@@ -31,7 +31,7 @@ def q(data_folder):
     nation = load_nation(data_folder)
     region = load_region(data_folder)
     supplier = load_supplier(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     rsel = region.R_NAME == "ASIA"
@@ -48,7 +48,7 @@ def q(data_folder):
     jn5["TMP"] = jn5.L_EXTENDEDPRICE * (1.0 - jn5.L_DISCOUNT)
     gb = jn5.groupby("N_NAME", as_index=False)["TMP"].sum()
     total = gb.sort_values("TMP", ascending=False)
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     bodo.parallel_print(total)
 
 

@@ -19,7 +19,7 @@ def q(data_folder):
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     gb1 = lineitem.groupby("L_ORDERKEY", as_index=False)["L_QUANTITY"].sum()
@@ -31,7 +31,7 @@ def q(data_folder):
         as_index=False,
     )["L_QUANTITY"].sum()
     total = gb2.sort_values(["O_TOTALPRICE", "O_ORDERDATE"], ascending=[False, True])
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total.head(100))
 
 

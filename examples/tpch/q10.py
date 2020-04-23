@@ -22,7 +22,7 @@ def q(data_folder):
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
     nation = load_nation(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     osel = (orders.O_ORDERDATE >= date1) & (orders.O_ORDERDATE < date2)
@@ -46,7 +46,7 @@ def q(data_folder):
         as_index=False,
     )["TMP"].sum()
     total = gb.sort_values("TMP", ascending=False)
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total.head(20))
 
 

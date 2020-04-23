@@ -23,7 +23,7 @@ def q(data_folder):
     nation = load_nation(data_folder)
     partsupp = load_partsupp(data_folder)
     supplier = load_supplier(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     psel = part.P_NAME.str.startswith("azure")
@@ -47,7 +47,7 @@ def q(data_folder):
     jn4 = fnation.merge(jn3, left_on="N_NATIONKEY", right_on="S_NATIONKEY")
     jn4 = jn4[["S_NAME", "S_ADDRESS"]]
     total = jn4.sort_values("S_NAME").drop_duplicates()
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 

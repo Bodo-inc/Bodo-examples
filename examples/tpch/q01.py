@@ -18,7 +18,7 @@ def q(data_folder):
     date = "1998-09-02"
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     sel = lineitem.L_SHIPDATE <= date
@@ -52,7 +52,7 @@ def q(data_folder):
         }
     )
     total = total.sort_values(["L_RETURNFLAG", "L_LINESTATUS"])
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 

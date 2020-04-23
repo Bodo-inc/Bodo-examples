@@ -19,7 +19,7 @@ def q(data_folder):
     date2 = "1997-01-01"
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     sel = (
@@ -31,7 +31,7 @@ def q(data_folder):
     )
     flineitem = lineitem[sel]
     total = (flineitem.L_EXTENDEDPRICE * flineitem.L_DISCOUNT).sum()
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 

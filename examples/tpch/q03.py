@@ -20,7 +20,7 @@ def q(data_folder):
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     lsel = lineitem.L_SHIPDATE > date
@@ -40,7 +40,7 @@ def q(data_folder):
         .sort_values(["TMP"], ascending=False)
     )
     res = total[["L_ORDERKEY", "TMP", "O_ORDERDATE", "O_SHIPPRIORITY"]]
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(res.head(10))
 
 

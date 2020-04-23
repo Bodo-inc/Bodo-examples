@@ -20,7 +20,7 @@ def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     sel = (
@@ -43,7 +43,7 @@ def q(data_folder):
 
     total = jn.groupby("L_SHIPMODE", as_index=False)["O_ORDERPRIORITY"].agg((g1, g2))
     total = total.sort_values("L_SHIPMODE")
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 

@@ -29,7 +29,7 @@ def q(data_folder):
     nation = load_nation(data_folder)
     partsupp = load_partsupp(data_folder)
     supplier = load_supplier(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     psel = part.P_NAME.str.contains("ghost")
@@ -47,7 +47,7 @@ def q(data_folder):
     jn5["O_YEAR"] = jn5.O_ORDERDATE.dt.year
     gb = jn5.groupby(["N_NAME", "O_YEAR"], as_index=False)["TMP"].sum()
     total = gb.sort_values(["N_NAME", "O_YEAR"], ascending=[True, False])
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 

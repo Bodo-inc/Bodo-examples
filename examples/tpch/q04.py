@@ -20,7 +20,7 @@ def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Reading time (s): ", time.time() - t1)
     bodo.barrier()
     t1 = time.time()
     lsel = lineitem.L_COMMITDATE < lineitem.L_RECEIPTDATE
@@ -33,7 +33,7 @@ def q(data_folder):
         .count()
         .sort_values(["O_ORDERPRIORITY"])
     )
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
 
 
