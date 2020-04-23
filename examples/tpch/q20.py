@@ -6,7 +6,7 @@ TPCH Query 20
 
 Run data/tpch-datagen/generateData.sh to generate TPCH database.
 """
-from loader import *
+from loader import load_lineitem, load_part, load_nation, load_partsupp, load_supplier
 import time
 import argparse
 import bodo
