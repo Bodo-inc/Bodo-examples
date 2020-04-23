@@ -12,14 +12,12 @@ def load_relation(folder, relation):
 @bodo.jit(distributed=['rel'])
 def load_lineitem(data_folder):
     file = data_folder + "/lineitem.tbl"
-    print
     cols_names = ['L_ORDERKEY' , 'L_PARTKEY', 'L_SUPPKEY', 'L_LINENUMBER', 'L_QUANTITY',
             'L_EXTENDEDPRICE', 'L_DISCOUNT', 'L_TAX', 'L_RETURNFLAG', 'L_LINESTATUS', 'L_SHIPDATE',
             'L_COMMITDATE', 'L_RECEIPTDATE', 'L_SHIPINSTRUCT', 'L_SHIPMODE', 'L_COMMENT']
     cols = {'L_ORDERKEY' : np.int64, 'L_PARTKEY' : np.int64, 'L_SUPPKEY' : np.int64, 'L_LINENUMBER' : np.int64, 'L_QUANTITY' : np.float64,
             'L_EXTENDEDPRICE' : np.float64, 'L_DISCOUNT' : np.float64, 'L_TAX' : np.float64, 'L_RETURNFLAG' : str, 'L_LINESTATUS' : str, 'L_SHIPDATE' : str,
             'L_COMMITDATE' : str, 'L_RECEIPTDATE' : str, 'L_SHIPINSTRUCT' : str, 'L_SHIPMODE' : str, 'L_COMMENT' : str}
-    # print('Reading lineitem...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols,
@@ -36,7 +34,6 @@ def load_part(data_folder):
     cols = {'P_PARTKEY' : np.int64, 'P_NAME' : str, 'P_MFGR' : str, 'P_BRAND' : str,
             'P_TYPE' : str, 'P_SIZE' : np.int64, 'P_CONTAINER' : str,
             'P_RETAILPRICE' : np.float64, 'P_COMMENT' : str}
-    # print('Reading part...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols
@@ -52,7 +49,6 @@ def load_orders(data_folder):
     cols = {'O_ORDERKEY' : np.int64, 'O_CUSTKEY' : np.int64, 'O_ORDERSTATUS' : str,
             'O_TOTALPRICE' : np.float64, 'O_ORDERDATE' : np.int64, 'O_ORDERPRIORITY' : str,
             'O_CLERK' : str, 'O_SHIPPRIORITY' : np.int64, 'O_COMMENT' : str}
-    # print('Reading orders...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols,
@@ -71,7 +67,6 @@ def load_customer(data_folder):
             'C_ADDRESS' : str, 'C_NATIONKEY' : np.int64,
             'C_PHONE' : str, 'C_ACCTBAL' : np.float64,
             'C_MKTSEGMENT' : str, 'C_COMMENT' : str}
-    # print('Reading customer...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols
@@ -85,7 +80,6 @@ def load_nation(data_folder):
             'N_REGIONKEY', 'N_COMMENT']
     cols = {'N_NATIONKEY' : np.int64, 'N_NAME' : str,
             'N_REGIONKEY' : np.int64, 'N_COMMENT' : str}
-    # print('Reading nation...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols
@@ -97,7 +91,6 @@ def load_region(data_folder):
     file = data_folder + "/region.tbl"
     cols_names = ['R_REGIONKEY', 'R_NAME', 'R_COMMENT']
     cols = {'R_REGIONKEY' : np.int64, 'R_NAME' : str, 'R_COMMENT' : str}
-    # print('Reading region...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols
@@ -113,7 +106,6 @@ def load_supplier(data_folder):
     cols = {'S_SUPPKEY' : np.int64, 'S_NAME' : str, 'S_ADDRESS' : str,
             'S_NATIONKEY' : np.int64, 'S_PHONE' : str, 'S_ACCTBAL' : np.float64,
             'S_COMMENT' : str}
-    # print('Reading supplier...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols
@@ -127,7 +119,6 @@ def load_partsupp(data_folder):
             'PS_SUPPLYCOST', 'PS_COMMENT']
     cols = {'PS_PARTKEY' : np.int64, 'PS_SUPPKEY' : np.int64, 'PS_AVAILQTY' : np.int64,
             'PS_SUPPLYCOST' : np.float64, 'PS_COMMENT' : str}
-    # print('Reading partsupp...')
     rel = pd.read_csv(file, sep='|', header=None,
         names=cols_names,
         dtype=cols
