@@ -36,7 +36,7 @@ def intraday_mean_revert(file_name, max_num_days):
 
     t1 = time.time()
 
-    # More information on bodo's explicit parallel loop: prange 
+    # More information on bodo's explicit parallel loop: prange
     # http://docs.bodo.ai/latest/source/user_guide.html#explicit-parallel-loops
     for i in prange(nsyms):
         symbol = sym_list[i]
@@ -88,14 +88,18 @@ def intraday_mean_revert(file_name, max_num_days):
     print(all_res.mean())
     print("execution time:", time.time() - t1)
 
+
 def main():
     parser = argparse.ArgumentParser(description="Intraday Mean example")
-    parser.add_argument("--file", dest="file", type=str, default="data/stock_data_all_yahoo.hdf5")
+    parser.add_argument(
+        "--file", dest="file", type=str, default="data/stock_data_all_yahoo.hdf5"
+    )
     parser.add_argument("--maxDays", dest="max_num_days", type=int, default=14513)
     args = parser.parse_args()
     file_name = args.file
     max_num_days = args.max_num_days
     intraday_mean_revert(file_name, max_num_days)
+
 
 if __name__ == "__main__":
     main()

@@ -27,14 +27,24 @@ def q(data_folder):
     osel = (orders.O_ORDERDATE < date1) & (orders.O_ORDERDATE >= date2)
     flineitem = lineitem[lsel]
     forders = orders[osel]
-    jn = forders[forders['O_ORDERKEY'].isin(flineitem['L_ORDERKEY'])]
-    total = jn.groupby("O_ORDERPRIORITY", as_index=False)['O_ORDERKEY'].count().sort_values(['O_ORDERPRIORITY'])
+    jn = forders[forders["O_ORDERKEY"].isin(flineitem["L_ORDERKEY"])]
+    total = (
+        jn.groupby("O_ORDERPRIORITY", as_index=False)["O_ORDERKEY"]
+        .count()
+        .sort_values(["O_ORDERPRIORITY"])
+    )
     print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
     print(total)
 
+
 def main():
     parser = argparse.ArgumentParser(description="tpch-q4")
-    parser.add_argument("--folder", type=str, default='data/tpch-datagen/data', help="The folder containing TPCH data")
+    parser.add_argument(
+        "--folder",
+        type=str,
+        default="data/tpch-datagen/data",
+        help="The folder containing TPCH data",
+    )
     args = parser.parse_args()
     folder = args.folder
     q(folder)
