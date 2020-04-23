@@ -4,7 +4,7 @@ Intraday example to demonstrate Pandas functionality.
     Usage: 
     mpiexec -n [cores] python intraday_mean.py --file [file] --maxDays [max_num_days]
 
-# adopted from:
+# adapted from:
 # http://www.pythonforfinance.net/2017/02/20/intraday-stock-mean-reversion-trading-backtest-in-python/
 See data generation script in data/stock_data_read.py
 """
