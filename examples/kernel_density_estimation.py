@@ -25,7 +25,7 @@ def kde(fname):
     exps = 0
     for i in prange(n):
         p = X[i]
-        d = (-(p - points) ** 2) / (2 * b ** 2)
+        d = (-((p - points) ** 2)) / (2 * b ** 2)
         m = np.min(d)
         exps += m - np.log(b * N) + np.log(np.sum(np.exp(d - m)))
     print("Execution time:", time.time() - t1, "\nresult:", exps)

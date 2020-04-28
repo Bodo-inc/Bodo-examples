@@ -6,7 +6,7 @@ TPCH Query 18
 
 Run data/tpch-datagen/generateData.sh to generate TPCH database.
 """
-from loader import *
+from loader import load_lineitem, load_orders, load_customer
 import time
 import argparse
 import bodo
@@ -19,22 +19,29 @@ def q(data_folder):
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
     customer = load_customer(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
-    bodo.barrier()
+    print("Reading time (s): ", time.time() - t1)
     t1 = time.time()
-    gb1 = lineitem.groupby("L_ORDERKEY", as_index = False)["L_QUANTITY"].sum()
+    gb1 = lineitem.groupby("L_ORDERKEY", as_index=False)["L_QUANTITY"].sum()
     fgb1 = gb1[gb1.L_QUANTITY > 300]
     jn1 = fgb1.merge(orders, left_on="L_ORDERKEY", right_on="O_ORDERKEY")
     jn2 = jn1.merge(customer, left_on="O_CUSTKEY", right_on="C_CUSTKEY")
-    gb2 = jn2.groupby(["C_NAME", "C_CUSTKEY", "O_ORDERKEY", 
-                        "O_ORDERDATE", "O_TOTALPRICE"], as_index = False)["L_QUANTITY"].sum()
-    total = gb2.sort_values(["O_TOTALPRICE", "O_ORDERDATE"], ascending = [False, True])
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    gb2 = jn2.groupby(
+        ["C_NAME", "C_CUSTKEY", "O_ORDERKEY", "O_ORDERDATE", "O_TOTALPRICE"],
+        as_index=False,
+    )["L_QUANTITY"].sum()
+    total = gb2.sort_values(["O_TOTALPRICE", "O_ORDERDATE"], ascending=[False, True])
+    print("Execution time (s): ", time.time() - t1)
     print(total.head(100))
+
 
 def main():
     parser = argparse.ArgumentParser(description="tpch-q18")
-    parser.add_argument("--folder", type=str, default='data/tpch-datagen/data', help="The folder containing TPCH data")
+    parser.add_argument(
+        "--folder",
+        type=str,
+        default="data/tpch-datagen/data",
+        help="The folder containing TPCH data",
+    )
     args = parser.parse_args()
     folder = args.folder
     q(folder)

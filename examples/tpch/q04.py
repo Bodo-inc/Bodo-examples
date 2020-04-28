@@ -6,7 +6,7 @@ TPCH Query 4
 
 Run data/tpch-datagen/generateData.sh to generate TPCH database.
 """
-from loader import *
+from loader import load_lineitem, load_orders
 import time
 import argparse
 import bodo
@@ -20,21 +20,30 @@ def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
-    bodo.barrier()
+    print("Reading time (s): ", time.time() - t1)
     t1 = time.time()
     lsel = lineitem.L_COMMITDATE < lineitem.L_RECEIPTDATE
     osel = (orders.O_ORDERDATE < date1) & (orders.O_ORDERDATE >= date2)
     flineitem = lineitem[lsel]
     forders = orders[osel]
-    jn = forders[forders['O_ORDERKEY'].isin(flineitem['L_ORDERKEY'])]
-    total = jn.groupby("O_ORDERPRIORITY", as_index=False)['O_ORDERKEY'].count().sort_values(['O_ORDERPRIORITY'])
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    jn = forders[forders["O_ORDERKEY"].isin(flineitem["L_ORDERKEY"])]
+    total = (
+        jn.groupby("O_ORDERPRIORITY", as_index=False)["O_ORDERKEY"]
+        .count()
+        .sort_values(["O_ORDERPRIORITY"])
+    )
+    print("Execution time (s): ", time.time() - t1)
     print(total)
+
 
 def main():
     parser = argparse.ArgumentParser(description="tpch-q4")
-    parser.add_argument("--folder", type=str, default='data/tpch-datagen/data', help="The folder containing TPCH data")
+    parser.add_argument(
+        "--folder",
+        type=str,
+        default="data/tpch-datagen/data",
+        help="The folder containing TPCH data",
+    )
     args = parser.parse_args()
     folder = args.folder
     q(folder)

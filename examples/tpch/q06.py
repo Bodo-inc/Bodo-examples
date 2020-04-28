@@ -6,7 +6,7 @@ TPCH Query 6
 
 Run data/tpch-datagen/generateData.sh to generate TPCH database.
 """
-from loader import *
+from loader import load_lineitem
 import time
 import argparse
 import bodo
@@ -19,20 +19,29 @@ def q(data_folder):
     date2 = "1997-01-01"
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
-    print("Reading time: ", ((time.time() - t1) * 1000), " (ms)")
-    bodo.barrier()
+    print("Reading time (s): ", time.time() - t1)
     t1 = time.time()
-    sel = (lineitem.L_SHIPDATE >= date1) & (lineitem.L_SHIPDATE < date2) & (
-            lineitem.L_DISCOUNT >= 0.08) & (lineitem.L_DISCOUNT <= 0.1) & (
-            lineitem.L_QUANTITY < 24)
+    sel = (
+        (lineitem.L_SHIPDATE >= date1)
+        & (lineitem.L_SHIPDATE < date2)
+        & (lineitem.L_DISCOUNT >= 0.08)
+        & (lineitem.L_DISCOUNT <= 0.1)
+        & (lineitem.L_QUANTITY < 24)
+    )
     flineitem = lineitem[sel]
     total = (flineitem.L_EXTENDEDPRICE * flineitem.L_DISCOUNT).sum()
-    print("Execution time: ", ((time.time() - t1) * 1000), " (ms)")
+    print("Execution time (s): ", time.time() - t1)
     print(total)
+
 
 def main():
     parser = argparse.ArgumentParser(description="tpch-q6")
-    parser.add_argument("--folder", type=str, default='data/tpch-datagen/data', help="The folder containing TPCH data")
+    parser.add_argument(
+        "--folder",
+        type=str,
+        default="data/tpch-datagen/data",
+        help="The folder containing TPCH data",
+    )
     args = parser.parse_args()
     folder = args.folder
     q(folder)

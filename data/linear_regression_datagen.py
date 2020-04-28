@@ -22,7 +22,9 @@ def gen_lir(N, D, p, file_name):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate data for Linear Regression example")
+    parser = argparse.ArgumentParser(
+        description="Generate data for Linear Regression example"
+    )
     parser.add_argument("--samples", dest="samples", type=int, default=20000000)
     parser.add_argument("--features", dest="features", type=int, default=10)
     parser.add_argument("--functions", dest="functions", type=int, default=4)
