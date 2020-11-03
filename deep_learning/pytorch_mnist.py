@@ -144,6 +144,7 @@ def deep_learning(X_train, y_train, X_test, y_test):
 
 @bodo.jit
 def main():
+    # See generate_mnist_data.py script in this directory to generate data
     X_train = np.fromfile("data/train_data.dat", np.uint8)
     X_train = X_train.reshape(60000, 28, 28)
     y_train = np.fromfile("data/train_targets.dat", np.int64)
