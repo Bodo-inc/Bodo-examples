@@ -1,3 +1,5 @@
+set -eo pipefail
+
 SCALE=$1
 
 cd data/tpch-datagen
@@ -5,7 +7,7 @@ if [ ! -d "tpch-dbgen" ]
 then
     git clone https://github.com/amirsh/tpch-dbgen.git
     cd tpch-dbgen
-    git apply dbgen-fix.diff
+    git apply ../dbgen-fix.diff
     make
 else
     echo "tpch-dbgen already exists. Skipping git clone & make"
