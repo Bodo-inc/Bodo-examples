@@ -15,5 +15,5 @@ else
 fi
 
 ./dbgen -f -s $SCALE
-mkdir ../data
+mkdir -p ../data
 mv *.tbl ../data
