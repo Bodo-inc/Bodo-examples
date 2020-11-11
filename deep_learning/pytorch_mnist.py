@@ -139,8 +139,6 @@ def deep_learning(X_train, y_train, X_test, y_test):
             train(model, train_loader, train_sampler, optimizer, epoch, cuda)
             test(model, test_dataset, test_loader, cuda)
 
-    bodo.barrier()
-
 
 @bodo.jit
 def main():
@@ -162,10 +160,12 @@ def main():
     X_test = ((X_test / 255) - 0.1307) / 0.3081
     X_test = X_test.astype(np.float32)
 
+    bodo.dl.start("torch")
     X_train, y_train = bodo.dl.prepare_data(X_train, y_train)
     X_test, y_test = bodo.dl.prepare_data(X_test, y_test)
     with bodo.objmode:
         deep_learning(X_train, y_train, X_test, y_test)
+    bodo.dl.end()
 
 
 main()
