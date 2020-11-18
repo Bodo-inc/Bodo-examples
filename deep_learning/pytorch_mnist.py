@@ -161,8 +161,10 @@ def main():
     X_test = X_test.astype(np.float32)
 
     bodo.dl.start("torch")
-    X_train, y_train = bodo.dl.prepare_data(X_train, y_train)
-    X_test, y_test = bodo.dl.prepare_data(X_test, y_test)
+    X_train = bodo.dl.prepare_data(X_train)
+    y_train = bodo.dl.prepare_data(y_train)
+    X_test = bodo.dl.prepare_data(X_test)
+    y_test = bodo.dl.prepare_data(y_test)
     with bodo.objmode:
         deep_learning(X_train, y_train, X_test, y_test)
     bodo.dl.end()
