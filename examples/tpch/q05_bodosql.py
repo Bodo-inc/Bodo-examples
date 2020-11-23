@@ -63,7 +63,7 @@ def q(data_folder):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="tpch-q3")
+    parser = argparse.ArgumentParser(description="tpch-q5")
     parser.add_argument(
         "--folder",
         type=str,
