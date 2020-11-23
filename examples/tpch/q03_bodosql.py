@@ -1,8 +1,30 @@
-from query_setup import run_tpch_query
+"""
+TPCH Query 3
+
+    Usage:
+    mpiexec -n [cores] python q03_bodosql.py --folder [folder]
+
+Run data/tpch-datagen/generateData.sh to generate TPCH database.
+"""
+from loader import load_lineitem, load_orders, load_customer
+import time
 import argparse
+import bodo
+import bodosql
 
 
-def q3(dir_name):
+@bodo.jit
+def q(data_folder):
+    t1 = time.time()
+    lineitem = load_lineitem(data_folder)
+    orders = load_orders(data_folder)
+    customer = load_customer(data_folder)
+    bc = bodosql.BodoSQLContext({"customer": customer,
+                                 "orders": orders,
+                                 "lineitem": lineitem,
+                                 })
+    print("Reading time (s): ", time.time() - t1)
+    t1 = time.time()
     tpch_query = """select
                       l_orderkey,
                       sum(l_extendedprice * (1 - l_discount)) as revenue,
@@ -28,7 +50,9 @@ def q3(dir_name):
                       l_orderkey
                     limit 10
     """
-    run_tpch_query(dir_name, tpch_query)
+    res = bc.sql(tpch_query)
+    print("Execution time (s): ", time.time() - t1)
+    print(res)
 
 
 def main():
@@ -36,12 +60,12 @@ def main():
     parser.add_argument(
         "--folder",
         type=str,
-        default="data/tpch-parquet/",
-        help="The folder containing TPCH data in parquetized format",
+        default="data/tpch-datagen/data",
+        help="The folder containing TPCH data",
     )
     args = parser.parse_args()
     folder = args.folder
-    q3(folder)
+    q(folder)
 
 
 if __name__ == "__main__":
