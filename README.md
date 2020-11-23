@@ -73,6 +73,20 @@ An example performing TPCH query #1:
 	mpiexec -n 4 python examples/tpch/q01.py
 
 _________________________
+
+## BodoSQL examples
+
+_Note: BodoSQL is in Alpha, these examples are only meant for demonstrating support for a subset of SQL and not ready for benchmarking yet._
+
+BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10. Before you run these, make sure you have BodoSQL installed.  
+
+
+ [BodoSQL example TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch) : 
+Query #[3](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q03.py),
+[5](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q05.py),
+[6](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q06.py),
+[10](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q10.py)
+---------------------------
 More documentation can be found at http://docs.bodo.ai.
 
-Bodo tutorial can be found [here](https://github.com/Bodo-inc/Bodo-tutorial)
+Bodo tutorial can be found [here](https://github.com/Bodo-inc/Bodo-tutorial).

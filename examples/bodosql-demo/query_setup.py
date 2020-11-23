@@ -1,13 +1,12 @@
 """
-Test correctness of TPCH Benchmark on BodoSQL
+Sets up dataframes after reading parquet files of data generated TPCH Benchmark on BodoSQL.
 """
+
 import bodo
 import bodosql
 import pandas as pd
-bc = None
 
 
-# Read Data in Bodo for directory support
 @bodo.jit()
 def load_tpch_data(dir_name):
     """ Load the necessary TPCH dataframes given a root directory
@@ -22,18 +21,16 @@ def load_tpch_data(dir_name):
 
 
 def run_tpch_query(dir_name, tpch_query):
-    """ Run the given TPCH query
+    """ Run the given TPCH query after creating a BodoSQL context (entry point for sql query into pandas using Bodo)
     """
-    global bc
-    if bc is None:
-        customer_df, orders_df, lineitem_df, nation_df, region_df, supplier_df = load_tpch_data(dir_name)
-        bc = bodosql.BodoSQLContext({"customer": customer_df,
-                                     "orders": orders_df,
-                                     "lineitem": lineitem_df,
-                                     "nation": nation_df,
-                                     "region": region_df,
-                                     "supplier": supplier_df,
-                                     })
+    customer_df, orders_df, lineitem_df, nation_df, region_df, supplier_df = load_tpch_data(dir_name)
+    bc = bodosql.BodoSQLContext({"customer": customer_df,
+                                 "orders": orders_df,
+                                 "lineitem": lineitem_df,
+                                 "nation": nation_df,
+                                 "region": region_df,
+                                 "supplier": supplier_df,
+                                 })
     bodosql_out = bc.sql(tpch_query)
     # print output
     print(bodosql_out)

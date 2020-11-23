@@ -1,4 +1,4 @@
-from query_setup import run_tpch_query, load_tpch_data
+from query_setup import run_tpch_query
 import argparse
 
 
