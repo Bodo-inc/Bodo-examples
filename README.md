@@ -78,7 +78,7 @@ _________________________
 
 _Note: BodoSQL is in Alpha, these examples are meant to demonstrate support for a subset of SQL._
 
-BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10. Before you run these, make sure you have BodoSQL [installed](http://docs.bodo.ai/latest/source/installbodosql.html).  
+BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10.
 
 
  [BodoSQL example TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch) : 
