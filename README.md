@@ -83,7 +83,7 @@ BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10.
  [BodoSQL example TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch) : 
 Query #[3](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q03_bodosql.py),
 [5](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q05.py),
-[6](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q06.py),
+[6](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q06_bodosql.py),
 [10](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q10.py)
 ---------------------------
 More documentation can be found at http://docs.bodo.ai.
