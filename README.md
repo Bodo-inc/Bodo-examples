@@ -76,7 +76,6 @@ _________________________
 
 ## BodoSQL examples
 
-_Note: BodoSQL is in Alpha, these examples are meant to demonstrate support for a subset of SQL._
 
 BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10.
 
