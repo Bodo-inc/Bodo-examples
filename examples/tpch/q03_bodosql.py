@@ -13,7 +13,6 @@ import bodo
 import bodosql
 
 
-@bodo.jit
 def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)

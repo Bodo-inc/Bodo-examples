@@ -13,7 +13,6 @@ import bodo
 import bodosql
 
 
-@bodo.jit
 def q(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
@@ -34,7 +33,7 @@ def q(data_folder):
     t1 = time.time()
     tpch_query = """select
                       n_name,
-                      sum(l_extendedprice * (1 - l_discount)) as revenue
+                      sum(l_extendedprice * l_discount) as revenue
                     from
                       customer,
                       orders,
