@@ -4,19 +4,6 @@ import pandas as pd
 import bodo
 
 
-def load_relation(folder, relation):
-    file = folder + "/" + relation["filename"]
-    rel = pd.read_csv(
-        file,
-        sep="|",
-        header=None,
-        names=relation["cols_tp"].keys(),
-        parse_dates=relation["date_cols"],
-        dtype=relation["cols_tp"],
-    )
-    return rel
-
-
 @bodo.jit(distributed=["rel"])
 def load_lineitem(data_folder):
     file = data_folder + "/lineitem.tbl"
