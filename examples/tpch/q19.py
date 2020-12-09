@@ -13,8 +13,8 @@ import bodo
 import pandas as pd
 
 
-@bodo.jit
-def q(data_folder):
+@bodo.jit(cache=True)
+def q19(data_folder):
     Brand31 = "Brand#31"
     Brand43 = "Brand#43"
     SMBOX = "SM BOX"
@@ -129,7 +129,7 @@ def main():
     )
     args = parser.parse_args()
     folder = args.folder
-    q(folder)
+    q19(folder)
 
 
 if __name__ == "__main__":

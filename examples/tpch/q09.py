@@ -20,8 +20,8 @@ import bodo
 import pandas as pd
 
 
-@bodo.jit
-def q(data_folder):
+@bodo.jit(cache=True)
+def q09(data_folder):
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
     orders = load_orders(data_folder)
@@ -60,7 +60,7 @@ def main():
     )
     args = parser.parse_args()
     folder = args.folder
-    q(folder)
+    q09(folder)
 
 
 if __name__ == "__main__":
