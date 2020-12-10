@@ -13,8 +13,8 @@ import bodo
 import pandas as pd
 
 
-@bodo.jit
-def q(data_folder):
+@bodo.jit(cache=True)
+def q14(data_folder):
     startDate = "1994-03-01"
     endDate = "1994-04-01"
     p_type_like = "PROMO"
@@ -42,7 +42,7 @@ def main():
     )
     args = parser.parse_args()
     folder = args.folder
-    q(folder)
+    q14(folder)
 
 
 if __name__ == "__main__":

@@ -13,8 +13,8 @@ import bodo
 import pandas as pd
 
 
-@bodo.jit
-def q(data_folder):
+@bodo.jit(cache=True)
+def q10(data_folder):
     date1 = "1994-11-01"
     date2 = "1995-02-01"
     t1 = time.time()
@@ -59,7 +59,7 @@ def main():
     )
     args = parser.parse_args()
     folder = args.folder
-    q(folder)
+    q10(folder)
 
 
 if __name__ == "__main__":

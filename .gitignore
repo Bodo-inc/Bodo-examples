@@ -15,3 +15,7 @@ data/__pycache__
 
 data/tpch-datagen/data
 data/tpch-datagen/tpch-dbgen
+
+# logs
+algebra.log
+

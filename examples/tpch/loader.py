@@ -1,23 +1,9 @@
 import numpy as np
-from datetime import datetime
 import pandas as pd
 import bodo
 
 
-def load_relation(folder, relation):
-    file = folder + "/" + relation["filename"]
-    rel = pd.read_csv(
-        file,
-        sep="|",
-        header=None,
-        names=relation["cols_tp"].keys(),
-        parse_dates=relation["date_cols"],
-        dtype=relation["cols_tp"],
-    )
-    return rel
-
-
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_lineitem(data_folder):
     file = data_folder + "/lineitem.tbl"
     cols_names = [
@@ -67,7 +53,7 @@ def load_lineitem(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_part(data_folder):
     file = data_folder + "/part.tbl"
     cols_names = [
@@ -96,7 +82,7 @@ def load_part(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_orders(data_folder):
     file = data_folder + "/orders.tbl"
     cols_names = [
@@ -127,7 +113,7 @@ def load_orders(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_customer(data_folder):
     file = data_folder + "/customer.tbl"
     cols_names = [
@@ -154,7 +140,7 @@ def load_customer(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_nation(data_folder):
     file = data_folder + "/nation.tbl"
     cols_names = ["N_NATIONKEY", "N_NAME", "N_REGIONKEY", "N_COMMENT"]
@@ -168,7 +154,7 @@ def load_nation(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_region(data_folder):
     file = data_folder + "/region.tbl"
     cols_names = ["R_REGIONKEY", "R_NAME", "R_COMMENT"]
@@ -177,7 +163,7 @@ def load_region(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_supplier(data_folder):
     file = data_folder + "/supplier.tbl"
     cols_names = [
@@ -202,7 +188,7 @@ def load_supplier(data_folder):
     return rel
 
 
-@bodo.jit(distributed=["rel"])
+@bodo.jit(distributed=["rel"], inline="always")
 def load_partsupp(data_folder):
     file = data_folder + "/partsupp.tbl"
     cols_names = [
