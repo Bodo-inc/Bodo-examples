@@ -32,7 +32,7 @@ def logistic_regression(iterations, fname):
 
 def main():
     parser = argparse.ArgumentParser(description="Logistic Regression example")
-    parser.add_argument("--file", dest="file", type=str, default="../data/lr.hdf5")
+    parser.add_argument("--file", dest="file", type=str, default="data/lr.hdf5")
     parser.add_argument("--iterations", dest="iterations", type=int, default=20)
     args = parser.parse_args()
     file_name = args.file

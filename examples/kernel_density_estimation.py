@@ -34,7 +34,7 @@ def kde(fname):
 
 def main():
     parser = argparse.ArgumentParser(description="Kernel Density Estimation")
-    parser.add_argument("--file", dest="file", type=str, default="../data/kde.pq")
+    parser.add_argument("--file", dest="file", type=str, default="data/kde.pq")
     args = parser.parse_args()
     file = args.file
     _res = kde(file)

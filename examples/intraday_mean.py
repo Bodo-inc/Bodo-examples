@@ -92,7 +92,7 @@ def intraday_mean_revert(file_name, max_num_days):
 def main():
     parser = argparse.ArgumentParser(description="Intraday Mean example")
     parser.add_argument(
-        "--file", dest="file", type=str, default="../data/stock_data_all_yahoo.hdf5"
+        "--file", dest="file", type=str, default="data/stock_data_all_yahoo.hdf5"
     )
     parser.add_argument("--maxDays", dest="max_num_days", type=int, default=14513)
     args = parser.parse_args()
