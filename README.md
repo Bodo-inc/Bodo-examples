@@ -50,6 +50,7 @@ Query #[1](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q
 		data/tpch-datagen/generateData.sh 2
 
 - [NYC Parking Tickets](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-parking/nyc-parking.py)
+- [Beer Reviews](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/beer-reviews/beer-reviews.py)
 
 ## Try the examples
 
