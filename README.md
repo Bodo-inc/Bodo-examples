@@ -49,15 +49,15 @@ Query #[1](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q
 		# To generate data with a scale of 2, equivalent to 2GB of data
 		data/tpch-datagen/generateData.sh 2
 
-- [NYC Taxi](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-taxi):
-    - [Daily Pickups](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-taxi/get_daily_pickups.py),
-    - [JFK Hourly Pickups](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-taxi/jfk_hourly_pickups.py),
-    - [Monthly Travel Times](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-taxi/monthly_taxi_travel_times.py),
-    - [Weekday Pickup and Dropoff](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-taxi/weekday_taxi_trips_by_pickup_and_dropoff.py)
+- [NYC Taxi](examples/nyc-taxi):
+    - [Daily Pickups](examples/nyc-taxi/get_daily_pickups.py)
+    - [JFK Hourly Pickups](examples/nyc-taxi/jfk_hourly_pickups.py)
+    - [Monthly Travel Times](examples/nyc-taxi/monthly_taxi_travel_times.py)
+    - [Weekday Pickup and Dropoff](examples/nyc-taxi/weekday_taxi_trips_by_pickup_and_dropoff.py)
 
-- [NYC Parking Tickets](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-parking/nyc-parking.py)
+- [NYC Parking Tickets](examples/nyc-parking/nyc-parking.py)
 
-- [Beer Reviews](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/beer-reviews/beer-reviews.py)
+- [Beer Reviews](examples/beer-reviews/beer-reviews.py)
 
 ## Try the examples
 
