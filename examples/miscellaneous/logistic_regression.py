@@ -14,7 +14,7 @@ import argparse
 import time
 
 
-#@bodo.jit
+@bodo.jit
 def logistic_regression(iterations, fname):
     f = h5py.File(fname, "r")
     X = f["points"][:]
