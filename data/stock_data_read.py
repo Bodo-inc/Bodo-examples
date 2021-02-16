@@ -12,8 +12,8 @@ import h5py
 
 
 def main():
-    stocks = pd.read_csv("data/all_syms.csv")
-    file_name = "data/stock_data_all_yahoo.hdf5"
+    stocks = pd.read_csv("./all_syms.csv")
+    file_name = "./stock_data_all_yahoo.hdf5"
     f = h5py.File(file_name, "w")
 
     for symbol in stocks.Symbol:

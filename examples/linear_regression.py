@@ -34,7 +34,7 @@ def linear_regression(iterations, fname):
 
 def main():
     parser = argparse.ArgumentParser(description="Linear Regression example")
-    parser.add_argument("--file", dest="file", type=str, default="data/lir.hdf5")
+    parser.add_argument("--file", dest="file", type=str, default="../data/slir.hdf5")
     parser.add_argument("--iterations", dest="iterations", type=int, default=30)
     args = parser.parse_args()
     file_name = args.file

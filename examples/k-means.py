@@ -14,9 +14,9 @@ import h5py
 import bodo
 
 
-@bodo.jit
+#@bodo.jit
 def kmeans(numCenter, numIter):
-    f = h5py.File("data/lr.hdf5", "r")
+    f = h5py.File("../data/lr.hdf5", "r")
     A = f["points"][:]
     f.close()
     N, D = A.shape

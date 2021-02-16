@@ -23,7 +23,7 @@ def gen_kde(N, file_name):
 def main():
     parser = argparse.ArgumentParser(description="Generate data for KDE")
     parser.add_argument("--size", dest="size", type=int, default=2000000)
-    parser.add_argument("--file", dest="file", type=str, default="data/kde.pq")
+    parser.add_argument("--file", dest="file", type=str, default="./kde.pq")
     args = parser.parse_args()
     N = args.size
     file_name = args.file

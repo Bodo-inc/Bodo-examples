@@ -28,7 +28,7 @@ def main():
     parser.add_argument("--samples", dest="samples", type=int, default=20000000)
     parser.add_argument("--features", dest="features", type=int, default=10)
     parser.add_argument("--functions", dest="functions", type=int, default=4)
-    parser.add_argument("--file", dest="file", type=str, default="data/slir.hdf5")
+    parser.add_argument("--file", dest="file", type=str, default="./slir.hdf5")
     args = parser.parse_args()
     N = args.samples
     D = args.features
