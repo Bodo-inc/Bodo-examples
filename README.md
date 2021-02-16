@@ -49,6 +49,8 @@ Query #[1](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q
 		# To generate data with a scale of 2, equivalent to 2GB of data
 		data/tpch-datagen/generateData.sh 2
 
+- [NYC Parking Tickets](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/nyc-parking/nyc-parking.py)
+
 ## Try the examples
 
 An example performing Monte Carlo Pi Calculation:
