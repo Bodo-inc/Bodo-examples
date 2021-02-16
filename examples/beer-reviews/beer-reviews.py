@@ -1,4 +1,5 @@
 """
+Source: https://medium.com/rapids-ai/real-data-has-strings-now-so-do-gpus-994497d55f8e
 Analyze beer reviews to find most common words used in positive and negative reviews.
     Usage:
     mpiexec -n [cores] python beer-reviews.py
