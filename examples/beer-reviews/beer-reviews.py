@@ -20,8 +20,9 @@ os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
 os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
 #Create lists of stopwords and punctuation that will be removed
-with open("nltk-stopwords.txt", "r") as fh:
+with open(f"{dir_path}/nltk-stopwords.txt", "r") as fh:
     STOPWORDS = list(map(str.strip, fh.readlines()))
 PUNCT_LIST = ["\.", "\-", "\?", "\:", ":", "!", "&", "'", ","]
 

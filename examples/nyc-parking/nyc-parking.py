@@ -19,7 +19,6 @@ os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
 os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
 
-
 @bodo.jit(distributed=['many_year_df'], cache=True)
 def load_parking_tickets():
     """
@@ -43,19 +42,20 @@ def load_parking_tickets():
 main_df = load_parking_tickets()
 
 @bodo.jit
-def load_violation_precincts_codes():
+def load_violation_precincts_codes(dir_path):
     """
     Load violation codes and precincts information.
     """
     start = time.time()
-    violation_codes = pd.read_csv("./DOF_Parking_Violation_Codes.csv")
+    violation_codes = pd.read_csv(f"{dir_path}/DOF_Parking_Violation_Codes.csv")
     violation_codes.columns = ['Violation Code','Definition','manhattan_96_and_below','all_other_areas']
-    nyc_precincts_df = pd.read_csv("./nyc_precincts.csv", index_col='index')
+    nyc_precincts_df = pd.read_csv(f"{dir_path}/nyc_precincts.csv", index_col='index')
     end = time.time()
     print("Violation and precincts load Time: ", end - start)
     return violation_codes, nyc_precincts_df
 
-violation_codes, nyc_precincts_df = load_violation_precincts_codes()
+dir_path = os.path.dirname(os.path.realpath(__file__))
+violation_codes, nyc_precincts_df = load_violation_precincts_codes(dir_path)
 
 @bodo.jit(distributed=['main_df'], cache=True)
 def elim_code_36(main_df):

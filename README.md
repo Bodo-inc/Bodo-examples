@@ -16,6 +16,8 @@ Other packages that are required to run the data generation scripts, `pandas_dat
 Many of the data generation scripts and example scripts can take in optional arguments. 
 `python path/script.py --help` shows the usage.
 
+By default all examples and data generation scripts can be run from home directory (Bodo-examples) without any changes. Otherwise, make sure to change path of data files.
+
 For more information on data generation and examples, please see the docstring at the top of each python script.
 
 - [Monte Carlo Pi Calculation](examples/miscellaneous/pi.py)
@@ -85,6 +87,8 @@ An example performing TPCH query #1:
 _________________________
 
 ## BodoSQL examples
+
+BodoSQL is in beta stage and not available to the public yet. [Contact us](https://bodo.ai/contact/) for information about trial access.
 
 
 BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10.
