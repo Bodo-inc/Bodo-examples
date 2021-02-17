@@ -18,12 +18,12 @@ Many of the data generation scripts and example scripts can take in optional arg
 
 For more information on data generation and examples, please see the docstring at the top of each python script.
 
-- [Monte Carlo Pi Calculation](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/pi.py)
-- [k-means](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/k-means.py)
+- [Monte Carlo Pi Calculation](examples/miscellaneous/pi.py)
+- [k-means](examples/miscellaneous/k-means.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/logistic_regression_datagen.py)
-- [Linear Regression](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/linear_regression.py)
+- [Linear Regression](examples/miscellaneous/linear_regression.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/linear_regression_datagen.py)
-- [Logistic Regression](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/logistic_regression.py)
+- [Logistic Regression](examples/miscellaneous/logistic_regression.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/logistic_regression_datagen.py)
 - [Kernel Density Estimation](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/kernel_density_estimation.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/kde_datagen.py)
