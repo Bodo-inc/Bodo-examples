@@ -12,6 +12,7 @@ import pandas as pd
 import argparse
 import time
 import bodo
+import os
 
 
 @bodo.jit
@@ -21,9 +22,10 @@ def gen_kde(N, file_name):
 
 
 def main():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     parser = argparse.ArgumentParser(description="Generate data for KDE")
     parser.add_argument("--size", dest="size", type=int, default=2000000)
-    parser.add_argument("--file", dest="file", type=str, default="./kde.pq")
+    parser.add_argument("--file", dest="file", type=str, default=f"{dir_path}/kde.pq")
     args = parser.parse_args()
     N = args.size
     file_name = args.file
