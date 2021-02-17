@@ -1,10 +1,10 @@
 """
 Source: https://github.com/JBlumstein/NYCParking/blob/master/NYC_Parking_Violations_Mapping_Example.ipynb
-NYC parking ticket violations 
+NYC parking ticket violations
     Usage:
     mpiexec -n [cores] python nyc-parking.py
 
-Data for 2016 and 2017 is in S3 bucket (s3://bodo-examples-data/nyc-parking-tickets) 
+Data for 2016 and 2017 is in S3 bucket (s3://bodo-examples-data/nyc-parking-tickets)
 or you can get data from https://www.kaggle.com/new-york-city/nyc-parking-tickets
 
 """
@@ -146,7 +146,7 @@ def aggregate(main_df):
     '''
     start = time.time()
     filtered_dataset = main_df[['Violation Precinct','Summons Number', 'total_summons_dollars']]
-    precinct_offenses_df = filtered_dataset.groupby(by=['Violation Precinct']).sum().reset_index().fillna(0.0)
+    precinct_offenses_df = filtered_dataset.groupby(by=['Violation Precinct']).sum().reset_index().fillna(0)
     end = time.time()
     print("Aggregate code time: ", (end-start))
     print(precinct_offenses_df.head())

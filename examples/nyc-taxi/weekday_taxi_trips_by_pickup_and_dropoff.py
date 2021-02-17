@@ -6,7 +6,7 @@ Source: https://github.com/toddwschneider/nyc-taxi-data/blob/master/citibike_com
 Usage:
     mpiexec -n [cores] python weekday_taxi_trips_by_pickup_and_dropoff.py
 
-Data source: Green Taxi 2019 s3://bodo-examples-data/nyc-taxi/green_tripdata_2019.csv 
+Data source: Green Taxi 2019 s3://bodo-examples-data/nyc-taxi/green_tripdata_2019.csv
 Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_files/raw_data_urls.txt
 """
 

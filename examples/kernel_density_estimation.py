@@ -36,8 +36,8 @@ def main():
     parser = argparse.ArgumentParser(description="Kernel Density Estimation")
     parser.add_argument("--file", dest="file", type=str, default="data/kde.pq")
     args = parser.parse_args()
-    file = args.file
-    _res = kde(file)
+    filename = args.file
+    _res = kde(filename)
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ import h5py
 import numpy as np
 import argparse
 import sklearn.datasets
+import os
 
 
 def gen_lr(N, D, file_name):
@@ -20,12 +21,13 @@ def gen_lr(N, D, file_name):
 
 
 def main():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     parser = argparse.ArgumentParser(
         description="Generate data for Logistic Regression example"
     )
     parser.add_argument("--samples", dest="samples", type=int, default=20000000)
     parser.add_argument("--features", dest="features", type=int, default=10)
-    parser.add_argument("--file", dest="file", type=str, default="./lr.hdf5")
+    parser.add_argument("--file", dest="file", type=str, default=f"{dir_path}/lr.hdf5")
     args = parser.parse_args()
     N = args.samples
     D = args.features
