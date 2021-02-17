@@ -1,7 +1,7 @@
 """
 Intraday example to demonstrate Pandas functionality.
-    
-    Usage: 
+
+    Usage:
     mpiexec -n [cores] python intraday_mean.py --file [file] --maxDays [max_num_days]
 
 # adapted from:
@@ -80,6 +80,9 @@ def intraday_mean_revert(file_name, max_num_days):
 
         n_days = len(df["Rets"])
         res = np.zeros(max_num_days)
+        if n_days > max_num_days:
+            print(n_days, max_num_days)
+            raise ValueError("Number of days execeeds maximum")
         if n_days:
             res[-n_days:] = df["Rets"].fillna(0).values
         all_res += res
@@ -94,7 +97,7 @@ def main():
     parser.add_argument(
         "--file", dest="file", type=str, default="data/stock_data_all_yahoo.hdf5"
     )
-    parser.add_argument("--maxDays", dest="max_num_days", type=int, default=14513)
+    parser.add_argument("--maxDays", dest="max_num_days", type=int, default=20000)
     args = parser.parse_args()
     file_name = args.file
     max_num_days = args.max_num_days
