@@ -8,4 +8,6 @@ dependencies:
   - ipyparallel=7.0.1
   - jupyterlab=3
   - python=3.9
+  - pandas-datareader
+  - scikit-learn
 prefix: /opt/anaconda3/envs/bodo-binder-env
