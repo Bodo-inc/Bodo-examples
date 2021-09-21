@@ -110,3 +110,8 @@ Query #[3](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q
 More documentation can be found at http://docs.bodo.ai.
 
 Bodo tutorial can be found [here](https://github.com/Bodo-inc/Bodo-tutorial).
+
+
+## Launch using Binder
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Bodo-inc/Bodo-examples/HEAD)
