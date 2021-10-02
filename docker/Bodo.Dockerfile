@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y wget bzip2 git vim make curl\
 	&& ./miniconda.sh -b
 ENV PATH /root/miniconda3/bin/:${PATH}
 
-RUN conda install -y python=3.9 bodo=2021.8 ipyparallel -c bodo.ai -c conda-forge
+RUN conda install -y python=3.9 bodo=2021.9 -c bodo.ai -c conda-forge
 
 # Might be useful for long running containers
 RUN echo "export PATH=/root/miniconda3/bin/:$PATH" >> ~/.bashrc
