@@ -1,6 +1,6 @@
 # Minimal Bodo Docker Image
 
-Bodo.Dockerfile is a minimal Dockerfile that installs [Miniconda](https://docs.conda.io/en/latest/miniconda.html) and installs Bodo version ``2021.9`` in the base conda environment.
+Bodo.Dockerfile is a minimal Dockerfile that installs [Miniconda](https://docs.conda.io/en/latest/miniconda.html) and Bodo version ``2021.9`` in the base conda environment.
 
 ## Build Image with
 
