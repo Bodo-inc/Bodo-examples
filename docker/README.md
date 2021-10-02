@@ -31,7 +31,7 @@ mpiexec -n 4 python -u /Bodo-examples/examples/miscellaneous/pi.py
 
 # Minimal Bodo Docker Image with JupyterLab
 
-Bodo.Dockerfile is a minimal Dockerfile that installs builds on top of the [jupyter/minimal-notebook:latest](https://hub.docker.com/r/jupyter/minimal-notebook/) image and installs Bodo version ``2021.9`` and IPyParallel.
+Bodo.Dockerfile is a minimal Dockerfile that installs builds on top of the popular [jupyter/minimal-notebook:latest](https://hub.docker.com/r/jupyter/minimal-notebook/) Docker image and installs Bodo version ``2021.9`` and IPyParallel.
 
 ## Build Image with
 
