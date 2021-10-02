@@ -1,4 +1,4 @@
-# Bodo Docker Image
+# Minimal Bodo Docker Image
 
 Bodo.Dockerfile is a minimal Dockerfile that installs [Miniconda](https://docs.conda.io/en/latest/miniconda.html) and installs Bodo version ``2021.9`` in the base conda environment.
 
@@ -27,3 +27,30 @@ For instance, you can run the Monte-Carlo Pi computation example using:
 ```bash
 mpiexec -n 4 python -u /Bodo-examples/examples/miscellaneous/pi.py
 ```
+
+
+# Minimal Bodo Docker Image with JupyterLab
+
+Bodo.Dockerfile is a minimal Dockerfile that installs builds on top of the [jupyter/minimal-notebook:latest](https://hub.docker.com/r/jupyter/minimal-notebook/) image and installs Bodo version ``2021.9`` and IPyParallel.
+
+## Build Image with
+
+```bash
+docker build --file BodoNotebook.Dockerfile --tag bodo-notebook:latest .
+```
+
+## Run using
+
+To start a JupyterLab server, run:
+
+```bash
+docker run -p 8888:8888 bodo-notebook:latest
+```
+
+You can also mount this repository to your container using:
+
+```bash
+docker run -p 8888:8888 -v $(cd ..; pwd):/home/jovyan/work bodo-notebook:latest
+```
+
+See [this notebook](../Bodo+IPyParallel-Starter-Code.ipynb) for an example of how to use IPyParallel to run Bodo code on multiple cores from your notebook.

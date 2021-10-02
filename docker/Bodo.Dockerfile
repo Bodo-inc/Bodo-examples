@@ -10,5 +10,5 @@ ENV PATH /root/miniconda3/bin/:${PATH}
 
 RUN conda install -y python=3.9 bodo=2021.9 -c bodo.ai -c conda-forge
 
-# Might be useful for long running containers
+# Useful for long running containers
 RUN echo "export PATH=/root/miniconda3/bin/:$PATH" >> ~/.bashrc
