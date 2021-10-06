@@ -40,7 +40,7 @@ Generate 1TB data and upload to S3 bucket:
 
 NOTES:
 
-- Script assumes `tpch-dbgen` is in the same directory. If you downloaded it in another location, make sure to update `tpch_dbgen_location` in the script with new location.
+This script assumes `tpch-dbgen` is in the same directory. If you downloaded it at another location, make sure to update `tpch_dbgen_location` in the script with the new location.
 
 - If using S3 bucket, install `s3fs` and add your AWS credentials.
 
