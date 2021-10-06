@@ -83,7 +83,7 @@ Here, we show the instructions for using PySpark with an EMR cluster.
 
 For other cluster configurations, please follow corresponding vendor's instructions.
 
-Follow steps outlined in "Launch an Amazon EMR cluster" section  of [AWS guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-gs-launch-sample-cluster.html)
+Follow the steps outlined in the "Launch an Amazon EMR cluster" section of the [AWS guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-gs-launch-sample-cluster.html)
 
 In **Software configuration** step, make sure `Hadoop`, `Hive`, `JupyterEnterpriseGateway`, and `Spark` are selected.
 
