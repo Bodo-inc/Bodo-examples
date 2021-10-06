@@ -1,6 +1,6 @@
 # TPC-H Queries 
 
-TPC-H is a benchmark for business oriented ad-hoc queries that is used to simulate real questions and is usually used to benchmark performance of database tools for answering them.
+TPC-H is a benchmark suite for business-oriented ad-hoc queries that are used to simulate real questions and is usually used to benchmark the performance of database tools for answering them.
 
 More information can be found [here](http://www.tpc.org/tpch/)
 
