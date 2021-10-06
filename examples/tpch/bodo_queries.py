@@ -98,7 +98,7 @@ def load_nation(data_folder):
 
 
 # Region is a very small file so set it to replicated
-@bodo.jit(returns_maybe_distributed=False)
+@bodo.jit(distributed=False)
 def load_region(data_folder):
     data_path = data_folder + "/region.pq"
     df = pd.read_parquet(
