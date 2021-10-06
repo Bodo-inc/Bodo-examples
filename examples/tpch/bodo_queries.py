@@ -88,7 +88,7 @@ def load_customer(data_folder):
 
 
 # Nation is a very small file so set it to replicated
-@bodo.jit(returns_maybe_distributed=False)
+@bodo.jit(distributed=False)
 def load_nation(data_folder):
     data_path = data_folder + "/nation.pq"
     df = pd.read_parquet(
