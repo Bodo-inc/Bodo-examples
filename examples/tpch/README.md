@@ -85,7 +85,7 @@ For other cluster configurations, please follow corresponding vendor's instructi
 
 Follow the steps outlined in the "Launch an Amazon EMR cluster" section of the [AWS guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-gs-launch-sample-cluster.html)
 
-In **Software configuration** step, make sure `Hadoop`, `Hive`, `JupyterEnterpriseGateway`, and `Spark` are selected.
+In the **Software configuration** step, select `Hadoop`, `Hive`, `JupyterEnterpriseGateway`, and `Spark`.
 
 In **Cluster Nodes and Instances** step, choose same instance type for both master and workers. Don't create any task instances. 
 
