@@ -79,7 +79,7 @@ Run with 288 cores on S3 bucket data
 
 ### Installation
 
-Here, we show instructions for using PySpark with EMR cluster. 
+Here, we show the instructions for using PySpark with an EMR cluster. 
 
 For other cluster configurations, please follow corresponding vendor's instructions.
 
