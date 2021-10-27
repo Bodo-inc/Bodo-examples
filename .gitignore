@@ -19,3 +19,11 @@ data/tpch-datagen/tpch-dbgen
 # logs
 algebra.log
 
+# tfstate
+*.tfstate*
+
+# tflock
+*.terraform.lock*
+
+# tf md
+*.terraform*
