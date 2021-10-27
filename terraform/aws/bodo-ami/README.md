@@ -29,7 +29,7 @@
                     "packer_run_uuid": "<SOME_UUID>",
                     "custom_data": {
                         "bodo_version": "2021.9"
-                }
+                    }
                 }
             ],
             "last_run_uuid": "<SOME_UUID>"
