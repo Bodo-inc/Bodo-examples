@@ -27,3 +27,6 @@ algebra.log
 
 # tf md
 *.terraform*
+
+# AMI Build Manifest
+ami_build_manifest.json
