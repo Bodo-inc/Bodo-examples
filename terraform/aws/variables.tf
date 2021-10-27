@@ -7,20 +7,20 @@ variable "EFA_ENABLED" {
 
 # Default region for whole cluster
 variable "AWS_DEFAULT_REGION" {
-    type    = string
-    default = "us-east-1"
+  type    = string
+  default = "us-east-1"
 }
 
 # Number of member instances to provision.
 variable "CLUSTER_MEMBERS_COUNT" {
-    type    = number
-    default = 2
+  type    = number
+  default = 2
 }
 
 # Instance type for MPI cluster.
 variable "CLUSTER_INSTANCE_TYPE" {
-    type    = string
-    default = "c5n.xlarge"
+  type    = string
+  default = "c5n.xlarge"
 }
 
 # IP to allow SSH from

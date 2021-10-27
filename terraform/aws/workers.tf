@@ -20,8 +20,8 @@ data "template_file" "userdata_worker" {
   template = file("templates/userdata_worker.sh.tpl")
 
   vars = {
-    SSH_PUBLIC_KEY     = tls_private_key.ssh_key.public_key_openssh
-    SSH_PRIVATE_KEY    = tls_private_key.ssh_key.private_key_pem
+    SSH_PUBLIC_KEY  = tls_private_key.ssh_key.public_key_openssh
+    SSH_PRIVATE_KEY = tls_private_key.ssh_key.private_key_pem
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_launch_template" "bodo_worker_template" {
   placement {
     group_name = aws_placement_group.bodo.id
   }
-  
+
   network_interfaces {
     subnet_id       = data.aws_subnet.bodo_worker_subnet.id
     security_groups = [aws_security_group.worker.id]
@@ -59,18 +59,18 @@ resource "aws_launch_template" "bodo_worker_template" {
     resource_type = "instance"
     tags = merge(local.default_tags,
       {
-        Name        = "bodo-worker",
-        Role        = "worker",
-        EFA         = var.EFA_ENABLED,
+        Name = "bodo-worker",
+        Role = "worker",
+        EFA  = var.EFA_ENABLED,
       },
     )
   }
 
   tags = merge(local.default_tags,
     {
-      Name        = "bodo-worker",
-      Role        = "worker",
-      EFA         = var.EFA_ENABLED,
+      Name = "bodo-worker",
+      Role = "worker",
+      EFA  = var.EFA_ENABLED,
     },
   )
 }
@@ -78,12 +78,12 @@ resource "aws_launch_template" "bodo_worker_template" {
 # Worker Instances
 
 resource "aws_instance" "worker" {
-    count           = var.CLUSTER_MEMBERS_COUNT
-    placement_group = aws_placement_group.bodo.name
-    launch_template {
-      id      = aws_launch_template.bodo_worker_template.id
-      version = "$Latest"
-    }
+  count           = var.CLUSTER_MEMBERS_COUNT
+  placement_group = aws_placement_group.bodo.name
+  launch_template {
+    id      = aws_launch_template.bodo_worker_template.id
+    version = "$Latest"
+  }
 }
 
 

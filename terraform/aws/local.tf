@@ -1,6 +1,6 @@
 
-locals {    
-    default_tags = {
-        environment = "Bodo Example"
-    }
+locals {
+  default_tags = {
+    environment = "Bodo Example"
+  }
 }
