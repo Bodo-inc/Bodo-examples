@@ -44,7 +44,6 @@ resource "aws_launch_template" "bodo_worker_template" {
   network_interfaces {
     subnet_id       = data.aws_subnet.bodo_worker_subnet.id
     security_groups = [aws_security_group.worker.id]
-    interface_type  = var.EFA_ENABLED ? "efa" : null
   }
 
   block_device_mappings {
@@ -61,7 +60,6 @@ resource "aws_launch_template" "bodo_worker_template" {
       {
         Name = "bodo-worker",
         Role = "worker",
-        EFA  = var.EFA_ENABLED,
       },
     )
   }
@@ -70,7 +68,6 @@ resource "aws_launch_template" "bodo_worker_template" {
     {
       Name = "bodo-worker",
       Role = "worker",
-      EFA  = var.EFA_ENABLED,
     },
   )
 }

@@ -1,10 +1,3 @@
-
-# Enable/disbale EFA support.
-variable "EFA_ENABLED" {
-  type    = string
-  default = "false"
-}
-
 # Default region for whole cluster
 variable "AWS_DEFAULT_REGION" {
   type    = string
