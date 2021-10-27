@@ -1,4 +1,3 @@
-
 # Create a Bodo AMI
 
 1. We will be using [Packer](https://www.packer.io) to build our AMI. [Install Packer](https://www.packer.io/downloads).

@@ -1,4 +1,3 @@
-
 # Spin up a cluster on AWS for Bodo using Terraform
 
 1. [Install Terraform](https://www.terraform.io/downloads.html).
@@ -52,6 +51,3 @@
 1. To delete the cluster, run:
 
         ./bodo_cluster.sh destroy
-
-
-

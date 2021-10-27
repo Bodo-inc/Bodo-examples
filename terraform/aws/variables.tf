@@ -31,6 +31,3 @@ variable "VPC_ID" {
 # Subnet to deploy in
 variable "CLUSTER_SUBNET_ID" {
 }
-
-
-

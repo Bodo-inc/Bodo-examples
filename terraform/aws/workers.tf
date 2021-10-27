@@ -1,5 +1,3 @@
-
-
 # placement group for cluster workers
 resource "aws_placement_group" "bodo" {
   name     = "bodo-placement-group"
