@@ -32,11 +32,6 @@ resource "aws_launch_template" "bodo_worker_template" {
   instance_type = var.CLUSTER_INSTANCE_TYPE
   user_data     = base64encode(data.template_file.userdata_worker.rendered)
 
-  # TODO
-  # iam_instance_profile {
-  #  name = aws_iam_instance_profile.cluster.name
-  # }
-
   placement {
     group_name = aws_placement_group.bodo.id
   }
