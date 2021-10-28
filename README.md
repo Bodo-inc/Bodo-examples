@@ -4,7 +4,7 @@ Welcome to Bodo examples!
 
 ## Install required packages
 
-First make sure you have Bodo [installed](http://docs.bodo.ai/latest/source/install.html).
+First make sure you have Bodo [installed](https://docs.bodo.ai/latest/source/installation_and_setup/index.html).
 
 Other packages that are required to run the data generation scripts, `pandas_datareader` and `scikit-learn`:
 	
@@ -24,19 +24,7 @@ For more information on data generation and examples, please see the docstring a
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/kde_datagen.py)
 - [Intraday Mean](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/intraday_mean.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/stock_data_read.py)
-- [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/): 
-Query #[1](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q01.py),
-[3](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q03.py),
-[4](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q04.py),
-[5](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q05.py),
-[6](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q06.py),
-[9](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q09.py),
-[10](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q10.py),
-[12](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q12.py), 
-[14](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q14.py), 
-[18](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q18.py), 
-[19](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q19.py), 
-[20](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q20.py).
+- [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
   - data generation: generated data will be available at `data/tpch-datagen/data`:
 
 		# To generate data with a scale of 1, equivalent to 1GB of data
@@ -91,21 +79,7 @@ An example performing linear regression:
 	# run example on 4 cores
 	mpiexec -n 4 python examples/linear_regression.py
 
-_________________________
 
-## BodoSQL examples
-
-BodoSQL is in beta stage and not available to the public yet. [Contact us](https://bodo.ai/contact/) for information about trial access.
-
-
-BodoSQL examples include TPCH queries Q3, Q5, Q6 and Q10.
-
-
- [BodoSQL example TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch) : 
-Query #[3](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q03_bodosql.py),
-[5](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q05.py),
-[6](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q06_bodosql.py),
-[10](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch/q10.py)
 ---------------------------
 More documentation can be found at http://docs.bodo.ai.
 
