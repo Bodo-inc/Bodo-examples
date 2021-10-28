@@ -110,7 +110,7 @@ conda install dask-mpi -c conda-forge
 Spawn the scheduler using dask-mpi following the examples [here](https://mpi.dask.org/en/latest/) and more details [here](https://docs.dask.org/en/latest/how-to/deploy-dask/hpc.html).
 
 Note: 
-1. Because Dash scheduler takes up one process, we opted to spawn one extra process than the total number of physical cores to get the same number of cores used for computation. 
+1. Because Dask scheduler takes up one process, we opted to spawn one extra process than the total number of physical cores to get the same number of cores used for computation. 
 2. We found the optimal number of threads correspond to the number of vCPU each core has. 
 3. When running with mpi processes, --no-nanny is required to prevent forking other processes. see here for more detail.
 
