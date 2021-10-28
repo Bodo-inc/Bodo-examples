@@ -99,8 +99,10 @@ Attach [pyspark\_notebook.ipynb](./pyspark_notebook.ipynb) to your EMR cluster f
 
 To install dask, dask.distributed and dask-mpi, run
 
+```
 conda install dask -c conda-forge
 conda install dask-mpi -c conda-forge
+```
 
 ### Spawn the scheduler
 
