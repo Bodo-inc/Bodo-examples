@@ -4,7 +4,7 @@ Welcome to Bodo examples!
 
 ## Install required packages
 
-First make sure you have Bodo [installed](http://docs.bodo.ai/latest/source/install.html).
+First make sure you have Bodo [installed](https://docs.bodo.ai/latest/source/installation_and_setup/index.html).
 
 Other packages that are required to run the data generation scripts, `pandas_datareader` and `scikit-learn`:
 	
