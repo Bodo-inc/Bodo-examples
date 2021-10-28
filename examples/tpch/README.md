@@ -134,5 +134,22 @@ Using data from S3
 
 `python dask_queries.py --folder s3://[bucket-name]/SF100 --scheduler-file [Path]/scheduler.json --worker 288`
  
+ 
+## Ray
+
+### Installation
+
+Make a new conda environment
+
+```
+- pip install -U "ray[default]"
+- pip install "modin[all]"
+- pip install s3fs
+```
+### Running queries
+
+Update the path with your data path in the `main()` function and add your AWS credentials to `ray_queries.py` script. 
+
+Run the script with `python ray_queries.py` on single node. 
 
 
