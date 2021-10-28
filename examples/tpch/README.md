@@ -124,7 +124,7 @@ Creating a 288 cores cluster
 
 ### Running queries
 
-Create a new terminal, then run the following commands. Note that mpiexec is not needed here as the distribution is handled by creating a client that connects to the scheduler file.
+Create a new terminal, then run the following commands.
 
 Using data from local
 
