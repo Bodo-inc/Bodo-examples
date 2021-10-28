@@ -93,3 +93,11 @@ In the **Cluster Nodes and Instances** step, choose the same instance type for b
 
 Attach [pyspark\_notebook.ipynb](./pyspark_notebook.ipynb) to your EMR cluster following the examples in the [AWS documentation](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-create.html)
 
+## Dask
+
+### 
+
+
+
+
+
