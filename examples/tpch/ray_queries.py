@@ -1,7 +1,19 @@
+"""
+This code is adapted from 
+https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/tpch/bodo_queries.py
+
+The differences are in:
+1. Query 1 : double square brackets is required in gb = lineitem_filtered.groupby()
+2. Query 8 : total.groupby("O_YEAR", as_index = False).apply(udf) --> total.groupby("O_YEAR").apply(udf).reset_index()
+
+"""
+
 import ray
 import modin.pandas as pd
 import time
 ray.init()
+
+
 
 
 def run_queries(data_folder):
@@ -728,13 +740,6 @@ def q21(lineitem, orders, supplier, nation):
     t1 = time.time()
     lineitem_filtered = lineitem.loc[:, ["L_ORDERKEY", "L_SUPPKEY", "L_RECEIPTDATE", "L_COMMITDATE"]]
 
-    # Handling the exists/not-exists clauses are a bit complicated because the most
-    # straightforward approach, df.apply, would require the input df the be replicated.
-    # Instead we look at the following logic:
-    # Exists ->  Keep all rows that have another row in linetiem with the same orderkey and different suppkey
-    # Filter -> Keep all rows that have l_receiptdate > l_commitdate
-    # Not Exists ->  Keep all rows that no longer have a row with the same orderkey and different suppkey in the filtered output.
-
     # Exists
     lineitem_orderkeys = lineitem_filtered.loc[:, ["L_ORDERKEY", "L_SUPPKEY"]].groupby("L_ORDERKEY", as_index=False)["L_SUPPKEY"].nunique()
     lineitem_orderkeys.columns = ["L_ORDERKEY", "nunique_col"]
@@ -803,7 +808,7 @@ def q22(customer, orders):
 
 
 def main():
-    path = "s3://tpch-data-parquet/SF10"
+    path = "/path/to/SF10"
     run_queries(path)
 
 if __name__ == "__main__":
