@@ -95,9 +95,42 @@ Attach [pyspark\_notebook.ipynb](./pyspark_notebook.ipynb) to your EMR cluster f
 
 ## Dask
 
-### 
+### Installation
+
+To install dask, dask.distributed and dask-mpi, run
+
+conda install dask -c conda-forge
+conda install dask-mpi -c conda-forge
+
+### Spawn the scheduler
 
 
+Spawn the scheduler using dask-mpi following the examples [here](https://mpi.dask.org/en/latest/) and more details [here](https://docs.dask.org/en/latest/how-to/deploy-dask/hpc.html).
 
+Note: 
+1. Because Dash scheduler takes up one process, we opted to spawn one extra process than the total number of physical cores to get the same number of cores used for computation. 
+2. We found the optimal number of threads correspond to the number of vCPU each core has. 
+3. When running with mpi processes, --no-nanny is required to prevent forking other processes. see here for more detail.
+
+Creating a 8 cores cluster on local machine
+
+`mpiexec -n 9 dask-mpi --scheduler-file [Path]/scheduler.json --no-nanny --nthreads 2`
+
+Creating a 288 cores cluster 
+
+`mpiexec -n 289 -f [Path]/machinefile dask-mpi --scheduler-file [Path]/scheduler.json --no-nanny --nthreads 2`
+
+### Running queries
+
+Create a new terminal, then run the following commands. Note that mpiexec is not needed here as the distribution is handled by creating a client that connects to the scheduler file.
+
+Using data from local
+
+`python dask_queries.py --folder SF1 --scheduler-file [Path]/scheduler.json --worker 8`
+
+Using data from S3
+
+`python dask_queries.py --folder s3://[bucket-name]/SF100 --scheduler-file [Path]/scheduler.json --worker 288`
+ 
 
 
