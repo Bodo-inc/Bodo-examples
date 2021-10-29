@@ -10,7 +10,7 @@
 
 1. The provided terraform module takes the following variables:
 
-    a. ``AMI_ID`` (required): See step 1.
+    a. ``AMI_ID`` (required): See step 2.
     
     b. ``VPC_ID`` (required): ID of the VPC you want to deploy the cluster in. You can find this value in your AWS VPC Console. Each AWS account comes with a default VPC.
     
