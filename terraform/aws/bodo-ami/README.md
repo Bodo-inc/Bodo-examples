@@ -34,4 +34,5 @@
             ],
             "last_run_uuid": "<SOME_UUID>"
         }
- 
+    
+    (The AMI-ID is in ``artifact_id``).

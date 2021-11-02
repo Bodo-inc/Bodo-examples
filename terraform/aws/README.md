@@ -6,8 +6,6 @@
 
 1. Set up your AWS credentials. We recommend doing this through [environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html), but other methods should also work.
 
-1. We recommend using a script like [``bodo_cluster.sh``](./bodo_cluster.sh) to define variables and run terraform.
-
 1. The provided terraform module takes the following variables:
 
     a. ``AMI_ID`` (required): See step 2.
@@ -24,7 +22,7 @@
 
     g. ``CLUSTER_INSTANCE_TYPE`` (optional): Instance type. See [this](https://aws.amazon.com/ec2/instance-types/) for a full list. Default: ``c5n.xlarge``.
 
-    Define the variables in [``bodo_cluster.sh``](./bodo_cluster.sh).
+    We recommend using a script like [``bodo_cluster.sh``](./bodo_cluster.sh) to define these variables and run terraform.
 
 1. Do a dry-run using:
 
