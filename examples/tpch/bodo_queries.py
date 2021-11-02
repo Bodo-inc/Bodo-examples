@@ -668,7 +668,6 @@ def q16(part, partsupp, supplier):
         "Customer(\S|\s)*Complaints")]
     supplier_filtered = supplier_filtered.loc[:, [
         "S_SUPPKEY"]].drop_duplicates()
-    #HA: do we need this comment?
     # left merge to select only PS_SUPPKEY values not in supplier_filtered
     total = total.merge(supplier_filtered, left_on="PS_SUPPKEY",
                         right_on="S_SUPPKEY", how="left")
@@ -924,7 +923,6 @@ def q22(customer, orders):
         "13", "31", "23", "29", "30", "18", "17"])]
     avg_value = customer_filtered["C_ACCTBAL"].mean()
     customer_filtered = customer_filtered[customer_filtered["C_ACCTBAL"] > avg_value]
-    # HA: do we need this comment?
     # Select only the keys that don't match by performing a left join and only selecting columns with an na value
     orders_filtered = orders.loc[:, ["O_CUSTKEY"]].drop_duplicates()
     customer_keys = customer_filtered.loc[:, ["C_CUSTKEY"]].drop_duplicates()
