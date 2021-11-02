@@ -22,7 +22,7 @@
 
     g. ``CLUSTER_INSTANCE_TYPE`` (optional): Instance type. See [this](https://aws.amazon.com/ec2/instance-types/) for a full list. Default: ``c5n.xlarge``.
 
-    We recommend using a script like [``bodo_cluster.sh``](./bodo_cluster.sh) to define these variables and run terraform.
+    We recommend using a script like [``bodo_cluster.sh``](./bodo_cluster.sh) to define these variables.
 
 1. Do a dry-run using:
 
