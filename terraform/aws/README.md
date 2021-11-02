@@ -36,6 +36,7 @@
 
     This will create the cluster and then output the public IPs of the created EC2 instances. 
     The SSH private key for the cluster will be written to ``bodo_cluster_ssh.pem``.
+    The EC2 instances and other resources that were provisioned should be visible on your [AWS Management console](https://aws.amazon.com/console/).
     
 1. Log into one of the EC2 instances of the cluster:
 
