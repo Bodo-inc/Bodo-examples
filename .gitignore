@@ -19,3 +19,14 @@ data/tpch-datagen/tpch-dbgen
 # logs
 algebra.log
 
+# tfstate
+*.tfstate*
+
+# tflock
+*.terraform.lock*
+
+# tf md
+*.terraform*
+
+# AMI Build Manifest
+ami_build_manifest.json
