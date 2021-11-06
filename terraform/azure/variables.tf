@@ -16,6 +16,12 @@ variable "CLUSTER_INSTANCE_TYPE" {
   default = "Standard_D4as_v4"
 }
 
+# Depends on the instance type. The default Standard_D4as_v4 supports it.
+variable "ENABLE_ACCELERATED_NETWORKING" {
+  type    = string
+  default = "true"
+}
+
 # Azure Subscription ID
 variable "AZ_SUBSCRIPTION_ID" {
   type = string

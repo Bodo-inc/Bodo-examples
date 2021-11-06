@@ -10,6 +10,7 @@ export TF_VAR_USER_IP=$(curl -s ifconfig.me)
 # export TF_VAR_LOCATION=
 # export TF_VAR_CLUSTER_MEMBERS_COUNT=
 # export TF_VAR_CLUSTER_INSTANCE_TYPE=
+# export TF_VAR_ENABLE_ACCELERATED_NETWORKING=
 
 
 ACTION=${1:-plan}

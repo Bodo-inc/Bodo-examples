@@ -16,13 +16,15 @@
     
     b. ``IMAGE_ID`` (required): See step 2.
     
-    d. ``USER_IP`` (optional): Your IP address. When provided a security group rule allowing SSH access from this IP to the cluster instances is created. If using [``bodo_cluster.sh``](./bodo_cluster.sh), this is automatically set as the IP of the machine the script is being run on.
+    c. ``USER_IP`` (optional): Your IP address. When provided a security group rule allowing SSH access from this IP to the cluster instances is created. If using [``bodo_cluster.sh``](./bodo_cluster.sh), this is automatically set as the IP of the machine the script is being run on.
 
-    e. ``LOCATION`` (optional): The region to deploy the cluster in. Default: ``eastus``.
+    d. ``LOCATION`` (optional): The region to deploy the cluster in. Default: ``eastus``.
 
-    f. ``CLUSTER_MEMBERS_COUNT`` (optional): Number of instances in the cluster. Default: 2.
+    e. ``CLUSTER_MEMBERS_COUNT`` (optional): Number of instances in the cluster. Default: 2.
 
-    g. ``CLUSTER_INSTANCE_TYPE`` (optional): Instance type. See [this](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes) for a full list. Default: ``Standard_D4as_v4``.
+    f. ``CLUSTER_INSTANCE_TYPE`` (optional): Instance type. See [this](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes) for a full list. Default: ``Standard_D4as_v4``.
+
+    g. ``ENABLE_ACCELERATED_NETWORKING`` (optional): Type of NIC available on certain instance types. Read more about it [here](https://docs.microsoft.com/en-us/azure/virtual-network/create-vm-accelerated-networking-cli). ``Standard_D4as_v4`` does support it.  Default: ``true``.
 
     The provided [``bodo_cluster.sh``](./bodo_cluster.sh) script is a wrapper around some common terraform commands we'll use to manage our deployment. Set the above variables in this script.
 

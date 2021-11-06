@@ -33,12 +33,10 @@ resource "azurerm_public_ip" "bodo-cluster-public-ip" {
 resource "azurerm_network_interface" "bodo-cluster-nic" {
   count = var.CLUSTER_MEMBERS_COUNT
 
-  name                = "bodoClusterNIC_${count.index}"
-  location            = var.LOCATION
-  resource_group_name = azurerm_resource_group.bodo_resource_group.name
-
-  # Depends on the instance type. The default Standard_D4as_v4 supports it.
-  enable_accelerated_networking = true
+  name                          = "bodoClusterNIC_${count.index}"
+  location                      = var.LOCATION
+  resource_group_name           = azurerm_resource_group.bodo_resource_group.name
+  enable_accelerated_networking = var.ENABLE_ACCELERATED_NETWORKING
 
   ip_configuration {
     name                          = "bodoClusterNicConfiguration_${count.index}"

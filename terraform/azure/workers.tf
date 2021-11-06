@@ -41,7 +41,6 @@ data "template_file" "vm-user-data" {
 }
 
 
-
 # cluster VMs
 resource "azurerm_linux_virtual_machine" "bodo-cluster-vm" {
   count = var.CLUSTER_MEMBERS_COUNT
