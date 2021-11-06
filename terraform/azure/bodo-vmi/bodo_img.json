@@ -1,18 +1,23 @@
 {
     "variables": {
-        "bodo_version": "2021.10"
+        "bodo_version": "2021.10",
+        "azure_subscription_id": "dummyValue",
+        "az_image_resource_group_name": "BodoExampleImageRG"
     },
     "builders": [
         {
-            "name": "AWS AMI Builder Bodo",
-            "type": "amazon-ebs",
-            "region": "us-east-1",
-            "source_ami": "ami-0885b1f6bd170450c",
-            "instance_type": "t3a.medium",
+            "name": "Azure Arm Builder Bodo",
+            "type": "azure-arm",
+            "location": "eastus",
+            "os_type": "Linux",
+            "image_publisher": "Canonical",
+            "image_offer": "UbuntuServer",
+            "image_sku": "18.04-LTS",
+            "vm_size": "Standard_D4as_v4",
             "ssh_username": "ubuntu",
-            "ami_name": "BODO_AMI",
-            "ami_description": "Bodo Example AMI",
-            "associate_public_ip_address": "true"
+            "managed_image_name": "Bodo_VMI",
+            "managed_image_resource_group_name": "{{user `az_image_resource_group_name`}}",
+            "subscription_id": "{{user `azure_subscription_id`}}"
         }
     ],
     "provisioners": [
@@ -35,7 +40,7 @@
     "post-processors": [
         {
             "type": "manifest",
-            "output": "ami_build_manifest.json",
+            "output": "vmi_build_manifest.json",
             "strip_path": true,
             "custom_data": {
                 "bodo_version": "{{user `bodo_version`}}"
