@@ -1,6 +1,6 @@
 # Create a Bodo VMI
 
-1. We will be using [Packer](https://www.packer.io) to build our AMI. [Install Packer](https://www.packer.io/downloads).
+1. We will be using [Packer](https://www.packer.io) to build our VMI. [Install Packer](https://www.packer.io/downloads).
 
 1. [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) if it's not already installed. 
 
