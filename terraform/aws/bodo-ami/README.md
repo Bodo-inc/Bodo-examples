@@ -14,7 +14,7 @@
 
     NOTE: ``-force`` replaces existing images with same name.
     
-    NOTE: The template installs ``bodo==2021.9`` by default. You can install a different version by specifying ``-var 'bodo_version=<BODO_VERSION>'``, for instance, ``-var 'bodo_version=2021.8'``
+    NOTE: The template installs ``bodo==2021.10`` by default. You can install a different version by specifying ``-var 'bodo_version=<BODO_VERSION>'``, for instance, ``-var 'bodo_version=2021.8'``
 
 1. If successful, packer should output the AMI-ID of the created image. It should also output a manifest file ``ami_build_manifest.json`` which shoud look like:
 
@@ -28,7 +28,7 @@
                     "artifact_id": "us-east-1:<AMI_ID>",
                     "packer_run_uuid": "<SOME_UUID>",
                     "custom_data": {
-                        "bodo_version": "2021.9"
+                        "bodo_version": "2021.10"
                     }
                 }
             ],
