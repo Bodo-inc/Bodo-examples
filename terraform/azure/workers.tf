@@ -28,7 +28,7 @@ resource "tls_private_key" "ssh-key" {
   rsa_bits  = 4096
 }
 
-# TODO
+
 # bootstrap script for worker instances (ssh keys, ...)
 data "template_file" "vm-user-data" {
   template = file("templates/userdata_worker.sh.tpl")
