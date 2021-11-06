@@ -29,6 +29,7 @@ variable "AZ_SUBSCRIPTION_ID" {
 
 # IP to allow SSH from
 variable "USER_IP" {
+  default = ""
 }
 
 # Image to use
