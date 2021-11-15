@@ -4,8 +4,8 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - bodo=2021.10
-  - ipyparallel=7.1.0
+  - bodo=2021.10.1
+  - ipyparallel=8.0.0
   - jupyterlab=3
   - python=3.9
   - pandas-datareader
