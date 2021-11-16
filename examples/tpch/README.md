@@ -1,4 +1,4 @@
-# TPC-H Queries 
+# TPC-H Queries
 
 TPC-H is a benchmark suite for business-oriented ad-hoc queries that are used to simulate real questions and is usually used to benchmark the performance of database tools for answering them.
 
@@ -17,7 +17,6 @@ More information can be found [here](http://www.tpc.org/tpch/)
 
 ### 2. Generate Data
 
-
 Usage
 
 ```
@@ -28,13 +27,14 @@ usage: python generate_data_pq.py [-h] --folder FOLDER [--SF N] [--validate_data
     SF N: data size number in GB (Default 1)
     validate_dataset: Validate each parquet dataset with pyarrow.parquet.ParquetDataset (Default True)
 ```
+
 Example:
 
-Generate 1GB data locally: 
+Generate 1GB data locally:
 
 `python generate_data_pq.py --SF 1 --folder SF1`
 
-Generate 1TB data and upload to S3 bucket: 
+Generate 1TB data and upload to S3 bucket:
 
 `python generate_data_pq.py --SF 1000 --folder s3://bucket-name/`
 
@@ -44,16 +44,17 @@ This script assumes `tpch-dbgen` is in the same directory. If you downloaded it 
 
 - If using S3 bucket, install `s3fs` and add your AWS credentials.
 
-
 ## Bodo
 
 ### Installation
 
 Follow the intstructions [here](https://docs.bodo.ai/latest/source/installation_and_setup/index.html).
 
+For best performance we also recommend using Intel-MPI and EFA Network Interfaces (on AWS) as described [here](https://docs.bodo.ai/latest/source/installation_and_setup/recommended_tools.html#).
+
 ### Running queries
 
-To run the Bodo queries, we used Intel-MPI and EFA as described [here](https://docs.bodo.ai/latest/source/installation_and_setup/recommended_tools.html#)
+Use
 
 `mpiexec -n N python bodo_queries.py --folder folder_path`
 
@@ -65,6 +66,7 @@ arguments:
   --folder FOLDER  The folder containing TPCH data
 
 ```
+
 Example:
 
 Run with 4 cores on a local data
@@ -79,7 +81,7 @@ Run with 288 cores on S3 bucket data
 
 ### Installation
 
-Here, we show the instructions for using PySpark with an EMR cluster. 
+Here, we show the instructions for using PySpark with an EMR cluster.
 
 For other cluster configurations, please follow corresponding vendor's instructions.
 
@@ -87,11 +89,11 @@ Follow the steps outlined in the "Launch an Amazon EMR cluster" section of the [
 
 In the **Software configuration** step, select `Hadoop`, `Hive`, `JupyterEnterpriseGateway`, and `Spark`.
 
-In the **Cluster Nodes and Instances** step, choose the same instance type for both master and workers. Don't create any task instances. 
+In the **Cluster Nodes and Instances** step, choose the same instance type for both master and workers. Don't create any task instances.
 
 ### Running queries
 
-Attach [pyspark\_notebook.ipynb](./pyspark_notebook.ipynb) to your EMR cluster following the examples in the [AWS documentation](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-create.html)
+Attach [pyspark_notebook.ipynb](./pyspark_notebook.ipynb) to your EMR cluster following the examples in the [AWS documentation](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-create.html)
 
 ## Dask
 
@@ -106,19 +108,19 @@ conda install dask-mpi -c conda-forge
 
 ### Spawn the scheduler
 
-
 Spawn the scheduler using dask-mpi following the examples [here](https://mpi.dask.org/en/latest/).
 
-Note: 
-1. Because Dask scheduler takes up one process, we opted to spawn one extra process than the total number of physical cores to get the same number of cores used for computation. 
-2. We found the optimal number of threads correspond to the number of vCPU each core has. 
+Note:
+
+1. Because Dask scheduler takes up one process, we opted to spawn one extra process than the total number of physical cores to get the same number of cores used for computation.
+2. We found the optimal number of threads correspond to the number of vCPU each core has.
 3. When running with mpi processes, --no-nanny is required to prevent forking other processes. see [here](https://docs.dask.org/en/latest/how-to/deploy-dask/hpc.html) for more detail.
 
 Creating a 8 cores cluster on local machine
 
 `mpiexec -n 9 dask-mpi --scheduler-file [Path]/scheduler.json --no-nanny --nthreads 2`
 
-Creating a 288 cores cluster 
+Creating a 288 cores cluster
 
 `mpiexec -n 289 -f [Path]/machinefile dask-mpi --scheduler-file [Path]/scheduler.json --no-nanny --nthreads 2`
 
@@ -133,8 +135,7 @@ Using data from local
 Using data from S3
 
 `python dask_queries.py --folder s3://[bucket-name]/SF100 --scheduler-file [Path]/scheduler.json --worker 288`
- 
- 
+
 ## Ray
 
 ### Installation
@@ -146,10 +147,9 @@ Make a new conda environment
 - pip install "modin[all]"
 - pip install s3fs
 ```
+
 ### Running queries
 
-Update the path with your data path in the `main()` function and add your AWS credentials to `ray_queries.py` script. 
+Update the path with your data path in the `main()` function and add your AWS credentials to `ray_queries.py` script.
 
-Run the script with `python ray_queries.py` on single node. 
-
-
+Run the script with `python ray_queries.py` on single node.
