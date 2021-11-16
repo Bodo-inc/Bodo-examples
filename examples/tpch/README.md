@@ -53,7 +53,7 @@ Follow the intstructions [here](https://docs.bodo.ai/latest/source/installation_
 
 ### Running queries
 
-Use 
+To run the Bodo queries, we used Intel-MPI and EFA as described [here](https://docs.bodo.ai/latest/source/installation_and_setup/recommended_tools.html#)
 
 `mpiexec -n N python bodo_queries.py --folder folder_path`
 
