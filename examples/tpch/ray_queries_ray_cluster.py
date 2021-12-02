@@ -782,7 +782,7 @@ def q22(customer, orders):
 
 @ray.remote
 def main():
-    path = "s3://tpch-data-parquet/SF10"
+    path = "/path/to/SF10"
     run_queries(path)
 
 
