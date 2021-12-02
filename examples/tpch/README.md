@@ -1,8 +1,11 @@
+This repo contains the code used in our blog on performance comparison of Bodo vs. Spark, Dask, and Ray. Read about our findings [here](https://bodo.ai/blog/performance-and-cost-of-bodo-vs-spark-dask-ray).
+
 # TPC-H Queries
 
 TPC-H is a benchmark suite for business-oriented ad-hoc queries that are used to simulate real questions and is usually used to benchmark the performance of database tools for answering them.
 
 More information can be found [here](http://www.tpc.org/tpch/)
+
 
 ## Generating TPC-H Data in Parquet Format
 
