@@ -171,12 +171,12 @@ To start your cluster run the below command:
 - ray up modin.yaml
 ```
 
-You may terminate your cluster anytime by running the below command:
-```
-- ray down modin.yaml
-```
-
 Once cluster is up, run `ray_queries_ray_cluster.py` script with the following command:
 ```
 - ray submit modin.yaml ray_queries_ray_cluster.py
+```
+
+You may terminate your cluster anytime by running the below command:
+```
+- ray down modin.yaml
 ```
