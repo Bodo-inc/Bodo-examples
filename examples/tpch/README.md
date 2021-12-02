@@ -162,12 +162,12 @@ Run the script with `python ray_queries.py` on single node.
 
 ### Running queries on multi nodes
 
-A multi nodes cluster needs to be configured  with `modin.yaml` file which is available in this folder as an example. You may add your AWS credentials under `setup_commands`. Please update the `InstanceType` under the `node config` and `initial_workers` sections with the cluster type and number of the nodes. For this benchmark we used 16 nodes `c5n.18xlarge` cluster. 
+A multi nodes cluster needs to be configured  with `modin.yaml` file which is available in this folder as an example. Please add your AWS credentials under `setup_commands` and update the `InstanceType` under the `node config` and `initial_workers` sections with the cluster type and number of the nodes. For this benchmark we used 16 nodes `c5n.18xlarge` cluster. 
 To start your cluster run the below command:
 ```
 - ray up modin.yaml
 ```
-The creation of clusters takes some time, track the status of your instances from your EC2 console. You may bring down the cluster any time by terminating directly from your AWS accounts or running the below command or :
+The creation of nodes may take long, track the status of your instances from your EC2 console. You may bring down the cluster any time by terminating directly from your EC2 console or running the below command :
 ```
 - ray down modin.yaml
 ```
@@ -175,8 +175,3 @@ Now, run `ray_queries_ray_cluster.py` script with the below command:
 ```
 - ray submit modin.yaml ray_queries_ray_cluster.py
 ```
-
-
-
-
-
