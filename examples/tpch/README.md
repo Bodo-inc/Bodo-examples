@@ -146,12 +146,12 @@ Using data from S3
 Start with installing Ray in a new conda environment.
 
 ```
-- conda create --name ray
-- conda activate ray
-- pip install -U "ray[default]"
-- pip install "modin[all]"
-- pip install s3fs
-- pip install -U boto3
+conda create --name ray
+conda activate ray
+pip install -U "ray[default]"
+pip install "modin[all]"
+pip install s3fs
+pip install -U boto3
 ```
 
 ### Running queries on single node
@@ -162,7 +162,10 @@ Run the script with `python ray_queries.py` on single node.
 
 ### Running queries on multi nodes
 
-A multi-node cluster needs to be configured with a yaml script which is available in this folder as an example (`modin.yaml`). Please add your AWS credentials under `setup_commands` and update the `InstanceType` under the `node config` and `initial_workers` sections with the cluster type and number of the nodes. For this benchmark we used 16 nodes `c5n.18xlarge` cluster. 
+Update the path with your data path in the `main()` function and add your AWS credentials to `ray_queries_ray_cluster.py` script.
+
+A multi-node cluster needs to be configured with a yaml script which is available in this folder as an example (`modin.yaml`). Please add your AWS credentials under `setup_commands`, please refer to modin documentation for a more complete and up to date tutorial.
+
 To start your cluster run the below command:
 ```
 - ray up modin.yaml
