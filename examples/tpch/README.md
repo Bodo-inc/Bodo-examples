@@ -167,13 +167,17 @@ Update the path with your data path in the `main()` function and add your AWS cr
 A multi-node cluster needs to be configured with a yaml script which is available in this folder as an example (`modin.yaml`). Please add your AWS credentials under `setup_commands`, please refer to modin documentation for a more complete and up to date tutorial.
 
 To start your cluster run the below command:
+
 ```
 - ray up modin.yaml
 ```
+You may terminate your cluster anytime by running the below command:
+
 ```
 - ray down modin.yaml
 ```
 Once cluster is up, run `ray_queries_ray_cluster.py` script with the following command:
+
 ```
 - ray submit modin.yaml ray_queries_ray_cluster.py
 ```
