@@ -171,7 +171,7 @@ The creation of nodes may take long, track the status of your instances from you
 ```
 - ray down modin.yaml
 ```
-Now, run `ray_queries_ray_cluster.py` script with the below command:
+Once cluster is up, run `ray_queries_ray_cluster.py` script with the following command:
 ```
 - ray submit modin.yaml ray_queries_ray_cluster.py
 ```
