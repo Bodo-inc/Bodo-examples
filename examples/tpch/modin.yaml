@@ -3,11 +3,12 @@ cluster_name: tpch
 
 # The maximum number of workers nodes to launch in addition to the head
 # node.
-initial_workers: 4
-max_workers: 4
+initial_workers: 16
+min_workers: 16
+max_workers: 16
 
 # If a node is idle for this many minutes, it will be removed.
-idle_timeout_minutes: 60
+idle_timeout_minutes: 5
 
 # Cloud-provider specific configuration.
 provider:
@@ -29,26 +30,40 @@ auth:
 # configurations below.
 #    ssh_private_key: /path/to/your/key.pem
 
-# Tell the autoscaler the allowed node types and the resources they provide.
-# The key is the name of the node type, which is just for debugging purposes.
-# The node config specifies the launch config and physical instance type.
-available_node_types:
-    ray.head.default:
-        node_config:
-            InstanceType: c5.4xlarge
-    ray.worker.default:
-        # The minimum number of worker nodes of this type to launch.
-        # This number should be >= 0.
-        min_workers: 4
-        # The maximum number of worker nodes of this type to launch.
-        # This takes precedence over min_workers.
-        max_workers: 4
-        node_config:
-            InstanceType: c5.4xlarge
+# Provider-specific config for the head node, e.g. instance type. By default
+# Ray will auto-configure unspecified fields such as SubnetId and KeyName.
+# For more documentation on available fields, see:
+# http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
+head_node:
+    InstanceType: c5n.18xlarge
 
-# Specify the node type of the head node (as configured above).
-head_node_type: ray.head.default
-worker_default_node_type: ray.worker.default
+    # You can provision additional disk space with a conf as follows
+    BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+              VolumeSize: 500
+
+    # Additional options in the boto docs.
+
+# Provider-specific config for worker nodes, e.g. instance type. By default
+# Ray will auto-configure unspecified fields such as SubnetId and KeyName.
+# For more documentation on available fields, see:
+# http://boto3.readthedocs.io/en/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
+worker_nodes:
+    InstanceType: c5n.18xlarge
+
+    BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+              VolumeSize: 500
+    # Run workers on spot by default. Comment this out to use on-demand.
+    # InstanceMarketOptions:
+    # MarketType: spot
+        # Additional options can be found in the boto docs, e.g.
+        #   SpotOptions:
+        #       MaxPrice: MAX_HOURLY_PRICE
+
+    # Additional options in the boto docs.
 
 # Files or directories to copy to the head and worker nodes. The format is a
 # dictionary from REMOTE_PATH: LOCAL_PATH, e.g.
@@ -67,17 +82,6 @@ cluster_synced_files: []
 # should sync to the worker node continuously
 file_mounts_sync_continuously: False
 
-# Patterns for files to exclude when running rsync up or rsync down
-rsync_exclude:
-    - "**/.git"
-    - "**/.git/**"
-
-# Pattern files to use for filtering out files when running rsync up or rsync down. The file is searched for
-# in the source directory and recursively through all subdirectories. For example, if .gitignore is provided
-# as a value, the behavior will match git's behavior for finding and using .gitignore files.
-rsync_filter:
-    - ".gitignore"
-
 # List of commands that will be run before `setup_commands`. If docker is
 # enabled, these commands will run outside the container and before docker
 # is setup.
@@ -88,6 +92,7 @@ setup_commands:
     - pip install -U "ray[default]==1.6.0"
     - pip install "modin[all]==0.11.0"
     - pip install s3fs
+    - pip install "fsspec==0.7.4"
     - echo 'export AWS_ACCESS_KEY_ID="xxx"' >> ~/.bashrc
     - echo 'export AWS_SECRET_ACCESS_KEY="xxx"' >> ~/.bashrc
     - echo 'export AWS_DEFAULT_REGION="us-east-2"' >> ~/.bashrc
@@ -107,12 +112,10 @@ worker_setup_commands: []
 # Command to start ray on the head node. You don't need to change this.
 head_start_ray_commands:
     - ray stop
-    - ray start --head --port=6379 --object-manager-port=8076 --autoscaling-config=~/ray_bootstrap_config.yaml
+    - ulimit -n 65536; ray start --head --port=6379 --object-manager-port=8076 --autoscaling-config=~/ray_bootstrap_config.yaml
 
 # Command to start ray on worker nodes. You don't need to change this.
 worker_start_ray_commands:
     - ray stop
-    - ray start --address=$RAY_HEAD_IP:6379 --object-manager-port=8076
+    - ulimit -n 65536; ray start --address=$RAY_HEAD_IP:6379 --object-manager-port=8076
 
-head_node: {}
-worker_nodes: {}
