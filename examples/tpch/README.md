@@ -167,7 +167,6 @@ To start your cluster run the below command:
 ```
 - ray up modin.yaml
 ```
-The creation of nodes may take long, track the status of your instances from your EC2 console. You may bring down the cluster any time by terminating directly from your EC2 console or running the below command :
 ```
 - ray down modin.yaml
 ```
