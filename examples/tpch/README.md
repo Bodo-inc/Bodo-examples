@@ -139,20 +139,47 @@ Using data from S3
 
 `python dask_queries.py --folder s3://[bucket-name]/SF100 --scheduler-file [Path]/scheduler.json --worker 288`
 
-## Ray
+## Modin on Ray
 
 ### Installation
 
-Make a new conda environment
+Start with installing Ray in a new conda environment.
 
 ```
-- pip install -U "ray[default]"
-- pip install "modin[all]"
-- pip install s3fs
+conda create --name ray
+conda activate ray
+pip install -U "ray[default]"
+pip install "modin[all]"
+pip install s3fs
+pip install -U boto3
 ```
 
-### Running queries
+### Running queries on single node
 
 Update the path with your data path in the `main()` function and add your AWS credentials to `ray_queries.py` script.
 
 Run the script with `python ray_queries.py` on single node.
+
+### Running queries on multi nodes
+
+Update the path with your data path in the `main()` function and add your AWS credentials to `ray_queries_ray_cluster.py` script.
+
+A multi-node cluster needs to be configured with a yaml script which is available in this folder as an example (`modin.yaml`), please refer to [modin documentation](https://modin.readthedocs.io/en/stable/) for a more up to date tutorial. Please add your AWS credentials under `setup_commands` in `modin.yaml` file.
+
+To start your cluster run the below command:
+
+```
+ray up modin.yaml
+```
+
+Once cluster is up, run `ray_queries_ray_cluster.py` script with the following command:
+
+```
+ray submit modin.yaml ray_queries_ray_cluster.py
+```
+
+You may terminate your cluster anytime by running the below command:
+
+```
+ray down modin.yaml
+```
