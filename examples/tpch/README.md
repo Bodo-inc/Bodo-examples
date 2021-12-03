@@ -169,17 +169,17 @@ A multi-node cluster needs to be configured with a yaml script which is availabl
 To start your cluster run the below command:
 
 ```
-- ray up modin.yaml
+ray up modin.yaml
 ```
 
 Once cluster is up, run `ray_queries_ray_cluster.py` script with the following command:
 
 ```
-- ray submit modin.yaml ray_queries_ray_cluster.py
+ray submit modin.yaml ray_queries_ray_cluster.py
 ```
 
 You may terminate your cluster anytime by running the below command:
 
 ```
-- ray down modin.yaml
+ray down modin.yaml
 ```
