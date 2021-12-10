@@ -1,0 +1,34 @@
+apiVersion: kubeflow.org/v2beta1
+kind: MPIJob
+metadata:
+  name: bodo-example
+  namespace: default
+spec:
+  slotsPerWorker: 2
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          containers:
+          - image: bodoaidocker/pi:latest
+            imagePullPolicy: Always
+            name: bodo-example
+            args:
+            - 'mpirun'
+            - '-n'
+            - '8'
+            - 'python'
+            - 'pi.py'
+            
+    Worker:
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - image: bodoaidocker/pi:latest
+            imagePullPolicy: Always
+            name: bodo-example
+  
