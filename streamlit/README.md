@@ -42,7 +42,6 @@ Use the following command to start a set of MPI engines::
     mpiexec -n 4 python -m ipyparallel.engine --mpi --profile-dir ~/.ipython/profile_mpi --cluster-id '' --log-level=DEBUG
 ```
 
-Now you are ready to run the Streamlit App.
 
 #### Run the Streamlit App
 
@@ -54,6 +53,10 @@ Open another terminal and activate the ``stlbodo`` conda environment. Navigate t
 ```
 
 You should now be able to open up the app in a browser window and see the output for yourself.
+Note that it will take roughly
+around one and a half minute for the Pandas output to show up, and including compilation time, and following that, less than a minute for for
+the Bodo output and visualization to show up.
+
 
 ![Pandas vs Bodo execution time](pd_vs_Bodo.png)
 
