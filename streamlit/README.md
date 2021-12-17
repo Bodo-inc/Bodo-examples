@@ -39,7 +39,7 @@ You will need to append the current directory to your PythonPath again.
 Use the following command to start a set of MPI engines::
 
 ```
-    mpiexec -n 8 python -m ipyparallel.engine --mpi --profile-dir ~/.ipython/profile_mpi --cluster-id '' --log-level=DEBUG
+    mpiexec -n 4 python -m ipyparallel.engine --mpi --profile-dir ~/.ipython/profile_mpi --cluster-id '' --log-level=DEBUG
 ```
 
 Now you are ready to run the Streamlit App.
