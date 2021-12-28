@@ -1,4 +1,4 @@
-FROM mpioperator/mpi-pi:intel
+FROM mpioperator/intel:latest
 
 WORKDIR /home/mpiuser
 
