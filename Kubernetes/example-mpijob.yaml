@@ -42,6 +42,4 @@ spec:
                 - -De
                 - -f
                 - /home/mpiuser/.sshd_config
-  
-              
-             
+                
