@@ -3,7 +3,7 @@ kind: MPIJob
 metadata:
   name: pi
 spec:
-  slotsPerWorker: 1
+  slotsPerWorker: 4
   runPolicy:
     cleanPodPolicy: Running
   sshAuthMountPath: /home/mpiuser/.ssh
@@ -14,7 +14,7 @@ spec:
       template:
         spec:
           containers:
-            - image: bodoaidocker/bodo-pi-mpioperator-intel:latest
+            - image: bodoaidocker/pi:latest
               imagePullPolicy: Always
               name: mpi-launcher
               securityContext:
@@ -22,19 +22,16 @@ spec:
               args:
                 - mpirun
                 - -n
-                - "2"
+                - "8"
                 - python
                 - /home/mpiuser/pi.py
-              resources:
-                limits:
-                  cpu: 1
-                  memory: 1Gi
+
     Worker:
       replicas: 2
       template:
         spec:
           containers:
-            - image: bodoaidocker/bodo-pi-mpioperator-intel:latest
+            - image: bodoaidocker/pi:latest
               imagePullPolicy: Always
               name: mpi-worker
               securityContext:
@@ -45,11 +42,6 @@ spec:
                 - -De
                 - -f
                 - /home/mpiuser/.sshd_config
-              # readinessProbe:
-              #   tcpSocket:
-              #     port: 2222
-              #   initialDelaySeconds: 2
-              resources:
-                limits:
-                  cpu: 1
-                  memory: 1Gi
+  
+              
+             
