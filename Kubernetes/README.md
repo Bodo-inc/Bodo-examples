@@ -81,7 +81,7 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 - Define a kubernetes resource for your Bodo workload, such as the one defined in [`example-mpijob.yaml`](example-mpijob.yaml) that runs the [pi calculation example](docker/pi.py). You can modify it based on your cluster configuration: update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node and set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes. If you're using the cluster configuration as defined in step 1, you do not need to modify anything.
 
-- Run the example by deploying it over your cluster with `kubectl create -f example-mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
+- Run the example by deploying it in your cluster with `kubectl create -f example-mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
 
 - View the generated pods by this deployment with `kubectl get pods`. You may inspect any logs by looking at the individual pod's logs.
 
