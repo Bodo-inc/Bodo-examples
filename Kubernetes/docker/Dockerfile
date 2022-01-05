@@ -2,6 +2,7 @@ FROM mpioperator/intel:latest
 
 WORKDIR /home/mpiuser
 
+# Install Miniconda
 RUN apt-get update && apt-get install -y wget bzip2 git vim make curl\
 	&& wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh \
 	&& chmod +x miniconda.sh\
