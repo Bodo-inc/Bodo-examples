@@ -14,7 +14,7 @@ spec:
       template:
         spec:
           containers:
-            - image: bodoaidocker/pi:latest
+            - image: bodoaidocker/kube-mpioperator-minimal:latest
               imagePullPolicy: Always
               name: mpi-launcher
               securityContext:
@@ -31,7 +31,7 @@ spec:
       template:
         spec:
           containers:
-            - image: bodoaidocker/pi:latest
+            - image: bodoaidocker/kube-mpioperator-minimal:latest
               imagePullPolicy: Always
               name: mpi-worker
               securityContext:
