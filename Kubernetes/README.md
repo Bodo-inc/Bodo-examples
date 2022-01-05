@@ -1,4 +1,4 @@
-# Bodo Kubernetes Example
+# Running a Bodo workload in Kubernetes
 
 This folder contains information about how to deploy a Bodo application with Kubernetes. We deploy Bodo using the [Kubeflow MPI-Operator](https://github.com/kubeflow/mpi-operator), which enables running MPI applications in a Kubernetes environment. In typical Kubernetes fashion, this also provides resiliency in the case of Node Failure for long running Bodo applications. 
 
