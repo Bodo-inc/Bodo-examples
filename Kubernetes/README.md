@@ -4,11 +4,12 @@ This folder contains information about how to deploy a Bodo application with Kub
 
 ## Prerequisites
 
-- <strong>Docker image </strong>: Create a docker image that contains your intended Bodo version and Python scripts. For pi calculation, you may use [bodoaidocker/pi:latest](https://hub.docker.com/r/bodoaidocker/pi/tags). 
-- <strong>AWS </strong>: Have Access-Key/Secret-Key pair.
+- <strong>Docker image </strong>: Create a docker image that contains your intended Bodo version and Python scripts. For pi calculation, you may use [bodoaidocker/pi:latest](https://hub.docker.com/r/bodoaidocker/pi/tags). A Docker file example is available in [docker folder](https://github.com/Bodo-inc/Bodo-examples/tree/Niyousha/Kubernetes/Kubernetes/docker).
+- Access to a Kubernetes cluster such as AWS EKS.
 
 
 ## Setup
+In the following example, we use KOPS to setup Kubernetes Cluster in EKS while this works for any K8s cluster. 
 
 ### Step 1: Create a Kubernetes Cluster in EKS
 
@@ -25,14 +26,14 @@ sudo mv kops-linux-amd64 /usr/local/bin/kops
 
 - Create a cluster:
 
-To change the number of instances, modify the `node-count` argument and to change the worker nodes update `node-size`. `master-size` refers to the leader that manages K8s but doesn’t do any computation, so you should keep the instance small. If you are in a different region, change `zones` argument. 
+Begin by making a bucket in the S3 to use as your `KOPS_STATE_STORE`.  
 
 ```
 export KOPS_CLUSTER_NAME=imesh.k8s.local
-export KOPS_STATE_STORE=s3://mpijob-cluster-bucket
+export KOPS_STATE_STORE=s3://<your S3 bucket name>
 ```
 
-- Attempt to create your cluster. This creates a cluster of 2 nodes each with 4 cores
+- Attempt to create your cluster. This creates a cluster of 2 nodes each with 4 cores. To change the number of instances, modify the `node-count` argument and to change the worker nodes update `node-size`. `master-size` refers to the leader that manages K8s but doesn’t do any computation, so you should keep the instance small. If you are in a different region, change `zones` argument. 
 ```
 kops create cluster \
 --node-count=2 \
@@ -78,7 +79,7 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 ### Step 3: Run your Bodo application
 
-- You may use the `example-mpijob.yaml` as it is for the sake of this example. If you wish to modify it with your experiment configuration; update `spec.slotsPerWorker` with the number of physical cores (not vcpus) on each Node and set `spec.mpiReplicaSpecs.Worker.replicas` with the number of worker nodes in your cluster. At last, make sure `-n` matches your cluster.
+- You may use the `example-mpijob.yaml` as it is for the sake of this example. If you wish to modify it with your experiment configuration; update `spec.slotsPerWorker` with the number of physical cores (not vcpus) on each Node and set `spec.mpiReplicaSpecs.Worker.replicas` with the number of worker nodes in your cluster. At last, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`.
 
 - Run the example by deploying it over your cluster with `kubectl create -f example-mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
 
@@ -101,6 +102,6 @@ kubectl logs -f ${PODNAME}
 - Tear down your cluster with the following script:
 ```
 export KOPS_CLUSTER_NAME=imesh.k8s.local
-export KOPS_STATE_STORE=s3://mpijob-cluster-bucket
+export KOPS_STATE_STORE=s3://<your S3 bucket name>
 kops delete cluster --name $KOPS_CLUSTER_NAME --yes
 ```
