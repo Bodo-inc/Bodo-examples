@@ -9,7 +9,7 @@ Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator]
 
 
 ## Setup
-In the following example, we use KOPS to setup Kubernetes Cluster in EKS while this works for any K8s cluster. 
+Bodo can be deployed in any Kubernetes cluster. For the purposes of this example, we set up a Kubernetes Cluster in EKS using KOPS:
 
 ### Step 1: Create a Kubernetes Cluster in EKS
 
