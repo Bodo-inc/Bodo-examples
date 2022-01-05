@@ -100,7 +100,7 @@ kubectl logs -f ${PODNAME}
 
 ## Teardown
 
-- When a job has finished running, you can remove it by running `kubectl delete -f example-mpijob.yaml`. If you want to delete the MPI-Operator crd, please follow any steps on the [MPI-Operator Github](https://github.com/kubeflow/mpi-operator).
+- When a job has finished running, you can remove it by running `kubectl delete -f example-mpijob.yaml`. If you want to delete the MPI-Operator crd, please follow the steps on the [MPI-Operator Github repository](https://github.com/kubeflow/mpi-operator).
 
 - Tear down your cluster with the following script:
 ```
