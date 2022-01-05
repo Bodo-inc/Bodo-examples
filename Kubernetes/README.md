@@ -78,7 +78,7 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 ### Step 3: Run your Bodo application
 
-- You may use the `example-mpijob.yaml` as it is for the sake of this example. If you wish to modify it with your experiment configuration; update `spec.slotsPerWorker` with the number of physical cores (not vcpus) on each Node and set `spec.mpiReplicaSpecs.Worker.replicas` with the number of workers node in your cluster. At last, make sure `-n` matches your cluster.
+- You may use the `example-mpijob.yaml` as it is for the sake of this example. If you wish to modify it with your experiment configuration; update `spec.slotsPerWorker` with the number of physical cores (not vcpus) on each Node and set `spec.mpiReplicaSpecs.Worker.replicas` with the number of worker nodes in your cluster. At last, make sure `-n` matches your cluster.
 
 - Run the example by deploying it over your cluster with `kubectl create -f example-mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
 
