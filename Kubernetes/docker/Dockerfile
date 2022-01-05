@@ -11,6 +11,7 @@ ENV PATH /home/mpiuser/miniconda3/bin/:${PATH}
 
 RUN conda install -y python=3.9 bodo=2021.11 -c bodo.ai -c conda-forge
 
+# Remove MPICH so Intel-MPI is used by default
 RUN conda remove --force --yes mpich mpi
 
 ADD pi.py pi.py
