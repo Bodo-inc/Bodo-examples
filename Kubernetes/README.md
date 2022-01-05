@@ -4,8 +4,8 @@ This folder contains information about how to deploy a Bodo application with Kub
 
 ## Prerequisites
 
-- <strong>Docker image </strong>: Create a docker image that contains your intended Bodo version and Python scripts. For pi calculation, you may use [bodoaidocker/pi:latest](https://hub.docker.com/r/bodoaidocker/pi/tags). A Docker file example is available in [docker folder](https://github.com/Bodo-inc/Bodo-examples/tree/Niyousha/Kubernetes/Kubernetes/docker).
 - Access to a Kubernetes cluster such as AWS EKS.
+- Create a docker image that contains your intended Bodo version and Python scripts. A [pi calculation docker image](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags) is built as an example for testing purposes. To create your own docker images, use the example docker file and python script available at [docker folder](https://github.com/Bodo-inc/Bodo-examples/tree/master/Kubernetes/docker) as the base. 
 
 
 ## Setup
