@@ -7,9 +7,9 @@ Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator]
 - Access to a Kubernetes cluster such as AWS EKS.
 
 - Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. For reference, see this [Dockerfile](docker/Dockerfile).
-In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
-A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags). 
+A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags).
 You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/pi.py), which is used in this tutorial.
+In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 
 ## Setup
