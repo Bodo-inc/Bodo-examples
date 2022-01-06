@@ -63,7 +63,7 @@ kops validate cluster
 
 ### Step 2: Install MPIJob
 
-- The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). You may also get the [latest verified release tag](https://github.com/kubeflow/mpi-operator/releases/latest) and follow the below steps :
+- The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). This example was tested using [v0.3.0](https://github.com/kubeflow/mpi-operator/tree/v0.3.0), as shown below:
 
 ```
 git clone https://github.com/kubeflow/mpi-operator --branch <VERIFIED_RELEASE_TAG>
