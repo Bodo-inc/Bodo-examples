@@ -1,6 +1,6 @@
 # Running a Bodo workload in Kubernetes
 
-Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator](https://github.com/kubeflow/mpi-operator) which enables running MPI applications in a Kubernetes environment. In typical Kubernetes fashion, this also provides increased resiliency in the case of Node Failure for long running Bodo applications. 
+Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator](https://github.com/kubeflow/mpi-operator) which enables running MPI applications in a Kubernetes environment. In typical Kubernetes fashion, this also provides increased resiliency in the case of node failure for long running Bodo applications. 
 
 ## Prerequisites
 
@@ -63,10 +63,10 @@ kops validate cluster
 
 ### Step 2: Install MPIJob
 
-- The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). You may also follow the below steps :
+- The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). You may also get the [latest verified release tag](https://github.com/kubeflow/mpi-operator/releases/latest) and follow the below steps :
 
 ```
-git clone https://github.com/kubeflow/mpi-operator
+git clone https://github.com/kubeflow/mpi-operator --branch <VERIFIED_RELEASE_TAG>
 cd mpi-operator
 kubectl apply -f deploy/v2beta1/mpi-operator.yaml
 ```
