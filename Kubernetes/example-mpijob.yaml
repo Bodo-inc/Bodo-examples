@@ -30,6 +30,13 @@ spec:
       replicas: 2
       template:
         spec:
+          # Replaced shared memory with an empty directory
+          # to avoid the docker shared memory limit
+          # (see https://stackoverflow.com/questions/46085748/define-size-for-dev-shm-on-container-engine/46434614#46434614)
+          volumes:
+          - name: dshm
+            emptyDir:
+              medium: Memory
           containers:
             - image: bodoaidocker/kube-mpioperator-minimal:latest
               imagePullPolicy: Always
