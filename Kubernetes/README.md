@@ -1,14 +1,15 @@
 # Running a Bodo workload in Kubernetes
 
-Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator](https://github.com/kubeflow/mpi-operator) which enables running MPI applications in a Kubernetes environment. In typical Kubernetes fashion, this also provides resiliency in the case of Node Failure for long running Bodo applications. 
+Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator](https://github.com/kubeflow/mpi-operator) which enables running MPI applications in a Kubernetes environment. In typical Kubernetes fashion, this also provides increased resiliency in the case of Node Failure for long running Bodo applications. 
 
 ## Prerequisites
 
 - Access to a Kubernetes cluster such as AWS EKS.
-- Create a docker image that contains your intended Bodo version and Python scripts. For reference, see this [Dockerfile](docker/Dockerfile). 
+
+- Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. For reference, see this [Dockerfile](docker/Dockerfile).
+In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags). 
-You can use this as the base image for your own docker image. 
-For testing and validation purposes this image also includes the [pi calculation example](docker/pi.py), which is used in this tutorial.
+You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/pi.py), which is used in this tutorial.
 
 
 ## Setup
@@ -36,7 +37,10 @@ export KOPS_CLUSTER_NAME=imesh.k8s.local
 export KOPS_STATE_STORE=s3://<your S3 bucket name>
 ```
 
-- Attempt to create your cluster. This creates a cluster of 2 nodes each with 4 cores. To change the number of instances, modify the `node-count` argument and to change the worker nodes update `node-size`. `master-size` refers to the leader that manages K8s but doesn’t do any computation, so you should keep the instance small. You can deploy the cluster in a different AWS region and availability zone by modifying the `zones` argument. 
+- Attempt to create your cluster: 
+
+This creates a cluster of 2 nodes each with 4 cores. To change the number of instances, modify the `node-count` argument and to change the worker nodes update `node-size`. `master-size` refers to the leader that manages K8s but doesn’t do any computation, so you should keep the instance small. You can deploy the cluster in a different AWS region and availability zone by modifying the `zones` argument. 
+
 ```
 kops create cluster \
 --node-count=2 \
