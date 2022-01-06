@@ -66,7 +66,7 @@ kops validate cluster
 - The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). This example was tested using [v0.3.0](https://github.com/kubeflow/mpi-operator/tree/v0.3.0), as shown below:
 
 ```
-git clone https://github.com/kubeflow/mpi-operator --branch <VERIFIED_RELEASE_TAG>
+git clone https://github.com/kubeflow/mpi-operator --branch v0.3.0
 cd mpi-operator
 kubectl apply -f deploy/v2beta1/mpi-operator.yaml
 ```
