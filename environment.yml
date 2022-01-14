@@ -4,10 +4,10 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - bodo=2021.10.1
-  - ipyparallel=8.0.0
+  - bodo=2021.12
+  - ipyparallel=8.1.0
   - jupyterlab=3
   - python=3.9
   - pandas-datareader
-  - scikit-learn
+  - scikit-learn=0.24.2
 prefix: /opt/anaconda3/envs/bodo-binder-env
