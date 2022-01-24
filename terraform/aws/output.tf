@@ -1,5 +1,9 @@
-output "cluster_ips" {
-  value = aws_instance.worker.*.public_ip
+output "notebook_ip" {
+  value = aws_instance.notebook.public_ip
+}
+
+output "jupyter_token" {
+  value = random_uuid.jupyter_token.result
 }
 
 # Write private key to pem file

@@ -75,32 +75,3 @@ resource "aws_instance" "worker" {
     version = "$Latest"
   }
 }
-
-
-# Create machinefile on all the instances
-resource "null_resource" "machinefile" {
-  count = var.CLUSTER_MEMBERS_COUNT
-
-  triggers = {
-    cluster_private_ips = "${join(",", aws_instance.worker.*.private_dns)}"
-  }
-
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = tls_private_key.ssh_key.private_key_pem
-    timeout     = "2m"
-    host        = element(aws_instance.worker.*.public_ip, count.index)
-  }
-
-  provisioner "remote-exec" {
-    inline = [<<EOF
-    WORKER_IPS="${join(" ", aws_instance.worker.*.private_dns)}"
-    for NODE in $WORKER_IPS; do
-      echo "$NODE" >> /home/ubuntu/machinefile
-    done
-    EOF
-    ]
-  }
-
-}

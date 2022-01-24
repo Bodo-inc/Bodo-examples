@@ -1,6 +1,6 @@
 {
     "variables": {
-        "bodo_version": "2021.10"
+        "bodo_version": "2021.12"
     },
     "builders": [
         {
@@ -27,7 +27,7 @@
                 "export PATH=/opt/conda/bin:$PATH",
                 "echo \"export PATH=\"/opt/conda/bin:$PATH\"\" >> /etc/bash.bashrc",
                 "conda install --quiet --yes bodo=={{user `bodo_version`}} -c bodo.ai -c conda-forge",
-                "conda install --quiet --yes ipyparallel -c conda-forge"
+                "conda install --quiet --yes ipyparallel==8.1.0 jupyterlab=3 -c conda-forge"
             ],
             "type": "shell"
         }
