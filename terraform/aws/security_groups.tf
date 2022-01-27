@@ -10,7 +10,7 @@ resource "aws_security_group" "worker" {
   })
 }
 
-# PERMIT ALL - EGRESS ALL
+# PERMIT ALL EGRESS
 resource "aws_security_group_rule" "worker_egress_all" {
   type              = "egress"
   from_port         = 0
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "worker_ingress_self" {
 }
 
 
-# security groups for notebook instance
+# security group for notebook instance
 
 resource "aws_security_group" "notebook" {
   name        = "bodo-notebook"
@@ -54,7 +54,7 @@ resource "aws_security_group" "notebook" {
   })
 }
 
-# PERMIT ALL - EGRESS ALL 
+# PERMIT ALL EGRESS 
 resource "aws_security_group_rule" "notebook_egress" {
   type              = "egress"
   from_port         = 0

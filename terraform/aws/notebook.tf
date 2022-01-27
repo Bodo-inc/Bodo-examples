@@ -9,7 +9,7 @@ data "template_file" "userdata_notebook" {
   vars = {
     SSH_PUBLIC_KEY  = tls_private_key.ssh_key.public_key_openssh
     SSH_PRIVATE_KEY = tls_private_key.ssh_key.private_key_pem
-    MACHINEFILE     = "${join("\n", aws_instance.worker.*.private_dns)}"
+    HOSTFILE        = "${join("\n", aws_instance.worker.*.private_dns)}"
     JUPYTER_TOKEN   = random_uuid.jupyter_token.result
     JUPYTER_PORT    = local.jupyter_port
   }
@@ -17,10 +17,9 @@ data "template_file" "userdata_notebook" {
 
 # Notebook Launch Configuration
 resource "aws_launch_template" "bodo_notebook_template" {
-  name     = "Bodo_Notebook_Config"
-  image_id = var.AMI_ID
-  # TODO Choose a different type?
-  instance_type = var.CLUSTER_INSTANCE_TYPE
+  name          = "Bodo_Notebook_Config"
+  image_id      = var.AMI_ID
+  instance_type = var.NOTEBOOK_INSTANCE_TYPE
   user_data     = base64encode(data.template_file.userdata_notebook.rendered)
 
   placement {

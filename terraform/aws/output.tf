@@ -2,11 +2,7 @@ output "notebook_ip" {
   value = aws_instance.notebook.public_ip
 }
 
-output "jupyter_token" {
-  value = random_uuid.jupyter_token.result
-}
-
-output "link" {
+output "jupyter_link" {
   value = "${aws_instance.notebook.public_ip}:${local.jupyter_port}/lab?token=${random_uuid.jupyter_token.result}"
 }
 

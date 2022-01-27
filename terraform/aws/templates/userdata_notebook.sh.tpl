@@ -21,7 +21,7 @@ chmod -R 600 /home/ubuntu/.ssh/
 chmod 700 /home/ubuntu/.ssh
 
 
-echo '${MACHINEFILE}' > /home/ubuntu/machinefile
+echo '${HOSTFILE}' > /home/ubuntu/hostfile
 
 
 sudo -u ubuntu PATH=/opt/conda/bin:$PATH nohup /opt/conda/bin/jupyter lab --ServerApp.token=${JUPYTER_TOKEN} --notebook-dir=/home/ubuntu --ServerApp.ip='0.0.0.0' --ServerApp.port=${JUPYTER_PORT} &
