@@ -40,11 +40,11 @@
     The SSH private key for the cluster will be written to `bodo_cluster_ssh.pem`.
     The EC2 instances and other resources that were provisioned should be visible on your [AWS Management console](https://aws.amazon.com/console/).
 
-1.  Navigate to the provided JupyterLab server using the output link. You can now use IPython notebooks and IPyParallel to run your code on this cluster.
+1.  Navigate to the JupyterLab server using the link in the terraform output. You can now run your code on this cluster from notebooks using IPyParallel.
     A hostfile for the cluster should already exist at `/home/ubuntu/hostfile`.
     Follow the steps in our [documentation](https://docs.bodo.ai/latest/source/installation_and_setup/ipyparallel.html#running-on-multiple-hosts) to get started.
 
-    For instance, run the following to start an IPyParallel cluster:
+    For instance, run the following in a notebook to start an IPyParallel cluster:
 
         import ipyparallel as ipp
         c = ipp.Cluster(engines='mpi',
