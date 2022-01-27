@@ -6,6 +6,10 @@ output "jupyter_token" {
   value = random_uuid.jupyter_token.result
 }
 
+output "link" {
+  value = "${aws_instance.notebook.public_ip}:${local.jupyter_port}/lab?token=${random_uuid.jupyter_token.result}"
+}
+
 # Write private key to pem file
 resource "local_file" "cloud_pem" {
   filename        = "${path.module}/bodo_cluster_ssh.pem"

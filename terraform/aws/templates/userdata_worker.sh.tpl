@@ -20,4 +20,5 @@ chown -R ubuntu:ubuntu /home/ubuntu
 chmod -R 600 /home/ubuntu/.ssh/
 chmod 700 /home/ubuntu/.ssh
 
-sudo -u ubuntu ipython profile create
+sudo -u ubuntu /opt/conda/bin/ipython profile create --profile=default --profile-dir=/home/ubuntu/.ipython/profile_default
+sudo chown ubuntu:ubuntu -R /home/ubuntu/.ipython
