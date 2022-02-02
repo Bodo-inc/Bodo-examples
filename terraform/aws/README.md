@@ -2,7 +2,7 @@
 
 1.  [Install Terraform](https://www.terraform.io/downloads.html).
 
-1.  Create an AMI. See [this](./bodo-ami/README.md) for instructions. Skip this step if using an existing image.
+1.  Create an AMI. See [here](./bodo-ami/README.md) for instructions. **Skip this step if using an existing image.**
 
 1.  Set up your AWS credentials. We recommend doing this through [environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html), but other methods should also work.
 
