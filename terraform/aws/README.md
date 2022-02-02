@@ -22,7 +22,7 @@
 
     g. `CLUSTER_INSTANCE_TYPE` (optional): Instance type of worker instances. See [this](https://aws.amazon.com/ec2/instance-types/) for a full list. Default: `c5n.xlarge`.
 
-    g. `NOTEBOOK_INSTANCE_TYPE` (optional): Instance type of notebook instance. This instance runs the JupyterLab server, hence it doesn't need to be a large instance. See [this](https://aws.amazon.com/ec2/instance-types/) for a full list. Default: `c5n.xlarge`.
+    g. `NOTEBOOK_INSTANCE_TYPE` (optional): Instance type of notebook instance. This instance runs the JupyterLab server, hence it doesn't need to be a large instance. See [here](https://aws.amazon.com/ec2/instance-types/) for a full list. Default: `c5n.xlarge`.
 
     The provided [`bodo_cluster.sh`](./bodo_cluster.sh) script is a wrapper around some common terraform commands we'll use to manage our deployment. Set the above variables in this script.
 
