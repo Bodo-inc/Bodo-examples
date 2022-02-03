@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# These commands run when the worker instance is initialized
+# These commands run when the notebook instance is initialized
 
 # exit on failure
 set -eo pipefail
@@ -20,5 +20,8 @@ chown -R ubuntu:ubuntu /home/ubuntu
 chmod -R 600 /home/ubuntu/.ssh/
 chmod 700 /home/ubuntu/.ssh
 
-sudo -u ubuntu /opt/conda/bin/ipython profile create --profile=default --profile-dir=/home/ubuntu/.ipython/profile_default
-sudo chown ubuntu:ubuntu -R /home/ubuntu/.ipython
+
+echo '${HOSTFILE}' > /home/ubuntu/hostfile
+
+
+sudo -u ubuntu PATH=/opt/conda/bin:$PATH nohup /opt/conda/bin/jupyter lab --ServerApp.token=${JUPYTER_TOKEN} --notebook-dir=/home/ubuntu --ServerApp.ip='0.0.0.0' --ServerApp.port=${JUPYTER_PORT} &

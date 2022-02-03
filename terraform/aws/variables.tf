@@ -16,6 +16,12 @@ variable "CLUSTER_INSTANCE_TYPE" {
   default = "c5n.xlarge"
 }
 
+# Instance type for notebook.
+variable "NOTEBOOK_INSTANCE_TYPE" {
+  type    = string
+  default = "c5n.xlarge"
+}
+
 # IP to allow SSH from
 variable "USER_IP" {
 }
@@ -29,5 +35,5 @@ variable "VPC_ID" {
 }
 
 # Subnet to deploy in
-variable "CLUSTER_SUBNET_ID" {
+variable "SUBNET_ID" {
 }
