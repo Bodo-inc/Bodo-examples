@@ -3,7 +3,7 @@
 .idea
 # VS Code config
 .vscode
-
+*.ipynb_checkpoints/
 # Compiled python modules.
 *.pyc
 *.pyd
