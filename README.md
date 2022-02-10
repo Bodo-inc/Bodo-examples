@@ -24,7 +24,7 @@ For more information on data generation and examples, please see the docstring a
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/kde_datagen.py)
 - [Intraday Mean](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/intraday_mean.py)
   - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/stock_data_read.py)
-- [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
+- [TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
   - data generation: generated data will be available at `data/tpch-datagen/data`:
 
 		# To generate data with a scale of 1, equivalent to 1GB of data
@@ -52,13 +52,6 @@ For more information on data generation and examples, please see the docstring a
 
 ## Try the examples
 
-
-An example performing TPCH query #1:
-
-	# generate data
-	data/tpch-datagen/generateData.sh 1
-	# run example on 4 cores
-	mpiexec -n 4 python examples/tpch/q01.py
 
 An example performing beer reviews example:
 
