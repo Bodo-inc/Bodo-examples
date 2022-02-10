@@ -31,14 +31,14 @@ from bodo import prange
 def intraday_mean_revert(file_name, max_num_days):
     f = h5py.File(file_name, "r")
     sym_list = list(f.keys())
-    nsyms = len(sym_list)
+    nsyms = np.arange(len(sym_list))
     all_res = np.zeros(max_num_days)
 
     t1 = time.time()
 
     # More information on bodo's explicit parallel loop: prange
     # http://docs.bodo.ai/latest/source/user_guide.html#explicit-parallel-loops
-    for i in prange(nsyms):
+    for i in nsyms:
         symbol = sym_list[i]
 
         s_open = f[symbol + "/Open"][:]
@@ -88,7 +88,12 @@ def intraday_mean_revert(file_name, max_num_days):
         all_res += res
 
     f.close()
-    print(all_res.mean())
+    local_sum = all_res.sum()
+    global_sum = bodo.libs.distributed_api.dist_reduce(
+        local_sum,
+        bodo.libs.distributed_api.Reduce_Type.Sum.value,
+    )
+    print(global_sum / len(all_res))
     print("execution time:", time.time() - t1)
 
 
