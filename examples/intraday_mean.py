@@ -36,8 +36,6 @@ def intraday_mean_revert(file_name, max_num_days):
 
     t1 = time.time()
 
-    # More information on bodo's explicit parallel loop: prange
-    # http://docs.bodo.ai/latest/source/user_guide.html#explicit-parallel-loops
     for i in nsyms:
         symbol = sym_list[i]
 
@@ -88,6 +86,8 @@ def intraday_mean_revert(file_name, max_num_days):
         all_res += res
 
     f.close()
+
+    # combine the results from all ranks
     local_sum = all_res.sum()
     global_sum = bodo.libs.distributed_api.dist_reduce(
         local_sum,
