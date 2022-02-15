@@ -81,8 +81,7 @@ def intraday_mean_revert(file_name, max_num_days):
         n_days = len(df["Rets"])
         res = np.zeros(max_num_days)
         if n_days > max_num_days:
-            print(n_days, max_num_days)
-            raise ValueError("Number of days execeeds maximum")
+            print("Number of days {n_days} execeeds maximum {max_num_days}")
         if n_days:
             res[-n_days:] = df["Rets"].fillna(0).values
         all_res += res
