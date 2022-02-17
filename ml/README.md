@@ -21,7 +21,11 @@ and paste the json text below and populate with your credentials.
 
 Open any of the notebooks and run it.
 
-watch your htop in terminal and enjoy your CPUs running at maximum efficiency.
+watch your [htop](https://formulae.brew.sh/formula/htop) in terminal and enjoy your CPUs running at maximum efficiency.
+
+```shell
+htop
+```
 
 This is an image of running credit-card-fraud.ipynb with 8 cores.
 ![img.png](img.png)
