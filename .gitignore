@@ -18,8 +18,8 @@ examples/__pycache__
 examples/tpch/__pycache__
 data/__pycache__
 
-data/tpch-datagen/data
-data/tpch-datagen/tpch-dbgen
+examples/tpch/tpch-datagen/data
+examples/tpch/tpch-datagen/tpch-dbgen
 
 # logs
 algebra.log
