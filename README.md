@@ -20,17 +20,9 @@ By default all examples and data generation scripts can be run from home directo
 
 For more information on data generation and examples, please see the docstring at the top of each python script.
 
-<<<<<<< HEAD
-- [Kernel Density Estimation](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/kernel_density_estimation.py)
-  - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/kde_datagen.py)
-- [Intraday Mean](https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/intraday_mean.py)
-  - [data generation](https://github.com/Bodo-inc/Bodo-examples/blob/master/data/stock_data_read.py)
-- [TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
-  - data generation: generated data will be available at `data/tpch-datagen/data`:
-=======
 - [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
   - data generation: generated data will be available at `examples/tpch/pch-datagen`:
->>>>>>> rm-old-ex
+
 
         # To generate data with a scale of 1, equivalent to 1GB of data
         tpch-datagen/generateData.sh 1
