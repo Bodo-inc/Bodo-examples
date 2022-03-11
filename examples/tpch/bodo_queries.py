@@ -950,7 +950,7 @@ def main():
     parser.add_argument(
         "--folder",
         type=str,
-        default="data/tpch-datagen/data",
+        default="tpch-datagen/data",
         help="The folder containing TPCH data",
     )
     args = parser.parse_args()
