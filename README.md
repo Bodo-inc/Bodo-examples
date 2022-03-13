@@ -20,7 +20,7 @@ By default all examples and data generation scripts can be run from home directo
 
 For more information on data generation and examples, please see the docstring at the top of each python script.
 
-- [Some TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
+- [TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
   - data generation: generated data will be available at `examples/tpch/pch-datagen`:
   
         # To generate data with a scale of 1, equivalent to 1GB of data
@@ -39,15 +39,6 @@ For more information on data generation and examples, please see the docstring a
     - [Weekday Pickup and Dropoff](examples/nyc-taxi/weekday_taxi_trips_by_pickup_and_dropoff.py)
 
 ## Try the examples
-
-
-An example performing TPCH query #1:
-
-	# generate data
-	examples/tpch/tpch-datagen/generateData.sh 1
-	# run example on 4 cores
-	mpiexec -n 4 python examples/tpch/bodo_queries.py
-
 
 An example performing beer reviews example:
 
