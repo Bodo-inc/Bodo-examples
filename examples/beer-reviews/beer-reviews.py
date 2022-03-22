@@ -4,8 +4,8 @@ Analyze beer reviews to find most common words used in positive and negative rev
     Usage:
     mpiexec -n [cores] python beer-reviews.py
 
-This example uses a sample reviews from S3 bucket (s3://bodo-examples-data/beer/reviews_sample.csv).
-Fulldataset is available in S3 bucket (s3://bodo-examples-data/beer/reviews.csv)
+This example uses a sample reviews from S3 bucket (s3://bodo-example-data/beer/reviews_sample.csv).
+Fulldataset is available in S3 bucket (s3://bodo-example-data/beer/reviews.csv)
 or from Kaggle (https://www.kaggle.com/ehallmar/beers-breweries-and-beer-reviews)
 
 """
@@ -82,4 +82,4 @@ def find_top_words(review_filename):
     print("Low words: ")
     print(low_words)
 
-find_top_words("s3://bodo-examples-data/beer/reviews_sample.csv")
+find_top_words("s3://bodo-example-data/beer/reviews_sample.csv")

@@ -4,7 +4,7 @@ NYC parking ticket violations
     Usage:
     mpiexec -n [cores] python nyc-parking.py
 
-Data for 2016 and 2017 is in S3 bucket (s3://bodo-examples-data/nyc-parking-tickets)
+Data for 2016 and 2017 is in S3 bucket (s3://bodo-example-data/nyc-parking-tickets)
 or you can get data from https://www.kaggle.com/new-york-city/nyc-parking-tickets
 
 """
@@ -26,10 +26,10 @@ def load_parking_tickets():
     """
 
     start = time.time()
-    year_2016_df = pd.read_csv('s3://bodo-examples-data/nyc-parking-tickets/Parking_Violations_Issued_-_Fiscal_Year_2016.csv', parse_dates=["Issue Date"])
+    year_2016_df = pd.read_csv('s3://bodo-example-data/nyc-parking-tickets/Parking_Violations_Issued_-_Fiscal_Year_2016.csv', parse_dates=["Issue Date"])
     year_2016_df = year_2016_df.groupby(['Issue Date','Violation County','Violation Precinct','Violation Code'], as_index=False)['Summons Number'].count()
 
-    year_2017_df = pd.read_csv('s3://bodo-examples-data/nyc-parking-tickets/Parking_Violations_Issued_-_Fiscal_Year_2017.csv', parse_dates=["Issue Date"])
+    year_2017_df = pd.read_csv('s3://bodo-example-data/nyc-parking-tickets/Parking_Violations_Issued_-_Fiscal_Year_2017.csv', parse_dates=["Issue Date"])
     year_2017_df = year_2017_df.groupby(['Issue Date','Violation County','Violation Precinct','Violation Code'], as_index=False)['Summons Number'].count()
 
     # concatenate all dataframes into one dataframe

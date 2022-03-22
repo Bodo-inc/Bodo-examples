@@ -5,7 +5,7 @@ Source: https://github.com/toddwschneider/nyc-taxi-data/blob/master/analysis/201
 
 Usage:
     mpiexec -n [cores] python jfk_hourly_pickups.py
-Data source: Green Taxi 2019 s3://bodo-examples-data/nyc-taxi/green_tripdata_2019.csv
+Data source: Green Taxi 2019 s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv
 Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_files/raw_data_urls.txt
 
 """
@@ -23,7 +23,7 @@ os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
 def get_jfk_hourly_pickups():
     start = time.time()
     green_taxi = pd.read_csv(
-        "s3://bodo-examples-data/nyc-taxi/green_tripdata_2019.csv",
+        "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
         usecols=[1, 5],
         parse_dates=["lpep_pickup_datetime"],
     )
