@@ -1,24 +1,26 @@
 # Bodo Examples
 
-Welcome to Bodo examples!
+This repository contains code examples demonstrating how Bodo accelerates and scales
+Pandas and Scikit-learn workloads automatically. All examples can be run on a local laptop
+using Bodo Community Edition: `pip install bodo`.
 
-## Install required packages
+In addition, there are examples for using Bodo with data infrastructure tools such as Docker, Terraform, Kubernetes and Streamlit.
+Feedback is appreciated.
 
-First make sure you have Bodo [installed](https://docs.bodo.ai/latest/source/installation_and_setup/index.html).
 
-Other packages that are required to run the data generation scripts, `pandas_datareader` and `scikit-learn`:
-	
-	conda install -c conda-forge pandas-datareader
-	conda install -c conda-forge scikit-learn
+## Running Example and Data Generation Scripts
 
-## Examples and corresponding data generation
+First make sure you have Bodo [installed](https://docs.bodo.ai/installation_and_setup/install).
+`scikit-learn` is also required for the ML examples.
 
 Many of the data generation scripts and example scripts can take in optional arguments. 
-`python path/script.py --help` shows the usage.
+`python <path>/<script.py> --help` shows the usage.
 
-By default all examples and data generation scripts can be run from home directory (Bodo-examples) without any changes. Otherwise, make sure to change path of data files.
-
-For more information on data generation and examples, please see the docstring at the top of each python script.
+By default all examples and data generation scripts can be run from the
+top directory (Bodo-examples) without any changes.
+Otherwise, make sure to change path of data files.
+For more information on data generation and examples,
+please see the docstring at the top of each python script.
 
 - [TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
   - data generation: generated data will be available at `examples/tpch/pch-datagen`:
@@ -38,12 +40,12 @@ For more information on data generation and examples, please see the docstring a
     - [Monthly Travel Times](examples/nyc-taxi/monthly_taxi_travel_times.py)
     - [Weekday Pickup and Dropoff](examples/nyc-taxi/weekday_taxi_trips_by_pickup_and_dropoff.py)
 
-## Try the examples
+## Try the Examples
 
 An example performing beer reviews example:
 
-    # run example on 4 cores
-    mpiexec -n 4 python examples/beer-reviews/beer-reviews.py
+    # run example on 8 cores
+    mpiexec -n 8 python examples/beer-reviews/beer-reviews.py
 
 
 ---------------------------
@@ -52,6 +54,6 @@ More documentation can be found at http://docs.bodo.ai.
 Bodo tutorial can be found [here](https://github.com/Bodo-inc/Bodo-tutorial).
 
 
-## Launch using Binder
+## Launch Using Binder
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Bodo-inc/Bodo-examples/HEAD)
