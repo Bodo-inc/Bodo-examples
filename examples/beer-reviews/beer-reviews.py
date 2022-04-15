@@ -4,33 +4,34 @@ Analyze beer reviews to find most common words used in positive and negative rev
     Usage:
     mpiexec -n [cores] python beer-reviews.py
 
-This example uses a sample reviews from S3 bucket (s3://bodo-examples-data/beer/reviews_sample.csv).
-Fulldataset is available in S3 bucket (s3://bodo-examples-data/beer/reviews.csv)
+This example uses a sample reviews from S3 bucket (s3://bodo-example-data/beer/reviews_sample.csv).
+Fulldataset is available in S3 bucket (s3://bodo-example-data/beer/reviews.csv)
 or from Kaggle (https://www.kaggle.com/ehallmar/beers-breweries-and-beer-reviews)
 
 """
-import numpy as np
 import pandas as pd
-import itertools
 import time
 import bodo
 import os
 
-os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
+
+# add your AWS credentials here if not already set
+# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
+# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
+
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-#Create lists of stopwords and punctuation that will be removed
+# Create lists of stopwords and punctuation that will be removed
 with open(f"{dir_path}/nltk-stopwords.txt", "r") as fh:
     STOPWORDS = list(map(str.strip, fh.readlines()))
 PUNCT_LIST = ["\.", "\-", "\?", "\:", ":", "!", "&", "'", ","]
 
-#Define regex that will be used to remove these punctuation and stopwords from the reviews.
+# Define regex that will be used to remove these punctuation and stopwords from the reviews.
 punc_regex = "|".join([f"({p})" for p in PUNCT_LIST])
 stopword_regex = "|".join([f"\\b({s})\\b" for s in STOPWORDS])
 
-@bodo.jit(distributed=["reviews"])
+
+@bodo.jit
 def preprocess(reviews):
     # lowercase and strip
     reviews = reviews.str.lower()
@@ -40,6 +41,7 @@ def preprocess(reviews):
     reviews = reviews.str.replace(punc_regex, "", regex=True)
     reviews = reviews.str.replace(stopword_regex, "", regex=True)
     return reviews
+
 
 @bodo.jit
 def find_top_words(review_filename):
@@ -82,4 +84,5 @@ def find_top_words(review_filename):
     print("Low words: ")
     print(low_words)
 
-find_top_words("s3://bodo-examples-data/beer/reviews_sample.csv")
+
+find_top_words("s3://bodo-example-data/beer/reviews_sample.csv")
