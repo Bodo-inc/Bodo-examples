@@ -21,7 +21,7 @@ and paste the json text below and populate with your credentials.
 
 Open any of the notebooks and run it.
 
-watch your [htop](https://formulae.brew.sh/formula/htop) in terminal and enjoy your CPUs running at maximum efficiency.
+watch your [htop](https://formulae.brew.sh/formula/htop) in terminal and enjoy your CPUs running at full capacity.
 
 ```shell
 htop
