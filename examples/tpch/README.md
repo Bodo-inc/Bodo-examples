@@ -51,9 +51,9 @@ This script assumes `tpch-dbgen` is in the same directory. If you downloaded it 
 
 ### Installation
 
-Follow the intstructions [here](https://docs.bodo.ai/latest/source/installation_and_setup/index.html).
+Follow the intstructions [here](https://docs.bodo.ai/installation_and_setup/install/).
 
-For best performance we also recommend using Intel-MPI and EFA Network Interfaces (on AWS) as described [here](https://docs.bodo.ai/latest/source/installation_and_setup/recommended_tools.html#).
+For best performance we also recommend using Intel-MPI and EFA Network Interfaces (on AWS) as described [here](https://docs.bodo.ai/installation_and_setup/recommended_cluster_config/).
 
 ### Running queries
 
