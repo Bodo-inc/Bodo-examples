@@ -34,19 +34,13 @@ def get_tables_info(num_pieces_base):
     tables = {}
     tables["customer"] = ("c", num_pieces_base, load_customer)
     tables["lineitem"] = ("L", num_pieces_base * 10, load_lineitem_with_date)
-    tables["nation"] = (
-        "n",
-        1,
-        load_nation,
-    )  # * dbgen only produces one file for nation with SF1000 *
+    # dbgen only produces one file for nation with SF1000
+    tables["nation"] = ("n", 1, load_nation)
     tables["orders"] = ("O", num_pieces_base, load_orders_with_date)
     tables["part"] = ("P", num_pieces_base, load_part)
     tables["partsupp"] = ("S", num_pieces_base, load_partsupp)
-    tables["region"] = (
-        "r",
-        1,
-        load_region,
-    )  # * dbgen only produces one file for region with SF1000 *
+    # dbgen only produces one file for region with SF1000
+    tables["region"] = ("r", 1, load_region)
     tables["supplier"] = ("s", num_pieces_base // 100, load_supplier)
     return tables
 
