@@ -15,12 +15,13 @@ Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_
 import bodo
 import pandas as pd
 import time
-import numpy as np
-import os
 
-os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
+
+# add your AWS credentials here if not already set
+# import os
+# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
+# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
+
 
 @bodo.jit(cache=True)
 def get_monthly_travels_weather():
@@ -43,7 +44,7 @@ def get_monthly_travels_weather():
     green_taxi["weekday"] = green_taxi["lpep_pickup_datetime"].dt.dayofweek
 
     end = time.time()
-    print("Reading Time: ", (end - start) )
+    print("Reading Time: ", (end - start))
 
     start = time.time()
     monthly_trips_weather = green_taxi.merge(
@@ -53,7 +54,35 @@ def get_monthly_travels_weather():
         (monthly_trips_weather["weekday"].isin([1, 2, 3, 4, 5]))
         & (monthly_trips_weather["precipitation"] > 0.1)
     ]
-    monthly_trips_weather["time_bucket"] = monthly_trips_weather.hour.replace({8: 0, 9:0, 10:0, 11:1, 12:1, 13:1, 14:1, 15:1, 16:2, 17:2, 18:2, 18:2, 19:3, 20:3, 21:3, 22:4, 23:4, 0:4, 1:4, 2:4, 3:4, 4:4, 5:4, 6:4, 7:4 })
+    monthly_trips_weather["time_bucket"] = monthly_trips_weather.hour.replace(
+        {
+            8: 0,
+            9: 0,
+            10: 0,
+            11: 1,
+            12: 1,
+            13: 1,
+            14: 1,
+            15: 1,
+            16: 2,
+            17: 2,
+            18: 2,
+            18: 2,
+            19: 3,
+            20: 3,
+            21: 3,
+            22: 4,
+            23: 4,
+            0: 4,
+            1: 4,
+            2: 4,
+            3: 4,
+            4: 4,
+            5: 4,
+            6: 4,
+            7: 4,
+        }
+    )
     monthly_trips_weather = monthly_trips_weather.groupby(
         [
             "PULocationID",
@@ -63,7 +92,7 @@ def get_monthly_travels_weather():
             "precipitation",
             "time_bucket",
         ],
-        as_index=False
+        as_index=False,
     ).agg({"VendorID": "count", "trip_distance": "mean"})
     monthly_trips_weather = monthly_trips_weather.sort_values(
         by=[
@@ -81,7 +110,7 @@ def get_monthly_travels_weather():
             "trip_distance": "avg_distance",
             "precipitation": "date_with_precipitation",
         },
-        copy=False
+        copy=False,
     )
     end = time.time()
     print("Monthly Taxi Travel Times Computation Time: ", end - start)

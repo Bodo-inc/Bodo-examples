@@ -12,11 +12,14 @@
 *.pyc
 *.pyd
 *~
+data/*
 
 # cache
 examples/__pycache__
 examples/tpch/__pycache__
 data/__pycache__
+examples/nyc-parking/__pycache__/
+examples/nyc-taxi/__pycache__/
 
 examples/tpch/tpch-datagen/data
 examples/tpch/tpch-datagen/tpch-dbgen
