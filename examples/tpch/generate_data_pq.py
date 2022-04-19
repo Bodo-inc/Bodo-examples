@@ -10,9 +10,7 @@ import argparse
 import shutil
 import subprocess
 from multiprocessing import Pool, set_start_method
-import pandas as pd
 import pyarrow.parquet as pq
-import bodo
 
 
 from loader import (
@@ -35,14 +33,17 @@ tpch_dbgen_location = "./tpch-dbgen"
 def get_tables_info(num_pieces_base):
     tables = {}
     tables["customer"] = ("c", num_pieces_base, load_customer)
-    tables["lineitem"] = ("L", num_pieces_base*10, load_lineitem_with_date)
-    tables["nation"] = ("n", 1, load_nation)  # * dbgen only produces one file for nation with SF1000 *
+    tables["lineitem"] = ("L", num_pieces_base * 10, load_lineitem_with_date)
+    # dbgen only produces one file for nation with SF1000
+    tables["nation"] = ("n", 1, load_nation)
     tables["orders"] = ("O", num_pieces_base, load_orders_with_date)
     tables["part"] = ("P", num_pieces_base, load_part)
     tables["partsupp"] = ("S", num_pieces_base, load_partsupp)
-    tables["region"] = ("r", 1, load_region)  # * dbgen only produces one file for region with SF1000 *
-    tables["supplier"] = ("s", num_pieces_base//100, load_supplier)
+    # dbgen only produces one file for region with SF1000
+    tables["region"] = ("r", 1, load_region)
+    tables["supplier"] = ("s", num_pieces_base // 100, load_supplier)
     return tables
+
 
 def remove_file_if_exists(path):
     try:
@@ -52,7 +53,15 @@ def remove_file_if_exists(path):
 
 
 def to_parquet(args):
-    SCALE_FACTOR, table_name, table_short, load_func, piece, num_pieces, output_prefix = args
+    (
+        SCALE_FACTOR,
+        table_name,
+        table_short,
+        load_func,
+        piece,
+        num_pieces,
+        output_prefix,
+    ) = args
     # generate `piece+1` of the table for the given scale factor with dbgen
     dbgen_fname = f"{tpch_dbgen_location}/{table_name}.tbl.{piece+1}"
     remove_file_if_exists(dbgen_fname)
@@ -67,7 +76,9 @@ def to_parquet(args):
     df.to_parquet(f"{output_prefix}/part-{zeros}{piece}.pq")
 
 
-def generate(tables, SCALE_FACTOR, folder, upload_to_s3, validate_dataset, num_processes):
+def generate(
+    tables, SCALE_FACTOR, folder, upload_to_s3, validate_dataset, num_processes
+):
 
     if upload_to_s3:
         assert "AWS_ACCESS_KEY_ID" in os.environ, "AWS credentials not set"
@@ -128,7 +139,9 @@ def generate(tables, SCALE_FACTOR, folder, upload_to_s3, validate_dataset, num_p
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="TPC-H Data Generation in Parquet Format")
+    parser = argparse.ArgumentParser(
+        description="TPC-H Data Generation in Parquet Format"
+    )
     parser.add_argument(
         "--SF",
         type=float,
@@ -142,7 +155,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--validate_dataset",
-        action='store_true',
+        action="store_true",
         default=True,
         help="Validate each parquet dataset with pyarrow.parquet.ParquetDataset",
     )
@@ -160,4 +173,6 @@ if __name__ == "__main__":
         num_pieces_base = 100
     tables = get_tables_info(num_pieces_base)
     set_start_method("spawn")
-    generate(tables, SCALE_FACTOR, folder, upload_to_s3, validate_dataset, num_processes)
+    generate(
+        tables, SCALE_FACTOR, folder, upload_to_s3, validate_dataset, num_processes
+    )

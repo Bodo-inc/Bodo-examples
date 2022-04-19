@@ -8,27 +8,21 @@ In addition, there are examples for using Bodo with data infrastructure tools su
 Feedback is appreciated.
 
 
-## Running Example and Data Generation Scripts
+## Running Example Scripts
 
 First make sure you have Bodo [installed](https://docs.bodo.ai/installation_and_setup/install).
 `scikit-learn` is also required for the ML examples.
 
-Many of the data generation scripts and example scripts can take in optional arguments. 
+Many of the example scripts can take in optional arguments.
 `python <path>/<script.py> --help` shows the usage.
 
-By default all examples and data generation scripts can be run from the
+By default all examples scripts can be run from the
 top directory (Bodo-examples) without any changes.
 Otherwise, make sure to change path of data files.
-For more information on data generation and examples,
+For more information on the examples,
 please see the docstring at the top of each python script.
 
 - [TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
-  - data generation: generated data will be available at `examples/tpch/pch-datagen`:
-  
-        # To generate data with a scale of 1, equivalent to 1GB of data
-        tpch-datagen/generateData.sh 1
-        # To generate data with a scale of 2, equivalent to 2GB of data
-        tpch-datagen/generateData.sh 2
 
 - [Beer Reviews](examples/beer-reviews/beer-reviews.py)
 
