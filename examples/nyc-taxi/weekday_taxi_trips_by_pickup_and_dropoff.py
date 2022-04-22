@@ -10,16 +10,16 @@ Data source: Green Taxi 2019 s3://bodo-example-data/nyc-taxi/green_tripdata_2019
 Full dataset: https://github.com/toddwschneider/nyc-taxi-data/blob/master/setup_files/raw_data_urls.txt
 """
 
-import numpy as np
 import pandas as pd
 import time
-import datetime
 import bodo
-import os
 
-os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
+
+# add your AWS credentials here if not already set
+# import os
+# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
+# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
+
 
 @bodo.jit(cache=True)
 def get_weekday_trips():
@@ -28,12 +28,16 @@ def get_weekday_trips():
         "s3://bodo-example-data/nyc-taxi/green_tripdata_2019.csv",
         usecols=[1, 5, 6],
         parse_dates=["lpep_pickup_datetime"],
+        dtype={
+            "lpep_pickup_datetime": "str",
+            "PULocationID": "int64",
+            "PULocationID": "int64",
+        },
     )
     green_taxi["pickup_date"] = green_taxi["lpep_pickup_datetime"].dt.date
     green_taxi["pickup_dow"] = green_taxi["lpep_pickup_datetime"].dt.dayofweek
     end = time.time()
-    print("Reading Time: ", (end - start) )
-
+    print("Reading Time: ", (end - start))
 
     start = time.time()
     trips_weekdays = green_taxi[

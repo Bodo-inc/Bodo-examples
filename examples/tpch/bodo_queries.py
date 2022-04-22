@@ -129,19 +129,30 @@ def load_partsupp(data_folder):
 def q01(lineitem):
     t1 = time.time()
     date = pd.Timestamp("1998-09-02")
-    lineitem_filtered = lineitem.loc[:, ["L_QUANTITY", "L_EXTENDEDPRICE",
-                                         "L_DISCOUNT", "L_TAX", "L_RETURNFLAG",
-                                         "L_LINESTATUS",  "L_SHIPDATE",
-                                         "L_ORDERKEY"]]
+    lineitem_filtered = lineitem.loc[
+        :,
+        [
+            "L_QUANTITY",
+            "L_EXTENDEDPRICE",
+            "L_DISCOUNT",
+            "L_TAX",
+            "L_RETURNFLAG",
+            "L_LINESTATUS",
+            "L_SHIPDATE",
+            "L_ORDERKEY",
+        ],
+    ]
     sel = lineitem_filtered.L_SHIPDATE <= date
     lineitem_filtered = lineitem_filtered[sel]
     lineitem_filtered["AVG_QTY"] = lineitem_filtered.L_QUANTITY
     lineitem_filtered["AVG_PRICE"] = lineitem_filtered.L_EXTENDEDPRICE
-    lineitem_filtered["DISC_PRICE"] = lineitem_filtered.L_EXTENDEDPRICE * \
-        (1 - lineitem_filtered.L_DISCOUNT)
+    lineitem_filtered["DISC_PRICE"] = lineitem_filtered.L_EXTENDEDPRICE * (
+        1 - lineitem_filtered.L_DISCOUNT
+    )
     lineitem_filtered["CHARGE"] = (
-        lineitem_filtered.L_EXTENDEDPRICE *
-        (1 - lineitem_filtered.L_DISCOUNT) * (1 + lineitem_filtered.L_TAX)
+        lineitem_filtered.L_EXTENDEDPRICE
+        * (1 - lineitem_filtered.L_DISCOUNT)
+        * (1 + lineitem_filtered.L_TAX)
     )
     gb = lineitem_filtered.groupby(["L_RETURNFLAG", "L_LINESTATUS"], as_index=False)[
         "L_QUANTITY",
@@ -177,37 +188,101 @@ def q02(part, partsupp, supplier, nation, region):
     region_filtered = region[(region["R_NAME"] == "EUROPE")]
     region_filtered = region_filtered.loc[:, ["R_REGIONKEY"]]
     r_n_merged = nation_filtered.merge(
-        region_filtered, left_on='N_REGIONKEY', right_on='R_REGIONKEY', how='inner')
+        region_filtered, left_on="N_REGIONKEY", right_on="R_REGIONKEY", how="inner"
+    )
     r_n_merged = r_n_merged.loc[:, ["N_NATIONKEY", "N_NAME"]]
-    supplier_filtered = supplier.loc[:, [
-        "S_SUPPKEY", "S_NAME", "S_ADDRESS", "S_NATIONKEY", "S_PHONE", "S_ACCTBAL", "S_COMMENT"]]
+    supplier_filtered = supplier.loc[
+        :,
+        [
+            "S_SUPPKEY",
+            "S_NAME",
+            "S_ADDRESS",
+            "S_NATIONKEY",
+            "S_PHONE",
+            "S_ACCTBAL",
+            "S_COMMENT",
+        ],
+    ]
     s_r_n_merged = r_n_merged.merge(
-        supplier_filtered, left_on="N_NATIONKEY", right_on="S_NATIONKEY", how="inner")
-    s_r_n_merged = s_r_n_merged.loc[:, [
-        "N_NAME", "S_SUPPKEY", "S_NAME", "S_ADDRESS", "S_PHONE", "S_ACCTBAL", "S_COMMENT"]]
-    partsupp_filtered = partsupp.loc[:, [
-        "PS_PARTKEY", "PS_SUPPKEY", "PS_SUPPLYCOST"]]
+        supplier_filtered, left_on="N_NATIONKEY", right_on="S_NATIONKEY", how="inner"
+    )
+    s_r_n_merged = s_r_n_merged.loc[
+        :,
+        [
+            "N_NAME",
+            "S_SUPPKEY",
+            "S_NAME",
+            "S_ADDRESS",
+            "S_PHONE",
+            "S_ACCTBAL",
+            "S_COMMENT",
+        ],
+    ]
+    partsupp_filtered = partsupp.loc[:, ["PS_PARTKEY", "PS_SUPPKEY", "PS_SUPPLYCOST"]]
     ps_s_r_n_merged = s_r_n_merged.merge(
-        partsupp_filtered, left_on="S_SUPPKEY", right_on="PS_SUPPKEY", how="inner")
-    ps_s_r_n_merged = ps_s_r_n_merged.loc[:, [
-        "N_NAME", "S_NAME", "S_ADDRESS", "S_PHONE", "S_ACCTBAL", "S_COMMENT", "PS_PARTKEY", "PS_SUPPLYCOST"]]
+        partsupp_filtered, left_on="S_SUPPKEY", right_on="PS_SUPPKEY", how="inner"
+    )
+    ps_s_r_n_merged = ps_s_r_n_merged.loc[
+        :,
+        [
+            "N_NAME",
+            "S_NAME",
+            "S_ADDRESS",
+            "S_PHONE",
+            "S_ACCTBAL",
+            "S_COMMENT",
+            "PS_PARTKEY",
+            "PS_SUPPLYCOST",
+        ],
+    ]
     part_filtered = part.loc[:, ["P_PARTKEY", "P_MFGR", "P_SIZE", "P_TYPE"]]
-    part_filtered = part_filtered[(part_filtered["P_SIZE"] == 15) & (
-        part_filtered["P_TYPE"].str.endswith("BRASS"))]
+    part_filtered = part_filtered[
+        (part_filtered["P_SIZE"] == 15)
+        & (part_filtered["P_TYPE"].str.endswith("BRASS"))
+    ]
     part_filtered = part_filtered.loc[:, ["P_PARTKEY", "P_MFGR"]]
     merged_df = part_filtered.merge(
-        ps_s_r_n_merged, left_on='P_PARTKEY', right_on='PS_PARTKEY', how='inner')
-    merged_df = merged_df.loc[:, ["N_NAME", "S_NAME", "S_ADDRESS", "S_PHONE",
-                                  "S_ACCTBAL", "S_COMMENT", "PS_SUPPLYCOST", "P_PARTKEY", "P_MFGR"]]
-    min_values = merged_df.groupby("P_PARTKEY", as_index=False)[
-        "PS_SUPPLYCOST"].min()
+        ps_s_r_n_merged, left_on="P_PARTKEY", right_on="PS_PARTKEY", how="inner"
+    )
+    merged_df = merged_df.loc[
+        :,
+        [
+            "N_NAME",
+            "S_NAME",
+            "S_ADDRESS",
+            "S_PHONE",
+            "S_ACCTBAL",
+            "S_COMMENT",
+            "PS_SUPPLYCOST",
+            "P_PARTKEY",
+            "P_MFGR",
+        ],
+    ]
+    min_values = merged_df.groupby("P_PARTKEY", as_index=False)["PS_SUPPLYCOST"].min()
     min_values.columns = ["P_PARTKEY_CPY", "MIN_SUPPLYCOST"]
-    merged_df = merged_df.merge(min_values, left_on=["P_PARTKEY", "PS_SUPPLYCOST"], right_on=[
-                                "P_PARTKEY_CPY", "MIN_SUPPLYCOST"], how="inner")
-    total = merged_df.loc[:, ["S_ACCTBAL", "S_NAME", "N_NAME",
-                              "P_PARTKEY", "P_MFGR", "S_ADDRESS", "S_PHONE", "S_COMMENT"]]
-    total = total.sort_values(by=["S_ACCTBAL", "N_NAME", "S_NAME", "P_PARTKEY"], ascending=[
-                              False, True, True, True])
+    merged_df = merged_df.merge(
+        min_values,
+        left_on=["P_PARTKEY", "PS_SUPPLYCOST"],
+        right_on=["P_PARTKEY_CPY", "MIN_SUPPLYCOST"],
+        how="inner",
+    )
+    total = merged_df.loc[
+        :,
+        [
+            "S_ACCTBAL",
+            "S_NAME",
+            "N_NAME",
+            "P_PARTKEY",
+            "P_MFGR",
+            "S_ADDRESS",
+            "S_PHONE",
+            "S_COMMENT",
+        ],
+    ]
+    total = total.sort_values(
+        by=["S_ACCTBAL", "N_NAME", "S_NAME", "P_PARTKEY"],
+        ascending=[False, True, True, True],
+    )
     print(total)
     print("Q02 Execution time (s): ", time.time() - t1)
 
@@ -216,10 +291,12 @@ def q02(part, partsupp, supplier, nation, region):
 def q03(lineitem, orders, customer):
     t1 = time.time()
     date = pd.Timestamp("1995-03-04")
-    lineitem_filtered = lineitem.loc[:, [
-        "L_ORDERKEY", "L_EXTENDEDPRICE", "L_DISCOUNT", "L_SHIPDATE"]]
-    orders_filtered = orders.loc[:, ["O_ORDERKEY",
-                                     "O_CUSTKEY", "O_ORDERDATE", "O_SHIPPRIORITY"]]
+    lineitem_filtered = lineitem.loc[
+        :, ["L_ORDERKEY", "L_EXTENDEDPRICE", "L_DISCOUNT", "L_SHIPDATE"]
+    ]
+    orders_filtered = orders.loc[
+        :, ["O_ORDERKEY", "O_CUSTKEY", "O_ORDERDATE", "O_SHIPPRIORITY"]
+    ]
     customer_filtered = customer.loc[:, ["C_MKTSEGMENT", "C_CUSTKEY"]]
     lsel = lineitem_filtered.L_SHIPDATE > date
     osel = orders_filtered.O_ORDERDATE < date
@@ -289,8 +366,9 @@ def q06(lineitem):
     t1 = time.time()
     date1 = pd.Timestamp("1996-01-01")
     date2 = pd.Timestamp("1997-01-01")
-    lineitem_filtered = lineitem.loc[:, [
-        "L_QUANTITY", "L_EXTENDEDPRICE", "L_DISCOUNT", "L_SHIPDATE"]]
+    lineitem_filtered = lineitem.loc[
+        :, ["L_QUANTITY", "L_EXTENDEDPRICE", "L_DISCOUNT", "L_SHIPDATE"]
+    ]
     sel = (
         (lineitem_filtered.L_SHIPDATE >= date1)
         & (lineitem_filtered.L_SHIPDATE < date2)
@@ -308,116 +386,146 @@ def q06(lineitem):
 def q07_old(lineitem, supplier, orders, customer, nation):
     t1 = time.time()
     supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NATIONKEY"]]
-    lineitem_filtered = lineitem[(lineitem["L_SHIPDATE"] >= pd.Timestamp(
-        "1995-01-01")) & (lineitem["L_SHIPDATE"] < pd.Timestamp("1997-01-01"))]
+    lineitem_filtered = lineitem[
+        (lineitem["L_SHIPDATE"] >= pd.Timestamp("1995-01-01"))
+        & (lineitem["L_SHIPDATE"] < pd.Timestamp("1997-01-01"))
+    ]
     lineitem_filtered["L_YEAR"] = lineitem_filtered["L_SHIPDATE"].apply(
-        lambda x: x.year)
-    lineitem_filtered["VOLUME"] = lineitem_filtered["L_EXTENDEDPRICE"] * \
-        (1.0 - lineitem_filtered["L_DISCOUNT"])
-    lineitem_filtered = lineitem_filtered.loc[:, [
-        "L_ORDERKEY", "L_SUPPKEY", "L_YEAR", "VOLUME"]]
+        lambda x: x.year
+    )
+    lineitem_filtered["VOLUME"] = lineitem_filtered["L_EXTENDEDPRICE"] * (
+        1.0 - lineitem_filtered["L_DISCOUNT"]
+    )
+    lineitem_filtered = lineitem_filtered.loc[
+        :, ["L_ORDERKEY", "L_SUPPKEY", "L_YEAR", "VOLUME"]
+    ]
     total = supplier_filtered.merge(
-        lineitem_filtered, left_on='S_SUPPKEY', right_on='L_SUPPKEY', how='inner')
+        lineitem_filtered, left_on="S_SUPPKEY", right_on="L_SUPPKEY", how="inner"
+    )
     total = total.loc[:, ["S_NATIONKEY", "L_ORDERKEY", "L_YEAR", "VOLUME"]]
     orders_filtered = orders.loc[:, ["O_ORDERKEY", "O_CUSTKEY"]]
-    total = total.merge(orders_filtered, left_on='L_ORDERKEY',
-                        right_on='O_ORDERKEY', how='inner')
+    total = total.merge(
+        orders_filtered, left_on="L_ORDERKEY", right_on="O_ORDERKEY", how="inner"
+    )
     total = total.loc[:, ["S_NATIONKEY", "L_YEAR", "VOLUME", "O_CUSTKEY"]]
     customer_filtered = customer.loc[:, ["C_CUSTKEY", "C_NATIONKEY"]]
-    total = total.merge(customer_filtered, left_on='O_CUSTKEY',
-                        right_on='C_CUSTKEY', how='inner')
+    total = total.merge(
+        customer_filtered, left_on="O_CUSTKEY", right_on="C_CUSTKEY", how="inner"
+    )
     total = total.loc[:, ["S_NATIONKEY", "L_YEAR", "VOLUME", "C_NATIONKEY"]]
-    nation_filtered = nation[(nation["N_NAME"] == "FRANCE") | (
-        nation["N_NAME"] == "GERMANY")]
+    nation_filtered = nation[
+        (nation["N_NAME"] == "FRANCE") | (nation["N_NAME"] == "GERMANY")
+    ]
     n1 = nation_filtered.loc[:, ["N_NAME", "N_NATIONKEY"]].rename(
-        columns={"N_NAME": "SUPP_NATION"})
+        columns={"N_NAME": "SUPP_NATION"}
+    )
     n2 = nation_filtered.loc[:, ["N_NAME", "N_NATIONKEY"]].rename(
-        columns={"N_NAME": "CUST_NATION"})
-    total = total.merge(n1, left_on='S_NATIONKEY',
-                        right_on="N_NATIONKEY", how='inner')
+        columns={"N_NAME": "CUST_NATION"}
+    )
+    total = total.merge(n1, left_on="S_NATIONKEY", right_on="N_NATIONKEY", how="inner")
     total = total.loc[:, ["L_YEAR", "VOLUME", "C_NATIONKEY", "SUPP_NATION"]]
-    total = total.merge(n2, left_on='C_NATIONKEY',
-                        right_on="N_NATIONKEY", how='inner')
+    total = total.merge(n2, left_on="C_NATIONKEY", right_on="N_NATIONKEY", how="inner")
     total = total.loc[:, ["SUPP_NATION", "CUST_NATION", "L_YEAR", "VOLUME"]]
     total = total[total["SUPP_NATION"] != total["CUST_NATION"]]
     total = total.groupby(["SUPP_NATION", "CUST_NATION", "L_YEAR"], as_index=False).agg(
-        REVENUE=pd.NamedAgg(column="VOLUME", aggfunc="sum"))
+        REVENUE=pd.NamedAgg(column="VOLUME", aggfunc="sum")
+    )
     total = total.sort_values(
-        by=["SUPP_NATION", "CUST_NATION", "L_YEAR"], ascending=[True, True, True])
+        by=["SUPP_NATION", "CUST_NATION", "L_YEAR"], ascending=[True, True, True]
+    )
     print(total)
     print("Q07 Execution time (s): ", time.time() - t1)
 
 
 @bodo.jit
 def q07(lineitem, supplier, orders, customer, nation):
-    """ This version is faster than q07_old. Keeping the old one for reference """
+    """This version is faster than q07_old. Keeping the old one for reference"""
     t1 = time.time()
 
-    lineitem_filtered = lineitem[(lineitem["L_SHIPDATE"] >= pd.Timestamp(
-        "1995-01-01")) & (lineitem["L_SHIPDATE"] < pd.Timestamp("1997-01-01"))]
+    lineitem_filtered = lineitem[
+        (lineitem["L_SHIPDATE"] >= pd.Timestamp("1995-01-01"))
+        & (lineitem["L_SHIPDATE"] < pd.Timestamp("1997-01-01"))
+    ]
     lineitem_filtered["L_YEAR"] = lineitem_filtered["L_SHIPDATE"].apply(
-        lambda x: x.year)
-    lineitem_filtered["VOLUME"] = lineitem_filtered["L_EXTENDEDPRICE"] * \
-        (1.0 - lineitem_filtered["L_DISCOUNT"])
-    lineitem_filtered = lineitem_filtered.loc[:, [
-        "L_ORDERKEY", "L_SUPPKEY", "L_YEAR", "VOLUME"]]
+        lambda x: x.year
+    )
+    lineitem_filtered["VOLUME"] = lineitem_filtered["L_EXTENDEDPRICE"] * (
+        1.0 - lineitem_filtered["L_DISCOUNT"]
+    )
+    lineitem_filtered = lineitem_filtered.loc[
+        :, ["L_ORDERKEY", "L_SUPPKEY", "L_YEAR", "VOLUME"]
+    ]
     supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NATIONKEY"]]
     orders_filtered = orders.loc[:, ["O_ORDERKEY", "O_CUSTKEY"]]
     customer_filtered = customer.loc[:, ["C_CUSTKEY", "C_NATIONKEY"]]
-    n1 = nation[(nation["N_NAME"] == "FRANCE")
-                ].loc[:, ["N_NATIONKEY", "N_NAME"]]
-    n2 = nation[(nation["N_NAME"] == "GERMANY")
-                ].loc[:, ["N_NATIONKEY", "N_NAME"]]
+    n1 = nation[(nation["N_NAME"] == "FRANCE")].loc[:, ["N_NATIONKEY", "N_NAME"]]
+    n2 = nation[(nation["N_NAME"] == "GERMANY")].loc[:, ["N_NATIONKEY", "N_NAME"]]
 
     # ----- do nation 1 -----
     N1_C = customer_filtered.merge(
-        n1, left_on='C_NATIONKEY', right_on='N_NATIONKEY', how='inner')
+        n1, left_on="C_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     N1_C = N1_C.drop(columns=["C_NATIONKEY", "N_NATIONKEY"]).rename(
-        columns={"N_NAME": "CUST_NATION"})
-    N1_C_O = N1_C.merge(orders_filtered, left_on='C_CUSTKEY',
-                        right_on='O_CUSTKEY', how='inner')
+        columns={"N_NAME": "CUST_NATION"}
+    )
+    N1_C_O = N1_C.merge(
+        orders_filtered, left_on="C_CUSTKEY", right_on="O_CUSTKEY", how="inner"
+    )
     N1_C_O = N1_C_O.drop(columns=["C_CUSTKEY", "O_CUSTKEY"])
 
     N2_S = supplier_filtered.merge(
-        n2, left_on='S_NATIONKEY', right_on='N_NATIONKEY', how='inner')
+        n2, left_on="S_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     N2_S = N2_S.drop(columns=["S_NATIONKEY", "N_NATIONKEY"]).rename(
-        columns={"N_NAME": "SUPP_NATION"})
-    N2_S_L = N2_S.merge(lineitem_filtered, left_on='S_SUPPKEY',
-                        right_on='L_SUPPKEY', how='inner')
+        columns={"N_NAME": "SUPP_NATION"}
+    )
+    N2_S_L = N2_S.merge(
+        lineitem_filtered, left_on="S_SUPPKEY", right_on="L_SUPPKEY", how="inner"
+    )
     N2_S_L = N2_S_L.drop(columns=["S_SUPPKEY", "L_SUPPKEY"])
 
-    total1 = N1_C_O.merge(N2_S_L, left_on='O_ORDERKEY',
-                          right_on='L_ORDERKEY', how='inner')
+    total1 = N1_C_O.merge(
+        N2_S_L, left_on="O_ORDERKEY", right_on="L_ORDERKEY", how="inner"
+    )
     total1 = total1.drop(columns=["O_ORDERKEY", "L_ORDERKEY"])
 
-    # ----- do nation 2 ----- 
+    # ----- do nation 2 -----
     N2_C = customer_filtered.merge(
-        n2, left_on='C_NATIONKEY', right_on='N_NATIONKEY', how='inner')
+        n2, left_on="C_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     N2_C = N2_C.drop(columns=["C_NATIONKEY", "N_NATIONKEY"]).rename(
-        columns={"N_NAME": "CUST_NATION"})
-    N2_C_O = N2_C.merge(orders_filtered, left_on='C_CUSTKEY',
-                        right_on='O_CUSTKEY', how='inner')
+        columns={"N_NAME": "CUST_NATION"}
+    )
+    N2_C_O = N2_C.merge(
+        orders_filtered, left_on="C_CUSTKEY", right_on="O_CUSTKEY", how="inner"
+    )
     N2_C_O = N2_C_O.drop(columns=["C_CUSTKEY", "O_CUSTKEY"])
 
     N1_S = supplier_filtered.merge(
-        n1, left_on='S_NATIONKEY', right_on='N_NATIONKEY', how='inner')
+        n1, left_on="S_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     N1_S = N1_S.drop(columns=["S_NATIONKEY", "N_NATIONKEY"]).rename(
-        columns={"N_NAME": "SUPP_NATION"})
-    N1_S_L = N1_S.merge(lineitem_filtered, left_on='S_SUPPKEY',
-                        right_on='L_SUPPKEY', how='inner')
+        columns={"N_NAME": "SUPP_NATION"}
+    )
+    N1_S_L = N1_S.merge(
+        lineitem_filtered, left_on="S_SUPPKEY", right_on="L_SUPPKEY", how="inner"
+    )
     N1_S_L = N1_S_L.drop(columns=["S_SUPPKEY", "L_SUPPKEY"])
 
-    total2 = N2_C_O.merge(N1_S_L, left_on='O_ORDERKEY',
-                          right_on='L_ORDERKEY', how='inner')
+    total2 = N2_C_O.merge(
+        N1_S_L, left_on="O_ORDERKEY", right_on="L_ORDERKEY", how="inner"
+    )
     total2 = total2.drop(columns=["O_ORDERKEY", "L_ORDERKEY"])
 
     # concat results
     total = pd.concat([total1, total2])
 
     total = total.groupby(["SUPP_NATION", "CUST_NATION", "L_YEAR"], as_index=False).agg(
-        REVENUE=pd.NamedAgg(column="VOLUME", aggfunc="sum"))
+        REVENUE=pd.NamedAgg(column="VOLUME", aggfunc="sum")
+    )
     total = total.sort_values(
-        by=["SUPP_NATION", "CUST_NATION", "L_YEAR"], ascending=[True, True, True])
+        by=["SUPP_NATION", "CUST_NATION", "L_YEAR"], ascending=[True, True, True]
+    )
     print(total)
     print("Q07 Execution time (s): ", time.time() - t1)
 
@@ -427,43 +535,51 @@ def q08(part, lineitem, supplier, orders, customer, nation, region):
     t1 = time.time()
     part_filtered = part[(part["P_TYPE"] == "ECONOMY ANODIZED STEEL")]
     part_filtered = part_filtered.loc[:, ["P_PARTKEY"]]
-    lineitem_filtered = lineitem.loc[:, [
-        "L_PARTKEY", "L_SUPPKEY", "L_ORDERKEY"]]
-    lineitem_filtered["VOLUME"] = lineitem["L_EXTENDEDPRICE"] * \
-        (1.0 - lineitem["L_DISCOUNT"])
+    lineitem_filtered = lineitem.loc[:, ["L_PARTKEY", "L_SUPPKEY", "L_ORDERKEY"]]
+    lineitem_filtered["VOLUME"] = lineitem["L_EXTENDEDPRICE"] * (
+        1.0 - lineitem["L_DISCOUNT"]
+    )
     total = part_filtered.merge(
-        lineitem_filtered, left_on="P_PARTKEY", right_on="L_PARTKEY", how="inner")
+        lineitem_filtered, left_on="P_PARTKEY", right_on="L_PARTKEY", how="inner"
+    )
     total = total.loc[:, ["L_SUPPKEY", "L_ORDERKEY", "VOLUME"]]
     supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NATIONKEY"]]
-    total = total.merge(supplier_filtered, left_on="L_SUPPKEY",
-                        right_on="S_SUPPKEY", how="inner")
+    total = total.merge(
+        supplier_filtered, left_on="L_SUPPKEY", right_on="S_SUPPKEY", how="inner"
+    )
     total = total.loc[:, ["L_ORDERKEY", "VOLUME", "S_NATIONKEY"]]
-    orders_filtered = orders[(orders["O_ORDERDATE"] >= pd.Timestamp(
-        "1995-01-01")) & (orders["O_ORDERDATE"] < pd.Timestamp("1997-01-01"))]
-    orders_filtered["O_YEAR"] = orders_filtered["O_ORDERDATE"].apply(
-        lambda x: x.year)
-    orders_filtered = orders_filtered.loc[:, [
-        "O_ORDERKEY", "O_CUSTKEY", "O_YEAR"]]
-    total = total.merge(orders_filtered, left_on="L_ORDERKEY",
-                        right_on="O_ORDERKEY", how="inner")
+    orders_filtered = orders[
+        (orders["O_ORDERDATE"] >= pd.Timestamp("1995-01-01"))
+        & (orders["O_ORDERDATE"] < pd.Timestamp("1997-01-01"))
+    ]
+    orders_filtered["O_YEAR"] = orders_filtered["O_ORDERDATE"].apply(lambda x: x.year)
+    orders_filtered = orders_filtered.loc[:, ["O_ORDERKEY", "O_CUSTKEY", "O_YEAR"]]
+    total = total.merge(
+        orders_filtered, left_on="L_ORDERKEY", right_on="O_ORDERKEY", how="inner"
+    )
     total = total.loc[:, ["VOLUME", "S_NATIONKEY", "O_CUSTKEY", "O_YEAR"]]
     customer_filtered = customer.loc[:, ["C_CUSTKEY", "C_NATIONKEY"]]
-    total = total.merge(customer_filtered, left_on="O_CUSTKEY",
-                        right_on="C_CUSTKEY", how="inner")
+    total = total.merge(
+        customer_filtered, left_on="O_CUSTKEY", right_on="C_CUSTKEY", how="inner"
+    )
     total = total.loc[:, ["VOLUME", "S_NATIONKEY", "O_YEAR", "C_NATIONKEY"]]
     n1_filtered = nation.loc[:, ["N_NATIONKEY", "N_REGIONKEY"]]
     n2_filtered = nation.loc[:, ["N_NATIONKEY", "N_NAME"]].rename(
-        columns={"N_NAME": "NATION"})
-    total = total.merge(n1_filtered, left_on="C_NATIONKEY",
-                        right_on="N_NATIONKEY", how="inner")
+        columns={"N_NAME": "NATION"}
+    )
+    total = total.merge(
+        n1_filtered, left_on="C_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     total = total.loc[:, ["VOLUME", "S_NATIONKEY", "O_YEAR", "N_REGIONKEY"]]
-    total = total.merge(n2_filtered, left_on="S_NATIONKEY",
-                        right_on="N_NATIONKEY", how="inner")
+    total = total.merge(
+        n2_filtered, left_on="S_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     total = total.loc[:, ["VOLUME", "O_YEAR", "N_REGIONKEY", "NATION"]]
     region_filtered = region[(region["R_NAME"] == "AMERICA")]
     region_filtered = region_filtered.loc[:, ["R_REGIONKEY"]]
-    total = total.merge(region_filtered, left_on="N_REGIONKEY",
-                        right_on="R_REGIONKEY", how="inner")
+    total = total.merge(
+        region_filtered, left_on="N_REGIONKEY", right_on="R_REGIONKEY", how="inner"
+    )
     total = total.loc[:, ["VOLUME", "O_YEAR", "NATION"]]
 
     def udf(df):
@@ -535,20 +651,24 @@ def q10(lineitem, orders, customer, nation):
 def q11(partsupp, supplier, nation):
     t1 = time.time()
     partsupp_filtered = partsupp.loc[:, ["PS_PARTKEY", "PS_SUPPKEY"]]
-    partsupp_filtered["TOTAL_COST"] = partsupp["PS_SUPPLYCOST"] * \
-        partsupp["PS_AVAILQTY"]
+    partsupp_filtered["TOTAL_COST"] = (
+        partsupp["PS_SUPPLYCOST"] * partsupp["PS_AVAILQTY"]
+    )
     supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NATIONKEY"]]
     ps_supp_merge = partsupp_filtered.merge(
-        supplier_filtered, left_on='PS_SUPPKEY', right_on='S_SUPPKEY', how='inner')
+        supplier_filtered, left_on="PS_SUPPKEY", right_on="S_SUPPKEY", how="inner"
+    )
     ps_supp_merge.loc[:, ["PS_PARTKEY", "S_NATIONKEY", "TOTAL_COST"]]
     nation_filtered = nation[(nation["N_NAME"] == "GERMANY")]
     nation_filtered = nation_filtered.loc[:, ["N_NATIONKEY"]]
     ps_supp_n_merge = ps_supp_merge.merge(
-        nation_filtered, left_on='S_NATIONKEY', right_on='N_NATIONKEY', how='inner')
+        nation_filtered, left_on="S_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     ps_supp_n_merge = ps_supp_n_merge.loc[:, ["PS_PARTKEY", "TOTAL_COST"]]
     sum_val = ps_supp_n_merge["TOTAL_COST"].sum() * 0.0001
     total = ps_supp_n_merge.groupby(["PS_PARTKEY"], as_index=False).agg(
-        VALUE=pd.NamedAgg(column="TOTAL_COST", aggfunc="sum"))
+        VALUE=pd.NamedAgg(column="TOTAL_COST", aggfunc="sum")
+    )
     total = total[total["VALUE"] > sum_val]
     total = total.sort_values("VALUE", ascending=False)
     print(total)
@@ -578,8 +698,7 @@ def q12(lineitem, orders):
     def g2(x):
         return ((x != "1-URGENT") & (x != "2-HIGH")).sum()
 
-    total = jn.groupby("L_SHIPMODE", as_index=False)[
-        "O_ORDERPRIORITY"].agg((g1, g2))
+    total = jn.groupby("L_SHIPMODE", as_index=False)["O_ORDERPRIORITY"].agg((g1, g2))
     total = total.sort_values("L_SHIPMODE")
     print(total)
     print("Q12 Execution time (s): ", time.time() - t1)
@@ -589,18 +708,20 @@ def q12(lineitem, orders):
 def q13(customer, orders):
     t1 = time.time()
     customer_filtered = customer.loc[:, ["C_CUSTKEY"]]
-    orders_filtered = orders[~orders["O_COMMENT"].str.contains(
-        "special(\S|\s)*requests")]
+    orders_filtered = orders[
+        ~orders["O_COMMENT"].str.contains("special(\S|\s)*requests")
+    ]
     orders_filtered = orders_filtered.loc[:, ["O_ORDERKEY", "O_CUSTKEY"]]
     c_o_merged = customer_filtered.merge(
-        orders_filtered, left_on='C_CUSTKEY', right_on='O_CUSTKEY', how='left')
+        orders_filtered, left_on="C_CUSTKEY", right_on="O_CUSTKEY", how="left"
+    )
     c_o_merged = c_o_merged.loc[:, ["C_CUSTKEY", "O_ORDERKEY"]]
     count_df = c_o_merged.groupby(["C_CUSTKEY"], as_index=False).agg(
-        C_COUNT=pd.NamedAgg(column="O_ORDERKEY", aggfunc="count"))
+        C_COUNT=pd.NamedAgg(column="O_ORDERKEY", aggfunc="count")
+    )
     total = count_df.groupby(["C_COUNT"], as_index=False).size()
     total.columns = ["C_COUNT", "CUSTDIST"]
-    total = total.sort_values(
-        by=["CUSTDIST", "C_COUNT"], ascending=[False, False])
+    total = total.sort_values(by=["CUSTDIST", "C_COUNT"], ascending=[False, False])
     print(total)
     print("Q13 Execution time (s): ", time.time() - t1)
 
@@ -612,16 +733,16 @@ def q14(lineitem, part):
     endDate = pd.Timestamp("1994-04-01")
     p_type_like = "PROMO"
     part_filtered = part.loc[:, ["P_PARTKEY", "P_TYPE"]]
-    lineitem_filtered = lineitem.loc[:, [
-        "L_EXTENDEDPRICE", "L_DISCOUNT", "L_SHIPDATE", "L_PARTKEY"]]
+    lineitem_filtered = lineitem.loc[
+        :, ["L_EXTENDEDPRICE", "L_DISCOUNT", "L_SHIPDATE", "L_PARTKEY"]
+    ]
     sel = (lineitem_filtered.L_SHIPDATE >= startDate) & (
-        lineitem_filtered.L_SHIPDATE < endDate)
+        lineitem_filtered.L_SHIPDATE < endDate
+    )
     flineitem = lineitem_filtered[sel]
-    jn = flineitem.merge(
-        part_filtered, left_on="L_PARTKEY", right_on="P_PARTKEY")
+    jn = flineitem.merge(part_filtered, left_on="L_PARTKEY", right_on="P_PARTKEY")
     jn["TMP"] = jn.L_EXTENDEDPRICE * (1.0 - jn.L_DISCOUNT)
-    total = jn[jn.P_TYPE.str.startswith(
-        p_type_like)].TMP.sum() * 100 / jn.TMP.sum()
+    total = jn[jn.P_TYPE.str.startswith(p_type_like)].TMP.sum() * 100 / jn.TMP.sum()
     print(total)
     print("Q14 Execution time (s): ", time.time() - t1)
 
@@ -629,23 +750,31 @@ def q14(lineitem, part):
 @bodo.jit
 def q15(lineitem, supplier):
     t1 = time.time()
-    lineitem_filtered = lineitem[(lineitem["L_SHIPDATE"] >= pd.Timestamp(
-        '1996-01-01')) & (lineitem["L_SHIPDATE"] < (pd.Timestamp('1996-01-01') + pd.DateOffset(months=3)))]
-    lineitem_filtered["REVENUE_PARTS"] = lineitem_filtered["L_EXTENDEDPRICE"] * \
-        (1.0 - lineitem_filtered["L_DISCOUNT"])
-    lineitem_filtered = lineitem_filtered.loc[:, [
-        "L_SUPPKEY", "REVENUE_PARTS"]]
-    revenue_table = lineitem_filtered.groupby("L_SUPPKEY", as_index=False).agg(TOTAL_REVENUE=pd.NamedAgg(
-        column="REVENUE_PARTS", aggfunc="sum")).rename(columns={"L_SUPPKEY": "SUPPLIER_NO"}, copy=False)
+    lineitem_filtered = lineitem[
+        (lineitem["L_SHIPDATE"] >= pd.Timestamp("1996-01-01"))
+        & (
+            lineitem["L_SHIPDATE"]
+            < (pd.Timestamp("1996-01-01") + pd.DateOffset(months=3))
+        )
+    ]
+    lineitem_filtered["REVENUE_PARTS"] = lineitem_filtered["L_EXTENDEDPRICE"] * (
+        1.0 - lineitem_filtered["L_DISCOUNT"]
+    )
+    lineitem_filtered = lineitem_filtered.loc[:, ["L_SUPPKEY", "REVENUE_PARTS"]]
+    revenue_table = (
+        lineitem_filtered.groupby("L_SUPPKEY", as_index=False)
+        .agg(TOTAL_REVENUE=pd.NamedAgg(column="REVENUE_PARTS", aggfunc="sum"))
+        .rename(columns={"L_SUPPKEY": "SUPPLIER_NO"}, copy=False)
+    )
     max_revenue = revenue_table["TOTAL_REVENUE"].max()
-    revenue_table = revenue_table[revenue_table["TOTAL_REVENUE"]
-                                  == max_revenue]
-    supplier_filtered = supplier.loc[:, [
-        "S_SUPPKEY", "S_NAME", "S_ADDRESS", "S_PHONE"]]
+    revenue_table = revenue_table[revenue_table["TOTAL_REVENUE"] == max_revenue]
+    supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NAME", "S_ADDRESS", "S_PHONE"]]
     total = supplier_filtered.merge(
-        revenue_table, left_on="S_SUPPKEY", right_on="SUPPLIER_NO", how="inner")
-    total = total.loc[:, ["S_SUPPKEY", "S_NAME",
-                          "S_ADDRESS", "S_PHONE", "TOTAL_REVENUE"]]
+        revenue_table, left_on="S_SUPPKEY", right_on="SUPPLIER_NO", how="inner"
+    )
+    total = total.loc[
+        :, ["S_SUPPKEY", "S_NAME", "S_ADDRESS", "S_PHONE", "TOTAL_REVENUE"]
+    ]
     print(total)
     print("Q15 Execution time (s): ", time.time() - t1)
 
@@ -658,26 +787,30 @@ def q16(part, partsupp, supplier):
         & (~part["P_TYPE"].str.contains("^MEDIUM POLISHED"))
         & part["P_SIZE"].isin([49, 14, 23, 45, 19, 3, 36, 9])
     ]
-    part_filtered = part_filtered.loc[:, [
-        "P_PARTKEY", "P_BRAND", "P_TYPE", "P_SIZE"]]
+    part_filtered = part_filtered.loc[:, ["P_PARTKEY", "P_BRAND", "P_TYPE", "P_SIZE"]]
     partsupp_filtered = partsupp.loc[:, ["PS_PARTKEY", "PS_SUPPKEY"]]
     total = part_filtered.merge(
-        partsupp_filtered, left_on="P_PARTKEY", right_on="PS_PARTKEY", how="inner")
+        partsupp_filtered, left_on="P_PARTKEY", right_on="PS_PARTKEY", how="inner"
+    )
     total = total.loc[:, ["P_BRAND", "P_TYPE", "P_SIZE", "PS_SUPPKEY"]]
-    supplier_filtered = supplier[supplier["S_COMMENT"].str.contains(
-        "Customer(\S|\s)*Complaints")]
-    supplier_filtered = supplier_filtered.loc[:, [
-        "S_SUPPKEY"]].drop_duplicates()
+    supplier_filtered = supplier[
+        supplier["S_COMMENT"].str.contains("Customer(\S|\s)*Complaints")
+    ]
+    supplier_filtered = supplier_filtered.loc[:, ["S_SUPPKEY"]].drop_duplicates()
     # left merge to select only PS_SUPPKEY values not in supplier_filtered
-    total = total.merge(supplier_filtered, left_on="PS_SUPPKEY",
-                        right_on="S_SUPPKEY", how="left")
+    total = total.merge(
+        supplier_filtered, left_on="PS_SUPPKEY", right_on="S_SUPPKEY", how="left"
+    )
     total = total[total["S_SUPPKEY"].isna()]
     total = total.loc[:, ["P_BRAND", "P_TYPE", "P_SIZE", "PS_SUPPKEY"]]
     total = total.groupby(["P_BRAND", "P_TYPE", "P_SIZE"], as_index=False)[
-        "PS_SUPPKEY"].nunique()
+        "PS_SUPPKEY"
+    ].nunique()
     total.columns = ["P_BRAND", "P_TYPE", "P_SIZE", "SUPPLIER_CNT"]
-    total = total.sort_values(by=["SUPPLIER_CNT", "P_BRAND", "P_TYPE", "P_SIZE"], ascending=[
-                              False, True, True, True])
+    total = total.sort_values(
+        by=["SUPPLIER_CNT", "P_BRAND", "P_TYPE", "P_SIZE"],
+        ascending=[False, True, True, True],
+    )
     print(total)
     print("Q16 Execution time (s): ", time.time() - t1)
 
@@ -686,23 +819,25 @@ def q16(part, partsupp, supplier):
 def q17(lineitem, part):
     t1 = time.time()
     left = lineitem.loc[:, ["L_PARTKEY", "L_QUANTITY", "L_EXTENDEDPRICE"]]
-    right = part[((part["P_BRAND"] == "Brand#23") &
-                  (part["P_CONTAINER"] == "MED BOX"))]
+    right = part[((part["P_BRAND"] == "Brand#23") & (part["P_CONTAINER"] == "MED BOX"))]
     right = right.loc[:, ["P_PARTKEY"]]
     line_part_merge = left.merge(
-        right, left_on='L_PARTKEY', right_on='P_PARTKEY', how='inner')
-    line_part_merge = line_part_merge.loc[:, [
-        "L_QUANTITY", "L_EXTENDEDPRICE", "P_PARTKEY"]]
+        right, left_on="L_PARTKEY", right_on="P_PARTKEY", how="inner"
+    )
+    line_part_merge = line_part_merge.loc[
+        :, ["L_QUANTITY", "L_EXTENDEDPRICE", "P_PARTKEY"]
+    ]
     lineitem_filtered = lineitem.loc[:, ["L_PARTKEY", "L_QUANTITY"]]
     lineitem_avg = lineitem_filtered.groupby(["L_PARTKEY"], as_index=False).agg(
-        avg=pd.NamedAgg(column="L_QUANTITY", aggfunc="mean"))
+        avg=pd.NamedAgg(column="L_QUANTITY", aggfunc="mean")
+    )
     lineitem_avg["avg"] = 0.2 * lineitem_avg["avg"]
     lineitem_avg = lineitem_avg.loc[:, ["L_PARTKEY", "avg"]]
     total = line_part_merge.merge(
-        lineitem_avg, left_on='P_PARTKEY', right_on='L_PARTKEY', how='inner')
+        lineitem_avg, left_on="P_PARTKEY", right_on="L_PARTKEY", how="inner"
+    )
     total = total[total["L_QUANTITY"] < total["avg"]]
-    total = pd.DataFrame(
-        {"avg_yearly": [total["L_EXTENDEDPRICE"].sum() / 7.0]})
+    total = pd.DataFrame({"avg_yearly": [total["L_EXTENDEDPRICE"].sum() / 7.0]})
     print(total)
     print("Q17 Execution time (s): ", time.time() - t1)
 
@@ -718,8 +853,7 @@ def q18(lineitem, orders, customer):
         ["C_NAME", "C_CUSTKEY", "O_ORDERKEY", "O_ORDERDATE", "O_TOTALPRICE"],
         as_index=False,
     )["L_QUANTITY"].sum()
-    total = gb2.sort_values(
-        ["O_TOTALPRICE", "O_ORDERDATE"], ascending=[False, True])
+    total = gb2.sort_values(["O_TOTALPRICE", "O_ORDERDATE"], ascending=[False, True])
     print(total.head(100))
     print("Q18 Execution time (s): ", time.time() - t1)
 
@@ -859,57 +993,66 @@ def q20(lineitem, part, nation, partsupp, supplier):
 @bodo.jit
 def q21(lineitem, orders, supplier, nation):
     t1 = time.time()
-    lineitem_filtered = lineitem.loc[:, [
-        "L_ORDERKEY", "L_SUPPKEY", "L_RECEIPTDATE", "L_COMMITDATE"]]
+    lineitem_filtered = lineitem.loc[
+        :, ["L_ORDERKEY", "L_SUPPKEY", "L_RECEIPTDATE", "L_COMMITDATE"]
+    ]
 
     # Keep all rows that have another row in linetiem with the same orderkey and different suppkey
-    lineitem_orderkeys = lineitem_filtered.loc[:, ["L_ORDERKEY", "L_SUPPKEY"]].groupby(
-        "L_ORDERKEY", as_index=False)["L_SUPPKEY"].nunique()
+    lineitem_orderkeys = (
+        lineitem_filtered.loc[:, ["L_ORDERKEY", "L_SUPPKEY"]]
+        .groupby("L_ORDERKEY", as_index=False)["L_SUPPKEY"]
+        .nunique()
+    )
     lineitem_orderkeys.columns = ["L_ORDERKEY", "nunique_col"]
     lineitem_orderkeys = lineitem_orderkeys[lineitem_orderkeys["nunique_col"] > 1]
     lineitem_orderkeys = lineitem_orderkeys.loc[:, ["L_ORDERKEY"]]
 
     # Keep all rows that have l_receiptdate > l_commitdate
-    lineitem_filtered = lineitem_filtered[lineitem_filtered["L_RECEIPTDATE"]
-                                          > lineitem_filtered["L_COMMITDATE"]]
+    lineitem_filtered = lineitem_filtered[
+        lineitem_filtered["L_RECEIPTDATE"] > lineitem_filtered["L_COMMITDATE"]
+    ]
     lineitem_filtered = lineitem_filtered.loc[:, ["L_ORDERKEY", "L_SUPPKEY"]]
 
     # Merge Filter + Exists
     lineitem_filtered = lineitem_filtered.merge(
-        lineitem_orderkeys, on="L_ORDERKEY", how="inner")
+        lineitem_orderkeys, on="L_ORDERKEY", how="inner"
+    )
 
     # Not Exists: Check the exists condition isn't still satisfied on the output.
     lineitem_orderkeys = lineitem_filtered.groupby("L_ORDERKEY", as_index=False)[
-        "L_SUPPKEY"].nunique()
+        "L_SUPPKEY"
+    ].nunique()
     lineitem_orderkeys.columns = ["L_ORDERKEY", "nunique_col"]
     lineitem_orderkeys = lineitem_orderkeys[lineitem_orderkeys["nunique_col"] == 1]
     lineitem_orderkeys = lineitem_orderkeys.loc[:, ["L_ORDERKEY"]]
 
     # Merge Filter + Not Exists
     lineitem_filtered = lineitem_filtered.merge(
-        lineitem_orderkeys, on="L_ORDERKEY", how="inner")
+        lineitem_orderkeys, on="L_ORDERKEY", how="inner"
+    )
 
     orders_filtered = orders.loc[:, ["O_ORDERSTATUS", "O_ORDERKEY"]]
     orders_filtered = orders_filtered[orders_filtered["O_ORDERSTATUS"] == "F"]
     orders_filtered = orders_filtered.loc[:, ["O_ORDERKEY"]]
     total = lineitem_filtered.merge(
-        orders_filtered, left_on="L_ORDERKEY", right_on="O_ORDERKEY", how="inner")
+        orders_filtered, left_on="L_ORDERKEY", right_on="O_ORDERKEY", how="inner"
+    )
     total = total.loc[:, ["L_SUPPKEY"]]
 
     supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NATIONKEY", "S_NAME"]]
-    total = total.merge(supplier_filtered, left_on="L_SUPPKEY",
-                        right_on="S_SUPPKEY", how="inner")
+    total = total.merge(
+        supplier_filtered, left_on="L_SUPPKEY", right_on="S_SUPPKEY", how="inner"
+    )
     total = total.loc[:, ["S_NATIONKEY", "S_NAME"]]
     nation_filtered = nation.loc[:, ["N_NAME", "N_NATIONKEY"]]
-    nation_filtered = nation_filtered[nation_filtered["N_NAME"]
-                                      == "SAUDI ARABIA"]
-    total = total.merge(nation_filtered, left_on="S_NATIONKEY",
-                        right_on="N_NATIONKEY", how="inner")
+    nation_filtered = nation_filtered[nation_filtered["N_NAME"] == "SAUDI ARABIA"]
+    total = total.merge(
+        nation_filtered, left_on="S_NATIONKEY", right_on="N_NATIONKEY", how="inner"
+    )
     total = total.loc[:, ["S_NAME"]]
     total = total.groupby("S_NAME", as_index=False).size()
     total.columns = ["S_NAME", "NUMWAIT"]
-    total = total.sort_values(
-        by=["NUMWAIT", "S_NAME"], ascending=[False, True])
+    total = total.sort_values(by=["NUMWAIT", "S_NAME"], ascending=[False, True])
     print(total)
     print("Q21 Execution time (s): ", time.time() - t1)
 
@@ -919,26 +1062,31 @@ def q22(customer, orders):
     t1 = time.time()
     customer_filtered = customer.loc[:, ["C_ACCTBAL", "C_CUSTKEY"]]
     customer_filtered["CNTRYCODE"] = customer["C_PHONE"].str.slice(0, 2)
-    customer_filtered = customer_filtered[(customer["C_ACCTBAL"] > 0.00) & customer_filtered["CNTRYCODE"].isin([
-        "13", "31", "23", "29", "30", "18", "17"])]
+    customer_filtered = customer_filtered[
+        (customer["C_ACCTBAL"] > 0.00)
+        & customer_filtered["CNTRYCODE"].isin(
+            ["13", "31", "23", "29", "30", "18", "17"]
+        )
+    ]
     avg_value = customer_filtered["C_ACCTBAL"].mean()
     customer_filtered = customer_filtered[customer_filtered["C_ACCTBAL"] > avg_value]
     # Select only the keys that don't match by performing a left join and only selecting columns with an na value
     orders_filtered = orders.loc[:, ["O_CUSTKEY"]].drop_duplicates()
     customer_keys = customer_filtered.loc[:, ["C_CUSTKEY"]].drop_duplicates()
     customer_selected = customer_keys.merge(
-        orders_filtered, left_on='C_CUSTKEY', right_on='O_CUSTKEY', how='left')
-    customer_selected = customer_selected[customer_selected["O_CUSTKEY"].isna(
-    )]
+        orders_filtered, left_on="C_CUSTKEY", right_on="O_CUSTKEY", how="left"
+    )
+    customer_selected = customer_selected[customer_selected["O_CUSTKEY"].isna()]
     customer_selected = customer_selected.loc[:, ["C_CUSTKEY"]]
-    customer_selected = customer_selected.merge(customer_filtered,
-                                                on="C_CUSTKEY", how="inner")
+    customer_selected = customer_selected.merge(
+        customer_filtered, on="C_CUSTKEY", how="inner"
+    )
     customer_selected = customer_selected.loc[:, ["CNTRYCODE", "C_ACCTBAL"]]
     agg1 = customer_selected.groupby(["CNTRYCODE"], as_index=False).size()
     agg1.columns = ["CNTRYCODE", "NUMCUST"]
     agg2 = customer_selected.groupby(["CNTRYCODE"], as_index=False).agg(
-        TOTACCTBAL=pd.NamedAgg(column="C_ACCTBAL",
-                               aggfunc="sum"))
+        TOTACCTBAL=pd.NamedAgg(column="C_ACCTBAL", aggfunc="sum")
+    )
     total = agg1.merge(agg2, on="CNTRYCODE", how="inner")
     total = total.sort_values(by=["CNTRYCODE"], ascending=[True])
     print(total)
@@ -950,7 +1098,7 @@ def main():
     parser.add_argument(
         "--folder",
         type=str,
-        default="tpch-datagen/data",
+        default="s3://bodo-example-data/tpch/SF1",
         help="The folder containing TPCH data",
     )
     args = parser.parse_args()
