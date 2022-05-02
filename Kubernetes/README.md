@@ -8,7 +8,7 @@ Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator]
 
 - Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. For reference, see this [Dockerfile](docker/Dockerfile).
 A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags).
-You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/pi.py), which is used in this tutorial.
+You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [Chicago Crimes example](docker/chicago_crimes.py), which is used in this tutorial.
 In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 
@@ -86,7 +86,7 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 ### Step 3: Run your Bodo application
 
-- Define a kubernetes resource for your Bodo workload, such as the one defined in [`example-mpijob.yaml`](example-mpijob.yaml) that runs the [pi calculation example](docker/pi.py). You can modify it based on your cluster configuration: update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node and set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes. If you're using the cluster configuration as defined in step 1, you do not need to modify anything.
+- Define a kubernetes resource for your Bodo workload, such as the one defined in [`example-mpijob.yaml`](example-mpijob.yaml) that runs the [Chicago Crimes example](docker/chicago_crimes.py). You can modify it based on your cluster configuration: update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node and set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes. If you're using the cluster configuration as defined in step 1, you do not need to modify anything.
 
 - Run the example by deploying it in your cluster with `kubectl create -f example-mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
 
