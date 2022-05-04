@@ -1,4 +1,4 @@
-apiVersion: kubeflow.org/v2beta1
+apiVersion: kubeflow.org/v1
 kind: MPIJob
 metadata:
   name: pi
@@ -49,3 +49,4 @@ spec:
                 - -De
                 - -f
                 - /home/mpiuser/.sshd_config
+                
