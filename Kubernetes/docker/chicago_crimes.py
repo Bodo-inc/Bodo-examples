@@ -87,62 +87,57 @@ def get_crimes_by_location(crimes):
     return crimes_location
 
 
-def main():
-    print(f"Hello World from rank {bodo.get_rank()}. Total ranks={bodo.get_size()}")
+print(f"Hello World from rank {bodo.get_rank()}. Total ranks={bodo.get_size()}")
 
-    print("Load Crimes Data in Chicago 2012_to_2017")
-    crimes1 = load_chicago_crimes()
-    if bodo.get_rank()==0:
-        print(crimes1.head())
-    
-    print("Preprocessing and Cleaning")
-    crimes = data_cleanup(crimes1)
-    if bodo.get_rank()==0:
-        print(crimes.head())
+print("Load Crimes Data in Chicago 2012_to_2017")
+crimes1 = load_chicago_crimes()
+if bodo.get_rank()==0:
+    print(crimes1.head())
 
-    top_crime_types = get_top_crime_types(crimes)
-    top_crime_types = bodo.allgatherv(top_crime_types)
-    if bodo.get_rank()==0:
-        print(top_crime_types)
+print("Preprocessing and Cleaning")
+crimes = data_cleanup(crimes1)
+if bodo.get_rank()==0:
+    print(crimes.head())
 
-    crimes = filter_crimes(crimes, top_crime_types)
-    if bodo.get_rank()==0:
-        print(crimes.head())
-    
-    print("Crime Analysis\n")
-    print("Find Pattern of each crime over the years\n")
+top_crime_types = get_top_crime_types(crimes)
+top_crime_types = bodo.allgatherv(top_crime_types)
+if bodo.get_rank()==0:
+    print(top_crime_types)
 
-    crimes_count_date = get_crimes_count_date(crimes)
+crimes = filter_crimes(crimes, top_crime_types)
+if bodo.get_rank()==0:
+    print(crimes.head())
 
-    get_crimes_type_dates= get_crimes_type_date(crimes_count_date)
-    if bodo.get_rank()==0:
-        print(get_crimes_type_dates.head())
+print("Crime Analysis\n")
+print("Find Pattern of each crime over the years\n")
 
-    print("A general view of crime records by time, type and location")
-    print("Determining the pattern on daily basis")
+crimes_count_date = get_crimes_count_date(crimes)
 
-    crimes_days = get_crimes_by_days(crimes)
-    if bodo.get_rank()==0:
-        print(crimes_days.head())
-    
-    print("Determining the pattern on monthly basis\n")
+get_crimes_type_dates= get_crimes_type_date(crimes_count_date)
+if bodo.get_rank()==0:
+    print(get_crimes_type_dates.head())
 
-    crimes_months = get_crimes_by_months(crimes)
-    if bodo.get_rank()==0:
-        print(crimes_months.head())
+print("A general view of crime records by time, type and location")
+print("Determining the pattern on daily basis")
 
-    
-    print("Determining the pattern by crime type\n")
+crimes_days = get_crimes_by_days(crimes)
+if bodo.get_rank()==0:
+    print(crimes_days.head())
 
-    crimes_type = get_crimes_by_type(crimes)
-    if bodo.get_rank()==0:
-        print(crimes_type.head())
-    
-    print("Determining the pattern by location\n")
-    crimes_location = get_crimes_by_location(crimes)
-    if bodo.get_rank()==0:
-        print(crimes_location.head())
+print("Determining the pattern on monthly basis\n")
+
+crimes_months = get_crimes_by_months(crimes)
+if bodo.get_rank()==0:
+    print(crimes_months.head())
 
 
-if __name__ == '__main__':
-    main()
+print("Determining the pattern by crime type\n")
+
+crimes_type = get_crimes_by_type(crimes)
+if bodo.get_rank()==0:
+    print(crimes_type.head())
+
+print("Determining the pattern by location\n")
+crimes_location = get_crimes_by_location(crimes)
+if bodo.get_rank()==0:
+    print(crimes_location.head())

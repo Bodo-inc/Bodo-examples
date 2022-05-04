@@ -1,4 +1,4 @@
-FROM bodoaidocker/kube-mpioperator-minimal:latest
+FROM mpioperator/intel:latest
 
 WORKDIR /home/mpiuser
 
@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y wget bzip2 git vim make curl\
 	&& ./miniconda.sh -b
 ENV PATH /root/miniconda3/bin/:${PATH}
 
-RUN conda install -y python=3.9 -c conda-forge
+RUN conda install -y mamba -c conda-forge && mamba install bodo -c bodo.ai -c conda-forge
 
-RUN pip install bodo
+RUN conda remove --force --yes mpich mpi
 
 ADD chicago_crimes.py chicago_crimes.py
