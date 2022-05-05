@@ -1,7 +1,7 @@
 apiVersion: kubeflow.org/v1
 kind: MPIJob
 metadata:
-  name: pi
+  name: chicago-crime
 spec:
   slotsPerWorker: 4
   runPolicy:
@@ -14,7 +14,7 @@ spec:
       template:
         spec:
           containers:
-            - image: bodoaidocker/kube-mpioperator-minimal:latest
+            - image: <YOUR-DOCKER-IMAGE-HERE>
               imagePullPolicy: Always
               name: mpi-launcher
               securityContext:
@@ -24,7 +24,7 @@ spec:
                 - -n
                 - "8"
                 - python
-                - /home/mpiuser/pi.py
+                - /home/mpiuser/chicago_crimes.py
 
     Worker:
       replicas: 2
@@ -38,7 +38,7 @@ spec:
             emptyDir:
               medium: Memory
           containers:
-            - image: bodoaidocker/kube-mpioperator-minimal:latest
+            - image: <YOUR-DOCKER-IMAGE-HERE>
               imagePullPolicy: Always
               name: mpi-worker
               securityContext:

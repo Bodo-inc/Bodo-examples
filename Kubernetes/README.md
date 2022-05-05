@@ -15,52 +15,6 @@ In case of private registries, follow instructions from [here](https://kubernete
 ## Setup
 Bodo can be deployed in any Kubernetes cluster. For the purposes of this example, we will be using a Kubernetes Cluster in EKS:
 
-<!-- ### Step 1: Create a Kubernetes Cluster in EKS
-
-- Install KOPS on your local machine:
-
-```
-# Mac
-brew install kops
-# Linux
-curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
-chmod +x kops-linux-amd64
-sudo mv kops-linux-amd64 /usr/local/bin/kops
-```
-
-- Create a cluster:
-
-Begin by making a bucket in the S3 to use as your `KOPS_STATE_STORE`.  
-
-```
-export KOPS_CLUSTER_NAME=imesh.k8s.local
-export KOPS_STATE_STORE=s3://<your S3 bucket name>
-```
-
-- Attempt to create your cluster: 
-
-This creates a cluster of 2 nodes each with 4 cores. To change the number of instances, modify the `node-count` argument and to change the worker nodes update `node-size`. `master-size` refers to the leader that manages K8s but doesn’t do any Bodo computation, so you should keep the instance small. You can deploy the cluster in a different AWS region and availability zone by modifying the `zones` argument. 
-
-```
-kops create cluster \
---node-count=2 \
---node-size=c5.2xlarge \
---master-size=c5.large \
---zones=us-east-2c \
---name=${KOPS_CLUSTER_NAME}
-```
-
-- Finish creating the cluster with the below command. This might take several minutes to finish:
-
-```
-kops update cluster --name $KOPS_CLUSTER_NAME --yes --admin
-```
-- Verify the cluster setup is finished by:
-
-```
-kops validate cluster
-``` -->
-
 ### Step 1: Install MPIJob Custom Resource Definitions(CRD)
 
 - The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). This example was tested using [v0.3.0](https://github.com/kubeflow/mpi-operator/tree/v0.3.0), as shown below:
@@ -86,9 +40,14 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 ### Step 2: Run your Bodo application
 
-- Define a kubernetes resource for your Bodo workload, such as the one defined in [`example-mpijob.yaml`](example-mpijob.yaml) that runs the [Chicago Crimes example](docker/chicago_crimes.py). You can modify it based on your cluster configuration: update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node and set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes. If you're using the cluster configuration as defined in step 1, you do not need to modify anything.
+- Define a kubernetes resource for your Bodo workload, such as the one defined in [`mpijob.yaml`](mpijob.yaml) that runs the [Chicago Crimes example](docker/chicago_crimes.py). You can modify it based on your cluster configuration: 
 
-- Run the example by deploying it in your cluster with `kubectl create -f example-mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
+1. update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node 
+2. set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. 
+3. Build the image using the Dockerfile and replace the image at `spec.mpiReplicaSpecs.Launcher.template.spec.containers.image` and  `spec.mpiReplicaSpecs.Worker.template.spec.containers.image`.
+4. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes.
+
+- Run the example by deploying it in your cluster with `kubectl create -f mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
 
 - View the generated pods by this deployment with `kubectl get pods`. You may inspect any logs by looking at the individual pod's logs.
 
@@ -104,11 +63,4 @@ kubectl logs -f ${PODNAME}
 
 ## Teardown
 
-- When a job has finished running, you can remove it by running `kubectl delete -f example-mpijob.yaml`. If you want to delete the MPI-Operator crd, please follow the steps on the [MPI-Operator Github repository](https://github.com/kubeflow/mpi-operator).
-
-<!-- - Tear down your cluster with the following script:
-```
-export KOPS_CLUSTER_NAME=imesh.k8s.local
-export KOPS_STATE_STORE=s3://<your S3 bucket name>
-kops delete cluster --name $KOPS_CLUSTER_NAME --yes
-``` -->
+- When a job has finished running, you can remove it by running `kubectl delete -f mpijob.yaml`. If you want to delete the MPI-Operator crd, please follow the steps on the [MPI-Operator Github repository](https://github.com/kubeflow/mpi-operator).
