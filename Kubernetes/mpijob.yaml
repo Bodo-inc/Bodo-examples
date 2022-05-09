@@ -1,4 +1,4 @@
-apiVersion: kubeflow.org/v1
+apiVersion: kubeflow.org/v2beta1
 kind: MPIJob
 metadata:
   name: chicago-crime

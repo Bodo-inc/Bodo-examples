@@ -4,7 +4,7 @@ Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator]
 
 ## Prerequisites
 
-- Access to a Kubernetes cluster such as AWS EKS.
+- Access to a Kubernetes cluster such as AWS EKS. To start a new Kubernetes Cluster in EKS, you can follow our guide here [Create EKS Cluster](#create-eks-cluster-using-kops-optional).
 
 - Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. For reference, see this [Dockerfile](docker/Dockerfile).
 A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags).
@@ -42,8 +42,8 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 - Define a kubernetes resource for your Bodo workload, such as the one defined in [`mpijob.yaml`](mpijob.yaml) that runs the [Chicago Crimes example](docker/chicago_crimes.py). You can modify it based on your cluster configuration: 
 
-1. update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node 
-2. set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. 
+1. Update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node 
+2. Set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. 
 3. Build the image using the Dockerfile and replace the image at `spec.mpiReplicaSpecs.Launcher.template.spec.containers.image` and  `spec.mpiReplicaSpecs.Worker.template.spec.containers.image`.
 4. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes.
 
@@ -64,3 +64,50 @@ kubectl logs -f ${PODNAME}
 ## Teardown
 
 - When a job has finished running, you can remove it by running `kubectl delete -f mpijob.yaml`. If you want to delete the MPI-Operator crd, please follow the steps on the [MPI-Operator Github repository](https://github.com/kubeflow/mpi-operator).
+
+
+## Create EKS Cluster using KOPS (Optional)
+
+- Install KOPS on your local machine:
+
+```
+# Mac
+brew install kops
+# Linux
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops-linux-amd64
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+- Create a cluster:
+
+Begin by making a bucket in the S3 to use as your `KOPS_STATE_STORE`.  
+
+```
+export KOPS_CLUSTER_NAME=imesh.k8s.local
+export KOPS_STATE_STORE=s3://<your S3 bucket name>
+```
+
+- Attempt to create your cluster: 
+
+This creates a cluster of 2 nodes each with 4 cores. To change the number of instances, modify the `node-count` argument and to change the worker nodes update `node-size`. `master-size` refers to the leader that manages K8s but doesn’t do any Bodo computation, so you should keep the instance small. You can deploy the cluster in a different AWS region and availability zone by modifying the `zones` argument. 
+
+```
+kops create cluster \
+--node-count=2 \
+--node-size=c5.2xlarge \
+--master-size=c5.large \
+--zones=us-east-2c \
+--name=${KOPS_CLUSTER_NAME}
+```
+
+- Finish creating the cluster with the below command. This might take several minutes to finish:
+
+```
+kops update cluster --name $KOPS_CLUSTER_NAME --yes --admin
+```
+- Verify the cluster setup is finished by:
+
+```
+kops validate cluster
+```
