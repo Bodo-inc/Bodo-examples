@@ -6,9 +6,14 @@ Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator]
 
 - Access to a Kubernetes cluster such as AWS EKS. To start a new Kubernetes Cluster in EKS, you can follow our guide here [Create EKS Cluster](#create-eks-cluster-using-kops-optional).
 
-- Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. For reference, see this [Dockerfile](docker/Dockerfile).
+- Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. 
+For reference, see this [Dockerfile](docker/Dockerfile). We have provided two python scripts which support bodo.
+
+1. `pi.py` which is used for basic testing or validation purposes
+2. `chicago_crimes.py` whic can used to test bodo on a larger dataset. 
+
 A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags).
-You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [Chicago Crimes example](docker/chicago_crimes.py), which is used in this tutorial.
+You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/chicago_crimes.py), which is used in this tutorial.
 In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 
@@ -44,7 +49,16 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 1. Update `spec.slotsPerWorker` with the number of physical cores (_not_ vCPUs) on each node 
 2. Set `spec.mpiReplicaSpecs.Worker.replicas` to the number of worker nodes in your cluster. 
-3. Build the image using the Dockerfile and replace the image at `spec.mpiReplicaSpecs.Launcher.template.spec.containers.image` and  `spec.mpiReplicaSpecs.Worker.template.spec.containers.image`.
+3. Build the image using the Dockerfile or use `bodoaidocker/kube-mpioperator-minimal` and replace the image at `spec.mpiReplicaSpecs.Launcher.template.spec.containers.image` and  `spec.mpiReplicaSpecs.Worker.template.spec.containers.image`.
+4. Check the container arguments is referring to the python file you have intended to run
+    ```
+     args:
+        - mpirun
+        - -n
+        - "8"
+        - python
+        - /home/mpiuser/chicago_crimes.py
+    ```
 4. Lastly, make sure `-n` is equal to `spec.mpiReplicaSpecs.Worker.replicas` multiplied by `spec.slotsPerWorker`, i.e. the total number of physical cores on your worker nodes.
 
 - Run the example by deploying it in your cluster with `kubectl create -f mpijob.yaml`. This should add 1 pod to each worker and a launcher pod to your master node. 
