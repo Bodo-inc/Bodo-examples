@@ -13,8 +13,10 @@ For reference, see this [Dockerfile](docker/Dockerfile). We have provided two py
 2. `chicago_crimes.py` whic can used to test bodo on a larger dataset. 
 
 A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags).
-You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/chicago_crimes.py), which is used in this tutorial.
+You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/pi.py), which is used in this tutorial.
 In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
+
+**The examples are tested above using Python-3.9 and Bodo-2022.4**
 
 
 ## Setup
