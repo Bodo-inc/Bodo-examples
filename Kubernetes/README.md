@@ -16,6 +16,7 @@ A docker image created from this Dockerfile is also available on DockerHub: [bod
 You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/chicago_crimes.py), which is used in this tutorial.
 In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
+**The examples are tested above using Python-3.9 and Bodo-2022.4**
 
 ## Setup
 Bodo can be deployed in any Kubernetes cluster. For the purposes of this example, we will be using a Kubernetes Cluster in EKS:
