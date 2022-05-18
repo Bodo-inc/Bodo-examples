@@ -16,12 +16,62 @@ A docker image created from this Dockerfile is also available on DockerHub: [bod
 You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/chicago_crimes.py), which is used in this tutorial.
 In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
-**The examples are tested above using Python-3.9 and Bodo-2022.4**
+## !!!WARNING!!!
+
+Any Bodo job you run on Kubernetes Cluster, make sure to provide the correct **CPU and Memory requests** in the helm or in the yaml file. 
+If the correct values are not provided or the cluster won't have the sufficient cpu or memory, the job will be killed and worker pods will respawn again and again.
+
+Make sure to profile or estimate the CPU and Memory requriments in your local machine and provide those values in the configuration files. This will ensure the job will be run successfully.
+
+
+**The examples are tested using Python-3.9 and Bodo-2022.4**
 
 ## Setup
-Bodo can be deployed in any Kubernetes cluster. For the purposes of this example, we will be using a Kubernetes Cluster in EKS:
+Bodo can be deployed in any Kubernetes cluster. For the purposes of this example, we will be using a Kubernetes Cluster in EKS.
+This can be done in 2 ways.
 
-### Step 1: Install MPIJob Custom Resource Definitions(CRD)
+### Using Helm
+
+#### Step 1: Clone Git Repository
+
+Clone this git repository using the command below
+```
+git clone https://github.com/Bodo-inc/Bodo-examples.git
+
+```
+
+#### Step 2: Setup Helm and run 
+
+Check if Helm is installed in your system using `helm version`. If not, check this [guide](https://helm.sh/docs/intro/install/) for setting up Helm in your system.
+
+To run the sample bodo example, Go to the clone repository and run the following command
+```
+helm install <release-name> Kubernetes/helm
+```
+
+This command will install CRD and deploy a MPIJob which run chicago crimes example.
+
+To run the chart with your values, go to `Kubernetes/helm` folder and edit the values.yaml file with your values and run the above command.
+
+#### Step 3: Get the Results
+
+- When the job finishes running, your launcher pod will change its status to completed and any stdout information can be found in the logs of the launcher pod:
+
+```
+PODNAME=$(kubectl get pods -o=name)
+kubectl logs -f ${PODNAME}
+
+```
+
+### Teardown
+
+- If you want to remove the job, run `helm uninstall <release-name>`. 
+- If you want to delete the MPI-Operator crd, run the command `kubectl delete -f Kubernetes/helm/crds/mpi-operator.yaml`
+
+
+### Manual Process
+
+#### Step 1: Install MPIJob Custom Resource Definitions(CRD)
 
 - The most up-to-date installation guide is available at [MPI-Operator Github](https://github.com/kubeflow/mpi-operator). This example was tested using [v0.3.0](https://github.com/kubeflow/mpi-operator/tree/v0.3.0), as shown below:
 
@@ -44,7 +94,7 @@ NAME                   CREATED AT
 mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 ```
 
-### Step 2: Run your Bodo application
+#### Step 2: Run your Bodo application
 
 - Define a kubernetes resource for your Bodo workload, such as the one defined in [`mpijob.yaml`](mpijob.yaml) that runs the [Chicago Crimes example](docker/chicago_crimes.py). You can modify it based on your cluster configuration: 
 
@@ -66,7 +116,7 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 
 - View the generated pods by this deployment with `kubectl get pods`. You may inspect any logs by looking at the individual pod's logs.
 
-### Step 3: Get the Results
+#### Step 3: Get the Results
 
 - When the job finishes running, your launcher pod will change its status to completed and any stdout information can be found in the logs of the launcher pod:
 
@@ -76,7 +126,7 @@ kubectl logs -f ${PODNAME}
 
 ```
 
-## Teardown
+### Teardown
 
 - When a job has finished running, you can remove it by running `kubectl delete -f mpijob.yaml`. If you want to delete the MPI-Operator crd, please follow the steps on the [MPI-Operator Github repository](https://github.com/kubeflow/mpi-operator).
 
