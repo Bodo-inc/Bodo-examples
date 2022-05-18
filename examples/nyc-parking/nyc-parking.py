@@ -14,10 +14,6 @@ import time
 import bodo
 import os
 
-# add your AWS credentials here if not already set
-# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-
 
 @bodo.jit(distributed=["many_year_df"], cache=True)
 def load_parking_tickets():

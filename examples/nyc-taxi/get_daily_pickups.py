@@ -16,12 +16,6 @@ import time
 import bodo
 
 
-# add your AWS credentials here if not already set
-# import os
-# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-
-
 @bodo.jit(cache=True)
 def get_daily_pickups():
     start = time.time()
