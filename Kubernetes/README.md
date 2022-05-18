@@ -37,7 +37,6 @@ This can be done in 2 ways.
 Clone this git repository using the command below
 ```
 git clone https://github.com/Bodo-inc/Bodo-examples.git
-
 ```
 
 #### Step 2: Setup Helm and run 
@@ -60,7 +59,6 @@ To run the chart with your values, go to `Kubernetes/helm` folder and edit the v
 ```
 PODNAME=$(kubectl get pods -o=name)
 kubectl logs -f ${PODNAME}
-
 ```
 
 ### Teardown
@@ -123,7 +121,6 @@ mpijobs.kubeflow.org   2022-01-03T21:19:10Z
 ```
 PODNAME=$(kubectl get pods -o=name)
 kubectl logs -f ${PODNAME}
-
 ```
 
 ### Teardown
