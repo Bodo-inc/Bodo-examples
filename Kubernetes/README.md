@@ -4,31 +4,30 @@ Bodo workloads can be deployed with Kubernetes using the [Kubeflow MPI-Operator]
 
 ## Prerequisites
 
-- Access to a Kubernetes cluster such as AWS EKS. To start a new Kubernetes Cluster in EKS, you can follow our guide here [Create EKS Cluster](#create-eks-cluster-using-kops-optional).
+- Access to a Kubernetes cluster such as AWS EKS. To start a new Kubernetes Cluster in EKS, you can follow our guide here: [Create EKS Cluster](#create-eks-cluster-using-kops-optional).
 
-- Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that K8s can pull it. 
-For reference, see this [Dockerfile](docker/Dockerfile). We have provided two python scripts which support bodo.
+- Create a docker image that contains your intended Bodo version and Python scripts and upload it to a docker registry such as Docker Hub so that Kubernetes can pull it. 
+For reference, see this [Dockerfile](docker/Dockerfile). We have included two python scripts which use Bodo.
 
-1. `pi.py` which is used for basic testing or validation purposes
-2. `chicago_crimes.py` whic can used to test bodo on a larger dataset. 
+    1. `pi.py` which can be used for validating your setup.
+    2. `chicago_crimes.py` which can used to test a more realistic use-case with Bodo on a larger dataset. 
 
 A docker image created from this Dockerfile is also available on DockerHub: [bodoaidocker/kube-mpioperator-minimal](https://hub.docker.com/r/bodoaidocker/kube-mpioperator-minimal/tags).
-You can use this as the base image for your own docker image. For testing and validation purposes this image also includes the [pi calculation example](docker/chicago_crimes.py), which is used in this tutorial.
+You can use this as the base image for your own docker image.
 In case of private registries, follow instructions from [here](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 ## !!!WARNING!!!
 
-Please make sure to provide the correct **CPU and Memory requests** in the helm or yaml file for any bodo job.
-
-If the correct values are not provided or the cluster won't have the sufficient cpu or memory, the job will be killed and worker pods will respawn again and again.
-
-Make sure to profile or estimate the CPU and Memory requriments in your local machine and provide those values in the configuration files. This will ensure the job will be run successfully.
+Make sure to provide the correct **CPU and Memory requests** in the helm or yaml file for your Bodo jobs. 
+If correct values are not provided or the cluster doesn't have sufficient CPU or Memory required for the job, the job will be terminated and worker pods may keep respawning. You can estimate the CPU and Memory requirements by running the job locally on a smaller dataset and extrapolating based on that.
 
 
-**The examples are tested using Python-3.9 and Bodo-2022.4**
+
+**The examples have been tested using Python 3.9 and Bodo 2022.4**
 
 ## Setup
 Bodo can be deployed in any Kubernetes cluster. For the purposes of this example, we will be using a Kubernetes Cluster in EKS.
+
 This can be done in 2 ways.
 
 ### Using Helm
@@ -44,7 +43,7 @@ git clone https://github.com/Bodo-inc/Bodo-examples.git
 
 Check if Helm is installed in your system using `helm version`. If not, check this [guide](https://helm.sh/docs/intro/install/) for setting up Helm in your system.
 
-To run the sample bodo example, Go to the clone repository and run the following command
+To run the sample bodo example, go to the repository and run the following command
 ```
 helm install <release-name> <helm-directory-path>
 ```
@@ -54,9 +53,9 @@ For example, you can run the following for chicago crimes example
 helm install chicago-crime Kubernetes/helm
 ```
 
-This command will install CRD and deploy a MPIJob which run chicago crimes example.
+This command will install the MPI-Job CRD and deploy a MPIJob which runs the Chicago Crimes Example.
 
-To run the chart with your values, go to `Kubernetes/helm` folder and edit the values.yaml file with your values and run the above command.
+To run the chart with your job specification, go to the `Kubernetes/helm` folder and edit the values.yaml file and run the above command.
 
 #### Step 3: Get the Results
 
@@ -70,7 +69,7 @@ kubectl logs -f ${PODNAME}
 ### Teardown
 
 - If you want to remove the job, run `helm uninstall <release-name>`. 
-- If you want to delete the MPI-Operator crd, run the command `kubectl delete -f Kubernetes/helm/crds/mpi-operator.yaml`
+- If you want to delete the MPI-Operator CRD, run the command `kubectl delete -f Kubernetes/helm/crds/mpi-operator.yaml`
 
 
 ### Manual Process
