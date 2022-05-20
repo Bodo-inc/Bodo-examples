@@ -15,11 +15,6 @@ import bodo
 import os
 
 
-# add your AWS credentials here if not already set
-# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
-
-
 dir_path = os.path.dirname(os.path.realpath(__file__))
 # Create lists of stopwords and punctuation that will be removed
 with open(f"{dir_path}/nltk-stopwords.txt", "r") as fh:
