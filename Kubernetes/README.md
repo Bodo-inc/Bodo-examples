@@ -18,7 +18,8 @@ In case of private registries, follow instructions from [here](https://kubernete
 
 ## !!!WARNING!!!
 
-Any Bodo job you run on Kubernetes Cluster, make sure to provide the correct **CPU and Memory requests** in the helm or in the yaml file. 
+Please make sure to provide the correct **CPU and Memory requests** in the helm or yaml file for any bodo job.
+
 If the correct values are not provided or the cluster won't have the sufficient cpu or memory, the job will be killed and worker pods will respawn again and again.
 
 Make sure to profile or estimate the CPU and Memory requriments in your local machine and provide those values in the configuration files. This will ensure the job will be run successfully.
@@ -45,7 +46,12 @@ Check if Helm is installed in your system using `helm version`. If not, check th
 
 To run the sample bodo example, Go to the clone repository and run the following command
 ```
-helm install <release-name> Kubernetes/helm
+helm install <release-name> <helm-directory-path>
+```
+For example, you can run the following for chicago crimes example
+
+```
+helm install chicago-crime Kubernetes/helm
 ```
 
 This command will install CRD and deploy a MPIJob which run chicago crimes example.
