@@ -50,7 +50,7 @@ helm install <release-name> <helm-directory-path>
 For example, you can run the following for chicago crimes example
 
 ```
-helm install chicago-crime Kubernetes/helm
+helm install bodo-job-chicago-crime Kubernetes/helm
 ```
 
 This command will install the MPI-Job CRD and deploy a MPIJob which runs the Chicago Crimes Example.
