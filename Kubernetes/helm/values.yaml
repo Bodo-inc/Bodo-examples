@@ -1,0 +1,21 @@
+# Default values for bodo-k8s-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: chicago-crime-example
+image: bodoaidocker/kube-mpioperator-minimal:latest
+
+slotsPerWorker: 2
+launcher:
+  replicas: 1
+  # The path of the python file to run
+  # To run your own file, copy your python file to /home/mpiuser and change it here.
+  path: /home/mpiuser/chicago_crimes.py
+
+worker:
+  replicas: 2
+  # Make sure to assign proper resources to workers for the bodo to run successfully.
+  # The below configuration works for chicago crimes example
+  cpu: 2
+  memory: 4Gi
+
