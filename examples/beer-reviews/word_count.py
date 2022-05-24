@@ -2,16 +2,10 @@
 Simple word count example which returns a sorted count of words after basic processing
 """
 
-import os
 import time
 import argparse
 import pandas as pd
 import bodo
-
-
-# add your AWS credentials here if not already set
-# os.environ["AWS_ACCESS_KEY_ID"] = "your_access_key_id"
-# os.environ["AWS_SECRET_ACCESS_KEY"] = "your_secret_access_key"
 
 
 @bodo.jit
