@@ -1077,9 +1077,7 @@ def main():
     )
     args = parser.parse_args()
     folder = args.folder
-    t0 = time.time()
     run_queries(folder)
-    print("Total time: ", time.time() - t0)
 
 
 if __name__ == "__main__":
