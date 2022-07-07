@@ -1,6 +1,6 @@
 """
 
-This code is adapted from 
+This code is adapted from
 https://github.com/Bodo-inc/Bodo-examples/blob/master/examples/tpch/bodo_queries.py
 
 The differences are in:
@@ -38,16 +38,16 @@ os.environ["AWS_DEFAULT_REGION"] = ""
 
 
 def run_queries(data_folder,client,n_workers):
-    
+
     t_start = time.time()
-    
+
     # checking if all the workers have spawned
     if len(client.scheduler_info()["workers"]) < n_workers:
         while ((client.status == "running") and (len(client.scheduler_info()["workers"]) < n_workers)):
             print(len(client.scheduler_info()["workers"]))
             time.sleep(5.0)
         print("Cluster took %s seconds to fully spawn all workers"%(time.time()-t_start))
-    
+
     # Load the data
     t1 = time.time()
     lineitem = load_lineitem(data_folder)
@@ -58,51 +58,51 @@ def run_queries(data_folder,client,n_workers):
     supplier = load_supplier(data_folder)
     part = load_part(data_folder)
     partsupp = load_partsupp(data_folder)
-    
+
     print("start data read")
-    
+
     t0 = time.time()
     lineitem = client.persist(lineitem)
     wait(lineitem)
     print("loaded lineitem", time.time()-t0)
-    
+
     t0 = time.time()
     orders = client.persist(orders)
     wait(orders)
     print("loaded orders", time.time()-t0)
-    
+
     t0 = time.time()
     customer = client.persist(customer)
     wait(customer)
     print("loaded customer", time.time()-t0)
-    
+
     t0 = time.time()
     nation = client.persist(nation)
     wait(nation)
     print("loaded nation", time.time()-t0)
-    
+
     t0 = time.time()
     region = client.persist(region)
     wait(region)
     print("loaded region", time.time()-t0)
-    
+
     t0 = time.time()
     supplier = client.persist(supplier)
     wait(supplier)
     print("loaded supplier", time.time()-t0)
-    
+
     t0 = time.time()
     part = client.persist(part)
     wait(part)
     print("loaded part", time.time()-t0)
-    
+
     t0 = time.time()
     partsupp = client.persist(partsupp)
     wait(partsupp)
     print("loaded partsupp", time.time()-t0)
-    
+
     print("Reading time (s): ", time.time() - t1)
-    
+
     t1 = time.time()
     # Run the Queries:
     # q01
@@ -128,7 +128,7 @@ def run_queries(data_folder,client,n_workers):
 
     # q08
     q08(part, lineitem, supplier, orders, customer, nation, region)
-    
+
     # q09
     q09(lineitem, orders, part, nation, partsupp, supplier)
 
@@ -140,19 +140,19 @@ def run_queries(data_folder,client,n_workers):
 
     # q12
     q12(lineitem, orders)
-    
+
     # q13
     q13(customer, orders)
-    
+
     # q14
     q14(lineitem, part)
-    
+
     # q15
     q15(lineitem, supplier)
-    
+
     # q16
     q16(part, partsupp, supplier)
-    
+
     # q17
     q17(lineitem, part)
 
@@ -161,16 +161,16 @@ def run_queries(data_folder,client,n_workers):
 
     # q19
     q19(lineitem, part)
-    
+
     # q20
     q20(lineitem, part, nation, partsupp, supplier)
-    
+
     # q21
     q21(lineitem, orders, supplier, nation)
 
     # q22
     q22(customer, orders)
- 
+
 
     print("Total Query time (s): ", time.time() - t1)
 
@@ -236,10 +236,10 @@ def load_partsupp(data_folder):
     return df
 
 def q01(lineitem):
-    
+
     t1 = time.time()
     date = datetime.strptime('1998-09-02', '%Y-%m-%d')
-    lineitem_filtered = lineitem.loc[:, ["L_QUANTITY", "L_EXTENDEDPRICE", "L_DISCOUNT", "L_TAX", "L_RETURNFLAG", "L_LINESTATUS",  "L_SHIPDATE", "L_ORDERKEY"]]    
+    lineitem_filtered = lineitem.loc[:, ["L_QUANTITY", "L_EXTENDEDPRICE", "L_DISCOUNT", "L_TAX", "L_RETURNFLAG", "L_LINESTATUS",  "L_SHIPDATE", "L_ORDERKEY"]]
     sel = lineitem_filtered.L_SHIPDATE <= date
     lineitem_filtered = lineitem_filtered[sel].copy()
     lineitem_filtered["AVG_QTY"] = lineitem_filtered.L_QUANTITY
@@ -249,7 +249,7 @@ def q01(lineitem):
         lineitem_filtered.L_EXTENDEDPRICE * (1 - lineitem_filtered.L_DISCOUNT) * (1 + lineitem_filtered.L_TAX)
     )
     gb = lineitem_filtered.groupby(["L_RETURNFLAG", "L_LINESTATUS"])
-    
+
     total = gb.agg(
         {
             "L_QUANTITY": "sum",
@@ -285,15 +285,15 @@ def q02(part, partsupp, supplier, nation, region):
     part_filtered = part_filtered.loc[:, ["P_PARTKEY", "P_MFGR"]]
     merged_df = part_filtered.merge(ps_s_r_n_merged, left_on='P_PARTKEY', right_on='PS_PARTKEY', how='inner')
     merged_df = merged_df.loc[:, ["N_NAME", "S_NAME", "S_ADDRESS", "S_PHONE", "S_ACCTBAL", "S_COMMENT", "PS_SUPPLYCOST", "P_PARTKEY", "P_MFGR"]]
-    
+
     min_values = merged_df.groupby("P_PARTKEY")["PS_SUPPLYCOST"].min().reset_index()
-    
+
     min_values.columns=["P_PARTKEY_CPY", "MIN_SUPPLYCOST"]
     merged_df = merged_df.merge(min_values, left_on=["P_PARTKEY", "PS_SUPPLYCOST"], right_on=["P_PARTKEY_CPY", "MIN_SUPPLYCOST"], how="inner")
     total = merged_df.loc[:, ["S_ACCTBAL", "S_NAME", "N_NAME", "P_PARTKEY", "P_MFGR", "S_ADDRESS", "S_PHONE", "S_COMMENT"]]
-    
+
     total = total.compute().sort_values(by=["S_ACCTBAL","N_NAME","S_NAME","P_PARTKEY",], ascending=[False,True,True,True,])
-    
+
     print(total)
     print("Q02 Execution time (s): ", time.time() - t1)
 
@@ -338,7 +338,7 @@ def q04(lineitem, orders):
     total = jn.groupby("O_ORDERPRIORITY")["O_ORDERKEY"].count().reset_index().sort_values(["O_ORDERPRIORITY"])
     print(total.compute())
     print("Q04 Execution time (s): ", time.time() - t1)
-  
+
 def q05(lineitem, orders, customer, nation, region, supplier):
     t1 = time.time()
     date1 = datetime.strptime("1996-01-01", '%Y-%m-%d')
@@ -346,8 +346,8 @@ def q05(lineitem, orders, customer, nation, region, supplier):
 
     rsel = region.R_NAME == "ASIA"
     osel = (orders.O_ORDERDATE >= date1) & (orders.O_ORDERDATE < date2)
-    
-    
+
+
     forders = orders[osel]
     fregion = region[rsel]
     jn1 = fregion.merge(nation, left_on="R_REGIONKEY", right_on="N_REGIONKEY")
@@ -387,7 +387,7 @@ def q07(lineitem, supplier, orders, customer, nation):
     """ This version is faster than q07_old. Keeping the old one for reference """
     t1 = time.time()
 
-    lineitem_filtered = lineitem[(lineitem["L_SHIPDATE"] >= datetime.strptime("1995-01-01", '%Y-%m-%d')) & 
+    lineitem_filtered = lineitem[(lineitem["L_SHIPDATE"] >= datetime.strptime("1995-01-01", '%Y-%m-%d')) &
                                  (lineitem["L_SHIPDATE"] < datetime.strptime("1997-01-01", '%Y-%m-%d'))]
     lineitem_filtered["L_YEAR"] = lineitem_filtered["L_SHIPDATE"].apply(lambda x: x.year)
     lineitem_filtered["VOLUME"] = lineitem_filtered["L_EXTENDEDPRICE"] * (1.0 - lineitem_filtered["L_DISCOUNT"])
@@ -447,7 +447,7 @@ def q08(part, lineitem, supplier, orders, customer, nation, region):
     supplier_filtered = supplier.loc[:, ["S_SUPPKEY", "S_NATIONKEY"]]
     total = total.merge(supplier_filtered, left_on="L_SUPPKEY", right_on="S_SUPPKEY", how="inner")
     total = total.loc[:, ["L_ORDERKEY", "VOLUME", "S_NATIONKEY"]]
-    orders_filtered = orders[(orders["O_ORDERDATE"] >= datetime.strptime("1995-01-01", '%Y-%m-%d')) & 
+    orders_filtered = orders[(orders["O_ORDERDATE"] >= datetime.strptime("1995-01-01", '%Y-%m-%d')) &
                              (orders["O_ORDERDATE"] < datetime.strptime("1997-01-01", '%Y-%m-%d'))]
     orders_filtered["O_YEAR"] = orders_filtered["O_ORDERDATE"].apply(lambda x: x.year)
     orders_filtered = orders_filtered.loc[:, ["O_ORDERKEY", "O_CUSTKEY", "O_YEAR"]]
@@ -502,7 +502,7 @@ def q09(lineitem, orders, part, nation, partsupp, supplier):
 
 def q10(lineitem, orders, customer, nation):
     t1 = time.time()
-    date1 = datetime.strptime("1994-11-01", '%Y-%m-%d') 
+    date1 = datetime.strptime("1994-11-01", '%Y-%m-%d')
     date2 = datetime.strptime("1995-02-01", '%Y-%m-%d')
     osel = (orders.O_ORDERDATE >= date1) & (orders.O_ORDERDATE < date2)
     lsel = lineitem.L_RETURNFLAG == "R"
@@ -566,10 +566,10 @@ def q12(lineitem, orders):
     jn = flineitem.merge(orders, left_on="L_ORDERKEY", right_on="O_ORDERKEY")
     gb = jn.groupby("L_SHIPMODE")["O_ORDERPRIORITY"]
 
-    def g1(x): 
+    def g1(x):
         return x.apply(lambda s: ((s == "1-URGENT") | (s == "2-HIGH")).sum())
 
-    def g2(x): 
+    def g2(x):
         return x.apply(lambda s: ((s != "1-URGENT") & (s != "2-HIGH")).sum())
 
     g1_agg = pd.Aggregation('g1', g1, lambda s0: s0.sum())
@@ -586,7 +586,7 @@ def q13(customer, orders):
     orders_filtered = orders_filtered.loc[:, ["O_ORDERKEY", "O_CUSTKEY"]]
     c_o_merged = customer_filtered.merge(orders_filtered, left_on='C_CUSTKEY', right_on='O_CUSTKEY', how='left')
     c_o_merged = c_o_merged.loc[:, ["C_CUSTKEY", "O_ORDERKEY"]]
-    
+
     count_df = c_o_merged.groupby(["C_CUSTKEY"]).O_ORDERKEY.agg("count").reset_index()
     count_df = count_df.rename(columns={'O_ORDERKEY':'C_COUNT'})
 
@@ -743,36 +743,40 @@ def q19(lineitem, part):
     fpart = part[psel]
     jn = flineitem.merge(fpart, left_on="L_PARTKEY", right_on="P_PARTKEY")
     jnsel = (
-        (jn.P_BRAND == Brand31)
-        & (
-            (jn.P_CONTAINER == SMBOX)
-            | (jn.P_CONTAINER == SMCASE)
-            | (jn.P_CONTAINER == SMPACK)
-            | (jn.P_CONTAINER == SMPKG)
+        (
+            (jn.P_BRAND == Brand31)
+            & (
+                (jn.P_CONTAINER == SMBOX)
+                | (jn.P_CONTAINER == SMCASE)
+                | (jn.P_CONTAINER == SMPACK)
+                | (jn.P_CONTAINER == SMPKG)
+            )
+            & (jn.L_QUANTITY >= 4)
+            & (jn.L_QUANTITY <= 14)
+            & (jn.P_SIZE <= 5)
+        ) | (
+            (jn.P_BRAND == Brand43)
+            & (
+                (jn.P_CONTAINER == MEDBAG)
+                | (jn.P_CONTAINER == MEDBOX)
+                | (jn.P_CONTAINER == MEDPACK)
+                | (jn.P_CONTAINER == MEDPKG)
+            )
+            & (jn.L_QUANTITY >= 15)
+            & (jn.L_QUANTITY <= 25)
+            & (jn.P_SIZE <= 10)
+        ) | (
+            (jn.P_BRAND == Brand43)
+            & (
+                (jn.P_CONTAINER == LGBOX)
+                | (jn.P_CONTAINER == LGCASE)
+                | (jn.P_CONTAINER == LGPACK)
+                | (jn.P_CONTAINER == LGPKG)
+            )
+            & (jn.L_QUANTITY >= 26)
+            & (jn.L_QUANTITY <= 36)
+            & (jn.P_SIZE <= 15)
         )
-        & (jn.L_QUANTITY >= 4)
-        & (jn.L_QUANTITY <= 14)
-        & (jn.P_SIZE <= 5)
-        | (jn.P_BRAND == Brand43)
-        & (
-            (jn.P_CONTAINER == MEDBAG)
-            | (jn.P_CONTAINER == MEDBOX)
-            | (jn.P_CONTAINER == MEDPACK)
-            | (jn.P_CONTAINER == MEDPKG)
-        )
-        & (jn.L_QUANTITY >= 15)
-        & (jn.L_QUANTITY <= 25)
-        & (jn.P_SIZE <= 10)
-        | (jn.P_BRAND == Brand43)
-        & (
-            (jn.P_CONTAINER == LGBOX)
-            | (jn.P_CONTAINER == LGCASE)
-            | (jn.P_CONTAINER == LGPACK)
-            | (jn.P_CONTAINER == LGPKG)
-        )
-        & (jn.L_QUANTITY >= 26)
-        & (jn.L_QUANTITY <= 36)
-        & (jn.P_SIZE <= 15)
     )
     jn = jn[jnsel]
     total = (jn.L_EXTENDEDPRICE * (1.0 - jn.L_DISCOUNT)).sum()
@@ -889,7 +893,7 @@ def main():
         type=int,
         default=1,
         help="minimum number of workers required before running dask, should be smaller than max cores",
-    ) 
+    )
     parser.add_argument(
         "--scheduler-file",
         type=str,
