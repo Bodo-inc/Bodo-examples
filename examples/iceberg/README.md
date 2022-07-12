@@ -1,9 +1,11 @@
  To find Nessie project url and dremio token -
 
- <Nessie_endpoint_url> -  Go to your Dremio account,  click on Settings -> Project Settings -> Nessie Endpoint
+<Nessie_endpoint_url> -  Go to your Dremio account,  click on Settings -> Project Settings -> Nessie Endpoint
 <dremio token> - Click on your Username botton left -> Account Settings -> Personal Access Tokens -> Generate Token ->  copy the value generated. 
 
 While creating a cluster on EMR, Below configu has to be added edit software settings :
+
+
 [
 {
 "classification":"spark-defaults",
