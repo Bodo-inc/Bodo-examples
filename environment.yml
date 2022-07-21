@@ -9,6 +9,7 @@ dependencies:
   - jupyterlab=3
   - python=3.9
   - scikit-learn=0.24.2
+  - numpy
   - pandas
   - seaborn
   - matplotlib
