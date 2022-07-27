@@ -8,6 +8,8 @@
     
     For this example, we're using a publicly available Ubuntu Image as our base image. The source AMI-ID (``ami-0885b1f6bd170450c``) is specific to the ``us-east-1`` region. If you want to build the image in another region, you can find the corresponding base AMI-ID in that region in your AWS EC2 Console under Public Images. The name should be similar to ``ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20201026``. For instance, the AMI-ID for the corresponding image in us-east-2 is ``ami-0a91cd140a1fc148a``.
 
+    Note: In the bodo_img.json file, Make sure instance type is  "t3a.medium" or higher to avoid failures.
+
 1. Build image using Packer:
 
         packer build [-force] [-var 'bodo_version=<BODO_VERSION>'] bodo_img.json
