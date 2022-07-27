@@ -13,22 +13,15 @@ resource "tls_private_key" "ssh_key" {
   rsa_bits  = 4096
 }
 
-# bootstrap script for worker instances (ssh keys, ...)
-data "template_file" "userdata_worker" {
-  template = file("templates/userdata_worker.sh.tpl")
-
-  vars = {
-    SSH_PUBLIC_KEY  = tls_private_key.ssh_key.public_key_openssh
-    SSH_PRIVATE_KEY = tls_private_key.ssh_key.private_key_pem
-  }
-}
-
 # Worker Launch Configuration
 resource "aws_launch_template" "bodo_worker_template" {
   name          = "Bodo_Worker_Config"
   image_id      = var.AMI_ID
   instance_type = var.CLUSTER_INSTANCE_TYPE
-  user_data     = base64encode(data.template_file.userdata_worker.rendered)
+  user_data     = base64encode(templatefile("templates/userdata_worker.sh.tpl", {
+    SSH_PUBLIC_KEY  = tls_private_key.ssh_key.public_key_openssh,
+    SSH_PRIVATE_KEY = tls_private_key.ssh_key.private_key_pem
+  }))
 
   placement {
     group_name = aws_placement_group.bodo.id
