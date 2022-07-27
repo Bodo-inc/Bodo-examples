@@ -12,3 +12,11 @@ resource "local_file" "cloud_pem" {
   content         = tls_private_key.ssh_key.private_key_pem
   file_permission = "0400"
 }
+
+output "jupyter_id" {
+  value = aws_instance.notebook.id
+}
+
+output "worker_id" {
+  value = aws_instance.worker.*.id
+}
