@@ -42,7 +42,7 @@
 
 1.  Navigate to the JupyterLab server using the link in the terraform output. You can now run your code on this cluster from notebooks using IPyParallel.
     A hostfile for the cluster should already exist at `/home/ubuntu/hostfile`.
-    Follow the steps in our [documentation](https://docs.bodo.ai/latest/source/installation_and_setup/ipyparallel.html#running-on-multiple-hosts) to get started.
+    Follow the steps in our [documentation](https://docs.bodo.ai/2022.6/installation_and_setup/ipyparallel/) to get started.
 
     For instance, run the following in a notebook to start an IPyParallel cluster:
 
