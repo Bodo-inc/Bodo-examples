@@ -1,0 +1,50 @@
+{
+    "variables": {
+        "bodo_version": "2021.10",
+        "azure_subscription_id": "dummyValue",
+        "az_image_resource_group_name": "BodoExampleImageRG"
+    },
+    "builders": [
+        {
+            "name": "Azure Arm Builder Bodo",
+            "type": "azure-arm",
+            "location": "eastus",
+            "os_type": "Linux",
+            "image_publisher": "Canonical",
+            "image_offer": "UbuntuServer",
+            "image_sku": "18.04-LTS",
+            "vm_size": "Standard_D4as_v4",
+            "ssh_username": "ubuntu",
+            "managed_image_name": "Bodo_VMI",
+            "managed_image_resource_group_name": "{{user `az_image_resource_group_name`}}",
+            "subscription_id": "{{user `azure_subscription_id`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+            "inline": [
+                "apt-get update",
+                "apt-get upgrade -y",
+                "apt-get install -y wget",
+                "wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh",
+                "/bin/bash /tmp/miniconda.sh -b -f -p /opt/conda",
+                "export PATH=/opt/conda/bin:$PATH",
+                "echo \"export PATH=\"/opt/conda/bin:$PATH\"\" >> /etc/bash.bashrc",
+                "conda install --quiet --yes bodo=={{user `bodo_version`}} -c bodo.ai -c conda-forge",
+                "conda install --quiet --yes ipyparallel -c conda-forge"
+            ],
+            "type": "shell"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest",
+            "output": "vmi_build_manifest.json",
+            "strip_path": true,
+            "custom_data": {
+                "bodo_version": "{{user `bodo_version`}}"
+            }
+        }
+    ]
+}

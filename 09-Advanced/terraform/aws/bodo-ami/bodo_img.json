@@ -1,0 +1,45 @@
+{
+    "variables": {
+        "bodo_version": "2021.12"
+    },
+    "builders": [
+        {
+            "name": "AWS AMI Builder Bodo",
+            "type": "amazon-ebs",
+            "region": "us-east-1",
+            "source_ami": "ami-0885b1f6bd170450c",
+            "instance_type": "t3a.medium",
+            "ssh_username": "ubuntu",
+            "ami_name": "BODO_AMI",
+            "ami_description": "Bodo Example AMI",
+            "associate_public_ip_address": "true"
+        }
+    ],
+    "provisioners": [
+        {
+            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+            "inline": [
+                "apt-get update",
+                "apt-get upgrade -y",
+                "apt-get install -y wget",
+                "wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh",
+                "/bin/bash /tmp/miniconda.sh -b -f -p /opt/conda",
+                "export PATH=/opt/conda/bin:$PATH",
+                "echo \"export PATH=\"/opt/conda/bin:$PATH\"\" >> /etc/bash.bashrc",
+                "conda install --quiet --yes bodo=={{user `bodo_version`}} -c bodo.ai -c conda-forge",
+                "conda install --quiet --yes ipyparallel==8.1.0 jupyterlab=3 -c conda-forge"
+            ],
+            "type": "shell"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest",
+            "output": "ami_build_manifest.json",
+            "strip_path": true,
+            "custom_data": {
+                "bodo_version": "{{user `bodo_version`}}"
+            }
+        }
+    ]
+}
