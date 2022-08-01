@@ -1,6 +1,6 @@
 # Let's Learn Bodo through Examples!
 
-Welcome to Bodo! If you are here, that means you have heard about the next geration of high performant big data programming using Bodo. You are in the right place to get started!
+Welcome to Bodo! If you are here, that means you have heard about the next generation of high performant big data programming using Bodo. You are in the right place to get started!
 
 Bodo is the next generation of compute engines that brings supercomputing-style performance and scalability to native Python and SQL codes automatically. Bodo has several advantages over other big data transformation systems that helped it stand out as one of the most performant and cost-effective ETL tools. 
 
