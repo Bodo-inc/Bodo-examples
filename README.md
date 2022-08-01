@@ -1,54 +1,23 @@
-# Bodo Examples
+# Let's Learn Bodo through Examples!
 
-This repository contains code examples demonstrating how Bodo accelerates and scales
-Pandas and Scikit-learn workloads automatically. All examples can be run on a local laptop
-using Bodo Community Edition: `pip install bodo`.
+Welcome to Bodo! If you are here, that means you have heard about the next negeration of high performant big data programming using Bodo. You are in the right place to get started!
 
-In addition, there are examples for using Bodo with data infrastructure tools such as Docker, Terraform, Kubernetes and Streamlit.
-Feedback is appreciated.
+Bodo is the next generation of compute engines that brings supercomputing-style performance and scalability to native Python and SQL codes automatically. Bodo has several advantages over other big data transformation systems that helped it stand out as one of the most performant and cost effective ETL tools. 
 
+This repository teaches you how to become a professional bodo programmer from A to Z. Think of Bodo as SQL and Python, no new language or API is required to be learned. You will just `import bodo` and learn some programming tricks to promote your exisiting applications and help your organizations save on compute resources while delivering value in a much shorter period. Bodo is proven to be [one order of magnitude faster](https://www.bodo.ai/blog/performance-and-cost-of-bodo-vs-spark-dask-ray) than its competitors like Spark. 
 
+We recommend you to run these examples on [Bodo Platform](https://platform.bodo.ai/account/sign-up). Just sign up for free to try. Some examples like modules 1, 2, 3, 4, 5, and 6 require a small clusters, e.g., 2 nodes of c5.2xlarge with total of 8 physical cores (16 vCPU) and 32GB RAM, and some examples need larger clusters. The description on top of each example explain what size of a cluster is required. For any size larged than 2 nodes c5.2xlarge, you can run at no Bodo charge within 14 days of sign up, but you or your organization would need to pay for AWS or Azur resources. After 14 days, you would incur bodo charges in addition to your cloud provider charges. But no worries, if you needed more time, please reach us at [Contact Us](https://www.bodo.ai/contact) to extend that period for you. 
 
-## Running Example Scripts
-
-First make sure you have Bodo [installed](https://docs.bodo.ai/installation_and_setup/install).
-`scikit-learn` is also required for the ML examples.
-
-Many of the example scripts can take in optional arguments.
-`python <path>/<script.py> --help` shows the usage.
-
-By default all examples scripts can be run from the
-top directory (Bodo-examples) without any changes.
-Otherwise, make sure to change path of data files.
-For more information on the examples,
-please see the docstring at the top of each python script.
-
-- [TPCH Queries](https://github.com/Bodo-inc/Bodo-examples/tree/master/examples/tpch), more information on TPC-H can be found [here](http://www.tpc.org/tpch/)
-
-- [Beer Reviews](examples/beer-reviews/beer-reviews.py)
-
-- [NYC Parking Tickets](examples/nyc-parking/nyc-parking.py)
-
-- [NYC Taxi](examples/nyc-taxi):
-    - [Daily Pickups](examples/nyc-taxi/get_daily_pickups.py)
-    - [JFK Hourly Pickups](examples/nyc-taxi/jfk_hourly_pickups.py)
-    - [Monthly Travel Times](examples/nyc-taxi/monthly_taxi_travel_times.py)
-    - [Weekday Pickup and Dropoff](examples/nyc-taxi/weekday_taxi_trips_by_pickup_and_dropoff.py)
-
-## Try the Examples
-
-An example performing beer reviews example:
-
-    # run example on 8 cores
-    mpiexec -n 8 python examples/beer-reviews/beer-reviews.py
+You can also run these examples locally using Bodo Community Edition, but it is not recommended as you need to go through some [installation process](https://docs.bodo.ai/2022.7/installation_and_setup/install/#install) while everything is already ready for you at https://platform.bodo.ai.
 
 
----------------------------
-More documentation can be found at http://docs.bodo.ai.
+## Modules outline
 
-Bodo tutorial can be found [here](https://github.com/Bodo-inc/Bodo-tutorial).
+You will first learn about the fundamentals of high performance computing using Python and Bodo in module 01. 
 
+Then you will learn more coding tricks and styles to write your bodo code in best way possible in module 02. 
 
-## Launch Using Binder
+Modules 3 and 4 focus on Bodo's sweet spot, meaning ETL applications. You will find examples with operational databases like PostgreSQL, Oracle, MySQL, a data warehouse like Snowflake in modeule 04, and a data Lakehouse example with Iceberg in module 05. 
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Bodo-inc/Bodo-examples/HEAD)
+You can then run more use case examples in module 06. Module 7-10 contain larger scale examples with Machine Learning, Business use cases (financial, transportation, etc.). Module 09 demostrate a head-to-head competition with Spark, Dask and Ray. And finally module 10 contain more advanced topics like deploying bodo applications in kubernetes, containers, streamlit, or on your cloud provider through Terraform (AWS and Azur). 
+
