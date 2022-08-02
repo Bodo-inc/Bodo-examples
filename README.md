@@ -17,7 +17,7 @@ You can also run these examples locally by [installing bodo](https://docs.bodo.a
 
 ## What if I wanted to test my code with my data?
 
-If you wanted to run your application codes with your own data, please refer to the instruction [here](https://docs.bodo.ai/2022.7/installation_and_setup/bodo_platform_aws/#setup-iam-role) on how to set up the idendity access management, policies, and credentials to integrate your cloud provider with bodo platform. This allows bodo to spin up ec2 instances, create a cluster, and let you access your data within your VPC. Everything, including your data stays in your VPC.
+If you wanted to run your application codes with your own data, please refer to the instruction [here](https://docs.bodo.ai/2022.7/installation_and_setup/bodo_platform_aws/#setup-iam-role) on how to set up the identity access management, policies, and credentials to integrate your cloud provider with bodo platform. This allows bodo to spin up EC2 instances, create a cluster, and let you access your data within your VPC. Everything, including your data stays in your VPC.
 
 
 ## Modules outline
