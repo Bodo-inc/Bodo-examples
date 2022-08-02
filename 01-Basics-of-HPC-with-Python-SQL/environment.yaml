@@ -1,0 +1,28 @@
+name: Bodo
+channels:
+  - defaults
+  - conda-forge
+  - bodo.ai
+dependencies:
+  - python=3.10
+  - bodo
+  - pandas
+  - jupyterlab
+  - ipyparallel=8
+  - scikit-learn
+  - seaborn
+  - matplotlib
+  - imbalanced-learn
+  - faker=10.0.0
+  - jupytext
+  - mimesis
+  - s3fs
+  - ca-certificates
+  - certifi
+  - openssl
+  - pandas-datareader
+  - h5py
+  - pytables
+  - make
+  - rise
+prefix: /home/dhavide/.miniconda3/envs/Bodo
