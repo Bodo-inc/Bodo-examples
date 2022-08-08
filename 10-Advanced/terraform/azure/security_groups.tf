@@ -10,7 +10,7 @@ resource "azurerm_network_security_group" "bodo-cluster-sg" {
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "TCP"
+    protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
     source_address_prefixes    = var.USER_IP == "" ? [] : [var.USER_IP]
