@@ -49,36 +49,11 @@ This script assumes `tpch-dbgen` is in the same directory. If you downloaded it 
 
 ## Bodo
 
-### Installation
+Running this example with Bodo is very easy. Just log in to [Bodo Platform](platform.bodo.ai) to run the bodo_queries.py. Required packages are already installed on Bodo Platform.
+You can copy-paste the code in bodo_queries.py to a new jupyter notebook, attached to a cluster and run. 
+You can run SF1 data set on the hosted trial size, but for larger data like SF1000 you need to spin up larger clusters.
 
-Follow the intstructions [here](https://docs.bodo.ai/installation_and_setup/install/).
 
-For best performance we also recommend using Intel-MPI and EFA Network Interfaces (on AWS) as described [here](https://docs.bodo.ai/installation_and_setup/recommended_cluster_config/).
-
-### Running queries
-
-Use
-
-`mpiexec -n N python bodo_queries.py --folder folder_path`
-
-```
-usage: python bodo_queries.py [-h] --folder FOLDER
-
-arguments:
-  -h, --help       Show this help message and exit
-  --folder FOLDER  The folder containing TPCH data
-
-```
-
-Example:
-
-Run with 4 cores on a local data
-
-`mpiexec -n 4 python bodo_queries.py --folder SF1`
-
-Run with 288 cores on S3 bucket data
-
-`mpiexec -n 288 python bodo_queries.py --folder s3://bucket-name/`
 
 ## Spark
 
