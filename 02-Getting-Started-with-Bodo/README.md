@@ -6,7 +6,7 @@ Go through the [Bodo_Quick_Start_Guide](https://docs.bodo.ai/latest/quick_start_
 Starting with [`bodo_getting_started.ipynb`](bodo_getting_started.ipynb). 
     This notebook will give detailed instructions on how to get started with Bodo platform. 
     It demonstrates on how Bodo automatically parallelizes and optimizes standard Python programs that make use of pandas and NumPy using small examples.
-    It explains with help of an example on how to use Bodo JIT Decorater to run the code using Bodo and also illustrates the requirements 
+    It explains with help of an example on how to use Bodo JIT Decorater to run the code using Bodo and also illustrates the requirements. 
 Then move on to [`bodo_tutorial.ipynb`](bodo_tutorial.ipynb).
     This document explains various aspects of Bodo like Parallel Execution Model, Parallel API's, Data Distribution, Distributed Diagnostics, Function Arguements and their Return Values, Passing Distributed Data to Bodo, Scattering Data, Gathering Data, Parallel I/O, Various types of Files Supported, Bodo Caching features like Location, Portability and Invalidation with Examples.
     It also explains some of the Advanced Features like Explicit Parallel Loops, Integration with non-Bodo APIs, Collections of Distributed Data.
