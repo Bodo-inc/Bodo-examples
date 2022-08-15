@@ -1,32 +1,17 @@
 # Bodo Tutorial
 Welcome to Bodo Tutorials!
 
-First make sure you have Bodo [installed](https://docs.bodo.ai/installation_and_setup/install/) by following the commands below.
-Bodo can be installed using Conda. To view tutorials with Jupyter Notebook, install `jupyter` and `ipyparallel` in the same enviroment where Bodo is installed.
-
-```shell
-conda create -n Bodo python=3.9 -c conda-forge
-conda activate Bodo
-conda install bodo ipyparallel=8.1 jupyterlab=3 -c bodo.ai -c conda-forge
-```
-
-Clone or fork this repository. Go to the folder you want to clone, then clone it. 
-```shell
-cd <path-to-your-sandbox> # e.g., cd ~/mysandbox or cd username\sandbox\
-git clone git@github.com:Bodo-inc/Bodo-tutorial.git
-```
-
-Now go to `Bodo-tutorial` folder and start the Jupyter Notebook:
-
-```shell
-    cd <path-to-Bodo-tutorial-folder> # e.g., cd ~/mysandbox/Bodo-tutorial
-    jupyter notebook
-```
+Go through the [Bodo_Quick_Start_Guide](https://docs.bodo.ai/latest/quick_start_platform) for steps to sign up to the platform and instructions on how to use Bodo Community Workspace. It also helps in understanding how to create new notebooks or run some example notebooks in the workspace.
     
-
-Start with [`bodo_getting_started.ipynb`](bodo_getting_started.ipynb) 
-and then move on to [`bodo_tutorial.ipynb`](bodo_tutorial.ipynb).
-
+Starting with [`bodo_getting_started.ipynb`](bodo_getting_started.ipynb). 
+    This notebook will give detailed instructions on how to get started with Bodo platform. 
+    It demonstrates on how Bodo automatically parallelizes and optimizes standard Python programs that make use of pandas and NumPy using small examples.
+    It explains with help of an example on how to use Bodo JIT Decorater to run the code using Bodo and also illustrates the requirements. 
+Then move on to [`bodo_tutorial.ipynb`](bodo_tutorial.ipynb).
+    This document explains various aspects of Bodo like Parallel Execution Model, Parallel API's, Data Distribution, Distributed Diagnostics, Function Arguements and their Return Values, Passing Distributed Data to Bodo, Scattering Data, Gathering Data, Parallel I/O, Various types of Files Supported, Bodo Caching features like Location, Portability and Invalidation with Examples.
+    It also explains some of the Advanced Features like Explicit Parallel Loops, Integration with non-Bodo APIs, Collections of Distributed Data.
+    The document also explains some trouble shooting steps that can be followed in case of issues.
+ 
 _________________________
 More documentation can be found at http://docs.bodo.ai.
 
