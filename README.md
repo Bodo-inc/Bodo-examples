@@ -30,3 +30,6 @@ Then you will learn some best practices to write your Bodo code in [module 02](0
 
 [Module 06](06-Bodo-Free-Trial) contains some example use-cases. Modules [07](07-Machine-Learning-at-Scale) and [08](08-Business-Usecases-at-Scale) contain larger scale examples with [Machine Learning](07-Machine-Learning-at-Scale), [Business use cases](08-Business-Usecases-at-Scale) (financial, transportation, etc.). [Module 09](09-Compare-Bodo-with-Spark-Dask-Ray) demonstrates a head-to-head competition with Spark, Dask and Ray. And finally, [module 10](10-Advanced) contains more advanced topics like deploying Bodo applications in Kubernetes, containers, Streamlit, or on your cloud provider through Terraform (AWS and Azure). 
 
+
+This is an open-source repository. You can contribute by creating a feature branch and submit a pull request. We will review and merge your PR!
+

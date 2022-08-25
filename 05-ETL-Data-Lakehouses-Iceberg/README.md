@@ -1,11 +1,25 @@
- To find Nessie project url and dremio token -
+# Data Lakehouses: Iceberg
+This repository shows you how to leverage bodo to carry out your ETL jobs with a Data Lakehouse like Iceberg. 
 
-<Nessie_endpoint_url> -  Go to your Dremio account,  click on Settings -> Project Settings -> Nessie Endpoint
-<dremio token> - Click on your Username botton left -> Account Settings -> Personal Access Tokens -> Generate Token ->  copy the value generated. 
+We used Dremio to create and run these examples. Bodo is used as the compute-engine, and Dremio's Arctic is used for meta data storage. The actual files are on AWS S3. 
 
-While creating a cluster on EMR, Below configu has to be added edit software settings :
+To use Dremio, you need to set up a Nessie project URL and a dremio token. Follow these steps to set them up:
+
+`Nessie_endpoint_url:`
+1. Go to your Dremio account
+2. click on Settings -> Project Settings -> Nessie Endpoint
+
+`dremio token:`
+   
+1. Click on your Username botton left 
+2. Account Settings -> Personal Access Tokens -> Generate Token ->  copy the value generated. 
 
 
+You can write your data to dremio using Spark. We used Spark on EMR to write TPC-H data (i.e, SF1, SF10, SF100, SF1000)
+
+While creating a cluster on AWS EMR, the following configurations has to be added to bootstrap step:
+
+```python 
 [
 {
 "classification":"spark-defaults",
@@ -26,5 +40,5 @@ While creating a cluster on EMR, Below configu has to be added edit software set
 }
 }
 ]
-
+```
 

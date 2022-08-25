@@ -1,4 +1,4 @@
-This folder contains some examples using scikit-learn for machine learning project. 
+This module contains some examples using scikit-learn for machine learning project. 
 To run the examples:
 
 1- Make a new file called credentials.json. This file is gitignored so it will not be saved in git.
