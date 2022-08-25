@@ -1,5 +1,5 @@
 ## Getting Started with Bodo
-Welcome to this module. This module contains Bodo Tutorials and best practices to use Bodo!
+Welcome to this module, where we show you how to get started with Bodo and tell you about some best practices to use Bodo!
 
 Go through the [Bodo_Quick_Start_Guide](https://docs.bodo.ai/latest/quick_start_platform) for steps to sign up to the platform and instructions on how to use Bodo Community Workspace. It also helps in understanding how to create new notebooks or run some example notebooks in the workspace.
     
