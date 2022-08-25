@@ -1,5 +1,5 @@
-# Module 02- Getting Started with Bodo
-Welcome to the 2nd module. This module contains Bodo Tutorials and best practices to use Bodo!
+## Getting Started with Bodo
+Welcome to this module. This module contains Bodo Tutorials and best practices to use Bodo!
 
 Go through the [Bodo_Quick_Start_Guide](https://docs.bodo.ai/latest/quick_start_platform) for steps to sign up to the platform and instructions on how to use Bodo Community Workspace. It also helps in understanding how to create new notebooks or run some example notebooks in the workspace.
     
@@ -12,6 +12,5 @@ Then move on to [`bodo_tutorial.ipynb`](bodo_tutorial.ipynb).
     It also explains some of the Advanced Features like Explicit Parallel Loops, Integration with non-Bodo APIs, Collections of Distributed Data.
     The document also explains some trouble shooting steps that can be followed in case of issues.
  
->>>>>>> ad3325bca452683d2dd9e5bc1b8f8ab17ddcfe21
 _________________________
 More documentation can be found at http://docs.bodo.ai.
