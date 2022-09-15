@@ -1,14 +1,13 @@
 import pandas as pd
-#import bodo
+import bodo
 import time
 import os
 @bodo.jit
-def mean_power_speed():
+def mean_power_speed(filename):
     print("in py")
-    cwd = os.getcwd()
-    df = pd.read_csv(f"{cwd}/data/cycling_dataset.csv")
-    m = df[["power", "speed"]].mean()
+    df = pd.read_csv(filename)
+    m = len(df)
     return m
-
-res = mean_power_speed()
+cwd = os.getcwd()
+res = mean_power_speed(f"{cwd}/data")
 print(res)
