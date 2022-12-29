@@ -11,9 +11,9 @@ This repository teaches you to use Bodo effectively through examples. If you kno
 
 ## How to run these examples?
 
-We recommend that you run these examples on the [Bodo Platform](https://platform.bodo.ai/account/sign-up). You can [sign up for free]((https://platform.bodo.ai/account/sign-up)) to try it out. Some examples like modules 1 to 3 can run on small clusters, e.g., 2 nodes of c5.2xlarge with total of 8 physical cores (16 vCPU) and 32GB RAM, and some examples need larger clusters. The description provided with each example indicates the size of cluster that is required to run it. When you sign up for Bodo, we provide a hosted trial where you can run the examples which only require the 2 node c5.2xlarge cluster for free, upto 30 hours a month. For any other cluster size, you can use Bodo for free on your AWS or Azure account for 14 days after you sign up, and only pay your cloud provider for the resources used. Please [Contact Us](https://www.bodo.ai/contact) if you want a longer trial.
+We recommend that you run these examples on the [Bodo Platform](https://platform.bodo.ai/account/sign-up). You can [sign up to our platform]((https://platform.bodo.ai/account/sign-up)) to try it out. Some examples like modules 1 to 3 can run on small clusters, e.g., 2 nodes of c5.2xlarge with total of 8 physical cores (16 vCPU) and 32GB RAM, and some examples need larger clusters. The description provided with each example indicates the size of cluster that is required to run it. 
 
-You can also run these examples locally by [installing bodo](https://docs.bodo.ai/latest/installation_and_setup/install/#install)  on your laptop. However, we strongly recommend using the [Bodo Platform](https://platform.bodo.ai) as it provides a notebook environment with all the code available and required packages already installed for you. 
+You can also run these examples locally by [installing bodo](https://docs.bodo.ai/latest/installation_and_setup/install/#install)  on your laptop. However, we recommend using the [Bodo Platform](https://platform.bodo.ai) for the best experience as it provides a notebook environment with all the code available and required packages already installed for you. 
 
 ## What if I wanted to test my code with my data?
 
