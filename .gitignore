@@ -1,4 +1,4 @@
 .ipynb_checkpoints
 *.pq
-
-
+*.parquet
+.idea
