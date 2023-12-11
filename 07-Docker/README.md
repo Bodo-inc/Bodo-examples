@@ -17,8 +17,14 @@ You can follow the instruction there, or just continue reading here.
 
 All you need to do is to run the following command:
 ```shell
-docker run -p 8888:8888 --cpus=8 bodo-community-edition 
+docker pull bodoaidocker/bodo-community-edition
 ```
+
+Once the download is complete:
+```shell
+docker run -p 8888:8888 --cpus=8 bodoaidocker/bodo-community-edition
+```
+
 At the end of the output you will see a link like the one below, click (or copy paste it to your browser) and start playing :)
 
 ```shell
