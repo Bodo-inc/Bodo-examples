@@ -3,6 +3,10 @@ This repository contains a dockerfile to create a bodo community edition image, 
 
 The image also contains two notebooks, one a Monte Carlo simulation to calculate the pi number. And another example that shows how to use BodoSQL and Bodo for Pandas and data transformation applications.
 
+Please note this image is for testing and learning purposes only. It is not intended for production use. 
+
+This image works on Linux or MacOS x86 OS only.
+
 
 ### Pre-requisits
 - Before you start, make sure the latest version of docker is installed on your machine.
