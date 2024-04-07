@@ -3,10 +3,10 @@ data source.
 
 To get started, install Bodo SDK and run the Python script:
 
-    pip install bodosdk
+    pip install --upgrade bodosdk
     python bodo_trial.py
 
-See Bodo SDK docs for more SDK examples: https://pypi.org/project/bodosdk
+See Bodo SDK docs for more SDK examples: https://docs.bodo.ai/latest/integrating_bodo/platform_sdk/?h=#bodo-platform-sdk
 See Bodo docs for more info: https://docs.bodo.ai/
 """
 import re
