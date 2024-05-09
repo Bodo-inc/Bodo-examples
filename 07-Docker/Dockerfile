@@ -1,10 +1,10 @@
-FROM condaforge/mambaforge as build
+FROM condaforge/miniforge3 as build
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV JUPYTER_ENABLE_LAB=yes
 
-RUN mamba install bodosql=2023.12.1 -c bodo.ai/label/dev -c conda-forge
-RUN mamba install -y ipyparallel=8.1 jupyterlab=3 -c conda-forge
+RUN mamba install -y bodosql=2024.5.1 -c bodo.ai -c conda-forge
+RUN mamba install -y ipyparallel=8.8 jupyterlab=4.2 -c conda-forge
 
 #RUN conda remove --force --yes mpich mpi
 RUN mamba clean -a -y
