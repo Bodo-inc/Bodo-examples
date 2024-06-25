@@ -25,8 +25,9 @@ If you wanted to run your application codes with your own data, please refer to 
 
 [Modules 1](01-ETL-S3-Operational-Databases) and [2](02-ETL-Snowflake) focus on compute heavy data transformations through ETL applications. You will find examples with operational databases like PostgreSQL, Oracle, MySQL in module 01, a data warehouse like  Snowflake in module 02, and a data Lakehouse example with Iceberg in [module 03](05-ETL-S3-Dremio-Iceberg).
 
- Modules [04](04-ML-at-Scale) and [05](05-Business-Usecases-at-Scale) contain larger scale examples with [Machine Learning](04-ML-at-Scale), [Business use cases](05-Business-Usecases-at-Scale) (financial, transportation, etc.). Finally, module [06](06-Compare-Bodo-with-Spark) contains a performance comparison of Bodo vs Spark on a set of queries derived from the TPC-H benchmark suite.
+ Modules [04](04-ML-at-Scale) and [05](05-Business-Usecases-at-Scale) contain larger scale examples with [Machine Learning](04-ML-at-Scale), [Business use cases](05-Business-Usecases-at-Scale) (financial, transportation, etc.). Module [06](06-Compare-Bodo-with-Spark) contains a performance comparison of Bodo vs Spark on a set of queries derived from the TPC-H benchmark suite. 
 
+Module [07](07-Docker) contains instructions on how to create a bodo community edition image, enabling users to run applications in parallel with 8 cores for free . Module [08](08-Kubernetes) contains a walkthrough on on how to run Bodo applications in Kubernetes clusters.
 
 This is an open-source repository, so please consider adding your Bodo examples to it! You can contribute by creating a feature branch and submit a pull request for us to review.
 
