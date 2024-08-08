@@ -10,14 +10,18 @@ See Bodo SDK docs for more SDK examples: https://docs.bodo.ai/latest/integrating
 See Bodo docs for more info: https://docs.bodo.ai/
 """
 import re
+import json
 from bodosdk.models import WorkspaceKeys, CreateSQLJobRun
 from bodosdk.client import get_bodo_client
 
+# read the credentials from the json file
+with open("credentials.json", "r") as f:
+    credentials = json.load(f)
 
 # Construct the SDK Client
 creds = WorkspaceKeys(
-    client_id="...",
-    secret_key="...",
+    client_id=credentials["client_id"],
+    secret_key=credentials["secret_key"]
 )
 client = get_bodo_client(creds)
 
@@ -30,7 +34,7 @@ with open("tpch.sql", "r") as f:
 print("\nExecuting Query:", query)
 job_run = client.job.submit_sql_job_run(
     CreateSQLJobRun(
-        clusterUUID='...',
+        clusterUUID=credentials["clusterUUID"],
         sql_query_text=query,
         retryStrategy=None,
         # Input data is in Snowflake storage
@@ -64,3 +68,17 @@ print(f"Job Execution Time: {exec_time} seconds\n")
 print(
     f"See job log file for query output and Bodo execution details: stdout_{res.uuid}.txt"
 )
+
+
+# # Example to cancel all jobs on a cluster
+# from bodosdk.models import WorkspaceKeys
+# from bodosdk.client import get_bodo_client
+#
+# keys = WorkspaceKeys(
+#     client_id=credentials["client_id"]
+#     secret_key=credentials["secret_key"]
+# )
+#
+# client = get_bodo_client(keys)
+# client.job.cancel_all_job_runs([credentials["cluster_uuid"]])
+# client.job.cancel_all_job_runs(cluster_uuids=[credentials["cluster_uuid"]])

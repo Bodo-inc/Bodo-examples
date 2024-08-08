@@ -2,3 +2,4 @@
 *.pq
 *.parquet
 .idea
+credentials.json
